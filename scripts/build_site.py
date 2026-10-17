@@ -38,6 +38,31 @@ def group(direction: str) -> str:
     return "other"
 
 
+SCORE = {"strongly_restricts": -2, "strongly_tightens": -2, "restricts": -1, "tightens": -1, "mixed": 0,
+         "expands": 1, "loosens": 1, "strongly_expands": 2, "strongly_loosens": 2}  # neutral, unclear and not_applicable are left out
+
+
+def lean_scores(tags):
+    return [SCORE[t["direction"]] for t in tags if t["direction"] in SCORE and SUB[t["subtopic"]]["axis"] in ("A", "R")]
+
+
+def meter(scores, label=""):
+    """One restrictive-to-permissive line with a marker at the mean score (-2 to +2)."""
+    n = len(scores)
+    if not n:
+        return '<span class="muted small">no directional tags</span>', None
+    mean = sum(scores) / n
+    pos = (mean + 2) / 4 * 100
+    side = "rest" if mean < -0.05 else "perm" if mean > 0.05 else "mid"
+    few = n < 8
+    restr = sum(1 for x in scores if x < 0)
+    perm = sum(1 for x in scores if x > 0)
+    tip = f"{label}: average {mean:+.2f} on a scale from -2 (restrictive) to +2 (permissive), from {n} directional tags ({restr} restrictive, {perm} permissive, {n - restr - perm} mixed)" + ("; few tags, so treat as rough" if few else "")
+    html_ = (f'<div class="meter" role="img" aria-label="{esc(tip)}" title="{esc(tip)}"><i class="mid"></i>'
+             f'<b class="dot {side}{" few" if few else ""}" style="left:{pos:.1f}%"></b></div>')
+    return html_, mean
+
+
 GROUP_LABEL = {"rest2": "Strongly restricts / tightens", "rest1": "Restricts / tightens", "mixed": "Mixed", "neutral": "Neutral",
                "perm1": "Expands / loosens", "perm2": "Strongly expands / loosens"}
 ORDER = ["rest2", "rest1", "mixed", "neutral", "perm1", "perm2"]
@@ -74,8 +99,15 @@ blockquote{margin:6px 0;padding:6px 12px;border-left:3px solid var(--axis);color
 input,select{font:inherit;padding:7px 9px;border:1px solid var(--axis);border-radius:8px;background:var(--surface);color:var(--ink)}
 .filters{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.filters input{flex:1;min-width:200px}
 details summary{cursor:pointer;color:var(--ink2)}footer{color:var(--muted);font-size:13px;padding:24px 0;border-top:1px solid var(--line)}
+.axis{display:grid;grid-template-columns:minmax(120px,230px) 1fr 92px;gap:10px;font-size:12px;color:var(--ink2);margin-top:8px}.axis .ends{display:flex;justify-content:space-between}
+.mrow{display:grid;grid-template-columns:minmax(120px,230px) 1fr 92px;gap:10px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line)}.mrow a{color:var(--ink);text-decoration:none}.mrow a:hover{text-decoration:underline}
+.mrow .v{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink2);font-size:13px}
+.meter{position:relative;height:18px}.meter::before,.meter::after{content:"";position:absolute;top:7px;height:4px;width:50%}.meter::before{left:0;background:var(--rest1);opacity:.28;border-radius:2px 0 0 2px}.meter::after{right:0;background:var(--perm1);opacity:.28;border-radius:0 2px 2px 0}
+.meter .mid{position:absolute;left:50%;top:1px;bottom:1px;width:2px;margin-left:-1px;background:var(--axis);z-index:1}
+.meter .dot{position:absolute;top:1px;width:16px;height:16px;margin-left:-8px;border-radius:50%;border:2px solid var(--surface);z-index:2;box-shadow:0 0 0 1px var(--axis)}
+.dot.rest{background:var(--rest1)}.dot.perm{background:var(--perm1)}.dot.mid{background:var(--neutral)}.dot.few{background:var(--surface);box-shadow:0 0 0 2px currentColor}.dot.few.rest{color:var(--rest1)}.dot.few.perm{color:var(--perm1)}.dot.few.mid{color:var(--mixed)}
 .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}.note{border-left:3px solid var(--accent);padding:6px 12px;background:var(--surface)}
-@media (max-width:640px){.bars .row{grid-template-columns:1fr 60px}.bars .track{grid-column:1/-1;order:3}}
+@media (max-width:640px){.bars .row{grid-template-columns:1fr 60px}.bars .track{grid-column:1/-1;order:3}.mrow,.axis{grid-template-columns:1fr 70px}.mrow .meter,.axis .ends{grid-column:1/-1;order:3}}
 """
 
 
@@ -83,10 +115,13 @@ def page(title, body, depth=0, desc=""):
     base = "../" * depth
     body = body.replace("<table", '<div class="scroll"><table').replace("</table>", "</table></div>")
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{esc(title)} · StateTrack</title><meta name="description" content="{esc(desc or title)}"><style>{CSS}</style></head><body>
+<title>{esc(title)} · StateTrack</title><meta name="description" content="{esc(desc or title)}"><link rel="stylesheet" href="{base}style.css"></head><body>
 <header class="site"><div class="wrap"><nav><a class="brand" href="{base}index.html">StateTrack</a><a href="{base}index.html">Overview</a><a href="{base}bills.html">All bills</a>
 <a href="{base}find.html">Find my legislators</a><a href="{base}legislators.html">Legislators</a><a href="{base}method.html">How it works</a><span class="muted small">California 2025–26 · demo</span></nav></div></header>
 <main><div class="wrap">{body}</div></main><footer><div class="wrap">Demo for California’s 2025–26 session. Bill data: California Legislative Information (official bulk file). Topics and directions are labelled by an AI model from the bill’s title and the Legislative Counsel’s digest, and are approximate. <a href="{base}method.html">How it works</a></div></footer></body></html>"""
+
+
+AXIS = ('<div class="axis"><span></span><div class="ends"><span>← Restrictive (restricts, tightens)</span><span>Permissive (expands, loosens) →</span></div><span></span></div>')
 
 
 def legend():
@@ -118,6 +153,7 @@ def main():
     (OUT / "topic").mkdir()
     (OUT / "legislator").mkdir()
     (OUT / ".nojekyll").write_text("")
+    (OUT / "style.css").write_text(CSS)
 
     # per-bill tag view
     btags = {k: [t for t in v.get("tags", []) if t["subtopic"] in SUB] for k, v in tagged.items()}
@@ -229,8 +265,13 @@ def main():
         for s in t["subtopics"]:
             n = len(set(sub_bills.get(s["id"], [])))
             axis = s["axis"]
-            chart = divbar(sub_dir.get(s["id"], Counter())) if axis in ("A", "R") else f'<span class="muted small">{"funding only" if axis == "F" else "no direction"}</span>'
-            rows.append(f'<tr><td><a href="#{slug(s["id"])}">{esc(s["name"])}</a></td><td class="n">{n}</td><td style="min-width:240px">{chart}</td></tr>')
+            if axis in ("A", "R"):
+                sc = lean_scores([t for k in set(sub_bills.get(s["id"], [])) for t in btags[k] if t["subtopic"] == s["id"]])
+                chart, mean = meter(sc, s["name"])
+                lean = f"{mean:+.2f}" if mean is not None else ""
+            else:
+                chart, lean = f'<span class="muted small">{"funding only" if axis == "F" else "no direction"}</span>', ""
+            rows.append(f'<div class="mrow"><a href="#{slug(s["id"])}">{esc(s["name"])} <span class="muted small">({n})</span></a>{chart}<div class="v">{lean}</div></div>')
         lists = []
         for s in t["subtopics"]:
             ks = sorted(set(sub_bills.get(s["id"], [])), key=lambda k: (bills[k]["type"], bills[k]["number"]))
@@ -242,8 +283,8 @@ def main():
             lists.append(f'<h3 id="{slug(s["id"])}">{esc(s["name"])} <span class="muted small">({len(ks)})</span></h3><ul>{lis}</ul>{more}')
         body = f"""<p class="small"><a href="../index.html">← Overview</a></p><h1>{esc(t["name"])}</h1>
 <p class="lede">{len(topic_bills.get(tid, ()))} California bills carry at least one tag under this topic. A bill can appear under several sub-topics.</p>
-<h2>Sub-topics and direction</h2>{legend()}<table><thead><tr><th>Sub-topic</th><th class="n">Bills</th><th>Direction of tagged bills</th></tr></thead><tbody>{"".join(rows)}</tbody></table>
-<p class="small muted">Direction compares what each bill does on that sub-topic. It describes the bill’s effect, not whether the effect is good or bad.</p>{"".join(lists)}"""
+<h2>Where each sub-topic leans</h2>{AXIS}{"".join(rows)}
+<p class="small muted">Each marker is the average of its bills’ directions, from restrictive (−2) to permissive (+2). Neutral and unclear tags are left out; mixed counts as 0. A hollow marker means fewer than 8 directional tags, so treat it as rough. It describes what the bills do, not whether that is good or bad.</p>{"".join(lists)}"""
         (OUT / "topic" / f"{tid}.html").write_text(page(t["name"], body, 1))
 
     # ---------------- legislator pages
@@ -336,12 +377,30 @@ const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}"
     counts = sorted(((len(topic_bills.get(tid, ())), tid) for tid in TOPICS), reverse=True)
     top = counts[0][0] or 1
     bar = "".join(f'<div class="row"><a href="topic/{tid}.html">{esc(TOPICS[tid]["name"])}</a><div class="track" title="{esc(TOPICS[tid]["name"])}: {n} bills"><div class="fill" style="width:{100 * n / top:.1f}%"></div></div><div class="v">{n}</div></div>' for n, tid in counts)
+    topic_scores = defaultdict(list)
+    for k, tags in btags.items():
+        for t in tags:
+            topic_scores[SUB[t["subtopic"]]["topic_id"]].extend(lean_scores([t]))
+    ranked = []
+    for tid, sc in topic_scores.items():
+        if sc:
+            ranked.append((sum(sc) / len(sc), tid, sc))
+    ranked.sort()
+    mrows = []
+    for mean, tid, sc in ranked:
+        m_html, _ = meter(sc, TOPICS[tid]["name"])
+        mrows.append(f'<div class="mrow"><a href="topic/{tid}.html">{esc(TOPICS[tid]["name"])}</a>{m_html}<div class="v">{mean:+.2f} <span class="muted small">n={len(sc)}</span></div></div>')
+    meters = "".join(mrows)
+    skipped = [TOPICS[tid]["name"] for tid in TOPICS if not topic_scores.get(tid)]
+    if skipped:
+        meters += f'<p class="small muted">Not on the meter: {esc(", ".join(skipped))} (their sub-topics are funding-only or have no direction).</p>'
     status = Counter(b["status"] for b in bills.values())
     body = f"""<h1>California legislation by topic and direction</h1>
 <p class="lede">Every bill in California’s 2025–26 session, sorted into topics, with a read on which way each bill pushes: does it expand or restrict, tighten or loosen, and where does the money go. Then what each legislator authored and how they voted.</p>
 <div class="tiles"><div class="tile"><b>{len(bills):,}</b><span>bills</span></div><div class="tile"><b>{n_tagged:,}</b><span>with topic tags</span></div><div class="tile"><b>{len(leg_rows)}</b><span>legislators</span></div>
 <div class="tile"><b>{status.get("Chaptered", 0):,}</b><span>signed into law (chaptered)</span></div></div>
 <form class="filters" action="find.html" method="get"><input name="zip" inputmode="numeric" maxlength="10" placeholder="Find my legislators: enter a California ZIP code" aria-label="ZIP code"><button type="submit" style="font:inherit;padding:7px 16px;border-radius:8px;border:1px solid var(--axis);background:var(--accent);color:#fff;cursor:pointer">Find</button></form>
+<h2>Where each topic leans</h2><p class="small muted">Each marker is the average direction of the bills tagged under that topic, from restrictive to permissive. Neutral and unclear tags are left out.</p>{AXIS}{meters}
 <h2>Bills by topic</h2><p class="small muted">A bill counts once under each topic it touches, so bars add up to more than the number of bills.</p><div class="bars">{bar}</div>
 <h2>Where to start</h2><ul><li><a href="bills.html">Search all bills</a> by words, topic, status or direction.</li><li><a href="find.html">Find my legislators</a> by ZIP code.</li><li><a href="legislators.html">Legislators</a>: authorship and floor votes by sub-topic and direction.</li><li><a href="method.html">How it works</a>, and what the labels can and cannot tell you.</li></ul>"""
     (OUT / "index.html").write_text(page("California by topic", body))
@@ -370,6 +429,7 @@ out.innerHTML=h;cnt.textContent=n+' bills'+(n>200?' (showing the first 200; narr
     (OUT / "method.html").write_text(page("How it works", f"""<h1>How it works</h1>
 <h2>What is labelled</h2><p>Each California bill gets one or more tags. A tag has a <b>sub-topic</b> from a fixed two-level list ({len(TOPICS)} topics, {len(SUB)} sub-topics), a <b>direction</b> on that sub-topic, a <b>mechanism</b> (for example a ban, a licensing rule, a tax incentive, a study) and a <b>funding</b> note (increases, decreases, none).</p>
 <h2>Direction</h2><p>Direction describes what the bill does, not whether that is good or bad. For rights and access sub-topics it is expands or restricts. For regulation sub-topics it is tightens or loosens. Funding-only sub-topics have no direction. Studies, assessments, voluntary programs and rules that only assign responsibility are labelled neutral.</p>
+<h2>The restrictive-to-permissive meter</h2><p>Topic and sub-topic pages place each category on one line from restrictive to permissive. Each directional tag is scored: strongly restricts or tightens −2, restricts or tightens −1, mixed 0, expands or loosens +1, strongly expands or loosens +2. The marker sits at the average. Neutral, unclear and funding-only tags are left out, and a hollow marker means fewer than 8 directional tags. The average hides disagreement inside a topic: a marker near the middle can mean balanced bills or a mix of very restrictive and very permissive ones, so open the topic to see the bills.</p>
 <h2>Evidence</h2><p>Every direction call must quote a sentence from the Legislative Counsel’s digest of the bill. If the quoted sentence is not in the digest, the call is thrown away and shown as unclear.</p>
 <h2>Who does the labelling</h2><p>An AI model ({esc(model)}) reads each bill’s title and digest and applies the list above. It is fast and cheap but not perfect: in a 50-bill test it agreed with a larger model on about 86% of direction calls. Bills without a digest are tagged from the title alone and usually come out unclear on direction. The model declined to process one bill (a biosecurity bill) and it is shown untagged. Treat labels as a guide to read the bill, not a substitute.</p>
 <h2>Legislators</h2><p>Legislator pages count what each member authored or co-authored and how they voted on the floor, by sub-topic and direction, with every bill linked. Committee votes are not yet matched to members. A co-author can sign on for many reasons, so counts are evidence, not a rating, and the site computes no overall score.</p>
