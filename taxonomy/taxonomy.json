@@ -1,0 +1,716 @@
+{
+ "version": "draft-1",
+ "note": "Draft for review. Direction is judged per sub-topic on its axis, from what the bill does.",
+ "axes": {
+  "A": {
+   "label": "Access / rights",
+   "poles": [
+    "restricts",
+    "expands"
+   ]
+  },
+  "R": {
+   "label": "Regulation",
+   "poles": [
+    "loosens",
+    "tightens"
+   ]
+  },
+  "F": {
+   "label": "Funding only",
+   "poles": []
+  },
+  "N": {
+   "label": "None",
+   "poles": []
+  }
+ },
+ "directions": [
+  "strongly_restricts",
+  "restricts",
+  "mixed",
+  "neutral",
+  "expands",
+  "strongly_expands",
+  "unclear"
+ ],
+ "funding": [
+  "increases",
+  "decreases",
+  "none",
+  "unclear"
+ ],
+ "topics": [
+  {
+   "id": "health_care",
+   "name": "Health care",
+   "subtopics": [
+    {
+     "id": "health_care.reproductive_health_and_abortion",
+     "name": "Reproductive health and abortion",
+     "axis": "A"
+    },
+    {
+     "id": "health_care.gender_affirming_and_transgender_health_",
+     "name": "Gender-affirming and transgender health care",
+     "axis": "A"
+    },
+    {
+     "id": "health_care.medicaid_and_public_coverage",
+     "name": "Medicaid and public coverage",
+     "axis": "A"
+    },
+    {
+     "id": "health_care.private_insurance_rules_and_mandates",
+     "name": "Private insurance rules and mandates",
+     "axis": "R"
+    },
+    {
+     "id": "health_care.drug_pricing_and_pharmacy",
+     "name": "Drug pricing and pharmacy",
+     "axis": "R"
+    },
+    {
+     "id": "health_care.hospitals_and_providers_certificate_of_n",
+     "name": "Hospitals and providers (certificate of need, scope of practice)",
+     "axis": "R"
+    },
+    {
+     "id": "health_care.mental_health_and_substance_use_treatmen",
+     "name": "Mental health and substance use treatment",
+     "axis": "A"
+    },
+    {
+     "id": "health_care.public_health_vaccines_and_emergency_mea",
+     "name": "Public health, vaccines and emergency measures",
+     "axis": "R"
+    },
+    {
+     "id": "health_care.long_term_care_and_disability_services",
+     "name": "Long-term care and disability services",
+     "axis": "A"
+    },
+    {
+     "id": "health_care.health_care_workforce_and_funding",
+     "name": "Health care workforce and funding",
+     "axis": "F"
+    }
+   ]
+  },
+  {
+   "id": "guns_and_weapons",
+   "name": "Guns and weapons",
+   "subtopics": [
+    {
+     "id": "guns_and_weapons.firearm_ownership_and_carry_permitless_c",
+     "name": "Firearm ownership and carry (permitless carry, concealed carry)",
+     "axis": "A"
+    },
+    {
+     "id": "guns_and_weapons.background_checks_and_licensing",
+     "name": "Background checks and licensing",
+     "axis": "R"
+    },
+    {
+     "id": "guns_and_weapons.weapon_and_magazine_types_assault_weapon",
+     "name": "Weapon and magazine types (assault weapons, ghost guns)",
+     "axis": "R"
+    },
+    {
+     "id": "guns_and_weapons.safe_storage_and_child_access",
+     "name": "Safe storage and child access",
+     "axis": "R"
+    },
+    {
+     "id": "guns_and_weapons.extreme_risk_protection_orders_red_flag",
+     "name": "Extreme risk protection orders (\"red flag\")",
+     "axis": "R"
+    },
+    {
+     "id": "guns_and_weapons.firearms_in_schools_and_public_places",
+     "name": "Firearms in schools and public places",
+     "axis": "R"
+    },
+    {
+     "id": "guns_and_weapons.dealers_ammunition_and_manufacturing",
+     "name": "Dealers, ammunition and manufacturing",
+     "axis": "R"
+    },
+    {
+     "id": "guns_and_weapons.violence_prevention_programs",
+     "name": "Violence prevention programs",
+     "axis": "F"
+    }
+   ]
+  },
+  {
+   "id": "children_and_families",
+   "name": "Children and families",
+   "subtopics": [
+    {
+     "id": "children_and_families.child_welfare_and_foster_care",
+     "name": "Child welfare and foster care",
+     "axis": "R"
+    },
+    {
+     "id": "children_and_families.child_care_and_early_education",
+     "name": "Child care and early education",
+     "axis": "A"
+    },
+    {
+     "id": "children_and_families.parental_rights",
+     "name": "Parental rights",
+     "axis": "A"
+    },
+    {
+     "id": "children_and_families.kids_online_safety_and_age_verification",
+     "name": "Kids' online safety and age verification",
+     "axis": "R"
+    },
+    {
+     "id": "children_and_families.juvenile_justice",
+     "name": "Juvenile justice",
+     "axis": "R"
+    },
+    {
+     "id": "children_and_families.child_support_custody_and_family_law",
+     "name": "Child support, custody and family law",
+     "axis": "N"
+    },
+    {
+     "id": "children_and_families.paid_family_leave_and_family_benefits",
+     "name": "Paid family leave and family benefits",
+     "axis": "A"
+    },
+    {
+     "id": "children_and_families.children_s_programs_and_funding",
+     "name": "Children's programs and funding",
+     "axis": "F"
+    }
+   ]
+  },
+  {
+   "id": "housing",
+   "name": "Housing",
+   "subtopics": [
+    {
+     "id": "housing.zoning_and_land_use",
+     "name": "Zoning and land use",
+     "axis": "R"
+    },
+    {
+     "id": "housing.rent_regulation_and_tenant_protections",
+     "name": "Rent regulation and tenant protections",
+     "axis": "R"
+    },
+    {
+     "id": "housing.affordable_housing_programs",
+     "name": "Affordable housing programs",
+     "axis": "F"
+    },
+    {
+     "id": "housing.homelessness_services_vs_encampment_rule",
+     "name": "Homelessness (services vs. encampment rules)",
+     "axis": "A"
+    },
+    {
+     "id": "housing.short_term_rentals",
+     "name": "Short-term rentals",
+     "axis": "R"
+    },
+    {
+     "id": "housing.building_codes_and_construction",
+     "name": "Building codes and construction",
+     "axis": "R"
+    },
+    {
+     "id": "housing.mortgage_ownership_and_property_transact",
+     "name": "Mortgage, ownership and property transactions",
+     "axis": "N"
+    }
+   ]
+  },
+  {
+   "id": "ai_and_technology",
+   "name": "AI and technology",
+   "subtopics": [
+    {
+     "id": "ai_and_technology.ai_safety_and_oversight",
+     "name": "AI safety and oversight",
+     "axis": "R"
+    },
+    {
+     "id": "ai_and_technology.ai_development_and_adoption_incentives_v",
+     "name": "AI development and adoption (incentives vs. burdens)",
+     "axis": "A"
+    },
+    {
+     "id": "ai_and_technology.government_use_of_ai",
+     "name": "Government use of AI",
+     "axis": "A"
+    },
+    {
+     "id": "ai_and_technology.deepfakes_and_synthetic_media",
+     "name": "Deepfakes and synthetic media",
+     "axis": "R"
+    },
+    {
+     "id": "ai_and_technology.ai_in_employment_and_consumer_decisions",
+     "name": "AI in employment and consumer decisions",
+     "axis": "R"
+    },
+    {
+     "id": "ai_and_technology.data_centers_and_compute",
+     "name": "Data centers and compute",
+     "axis": "A"
+    },
+    {
+     "id": "ai_and_technology.data_privacy",
+     "name": "Data privacy",
+     "axis": "R"
+    },
+    {
+     "id": "ai_and_technology.social_media_and_online_platforms",
+     "name": "Social media and online platforms",
+     "axis": "R"
+    },
+    {
+     "id": "ai_and_technology.cybersecurity",
+     "name": "Cybersecurity",
+     "axis": "R"
+    },
+    {
+     "id": "ai_and_technology.broadband_and_telecom",
+     "name": "Broadband and telecom",
+     "axis": "A"
+    }
+   ]
+  },
+  {
+   "id": "education",
+   "name": "Education",
+   "subtopics": [
+    {
+     "id": "education.k_12_funding",
+     "name": "K-12 funding",
+     "axis": "F"
+    },
+    {
+     "id": "education.school_choice_and_vouchers",
+     "name": "School choice and vouchers",
+     "axis": "A"
+    },
+    {
+     "id": "education.curriculum_and_classroom_content",
+     "name": "Curriculum and classroom content",
+     "axis": "R"
+    },
+    {
+     "id": "education.higher_education_tuition_tenure_dei",
+     "name": "Higher education (tuition, tenure, DEI)",
+     "axis": "R"
+    },
+    {
+     "id": "education.teacher_workforce_and_pay",
+     "name": "Teacher workforce and pay",
+     "axis": "F"
+    },
+    {
+     "id": "education.school_safety_and_discipline",
+     "name": "School safety and discipline",
+     "axis": "R"
+    },
+    {
+     "id": "education.phones_and_technology_in_schools",
+     "name": "Phones and technology in schools",
+     "axis": "R"
+    }
+   ]
+  },
+  {
+   "id": "taxes_and_budget",
+   "name": "Taxes and budget",
+   "subtopics": [
+    {
+     "id": "taxes_and_budget.income_taxes",
+     "name": "Income taxes",
+     "axis": "F"
+    },
+    {
+     "id": "taxes_and_budget.property_taxes",
+     "name": "Property taxes",
+     "axis": "F"
+    },
+    {
+     "id": "taxes_and_budget.sales_and_excise_taxes",
+     "name": "Sales and excise taxes",
+     "axis": "F"
+    },
+    {
+     "id": "taxes_and_budget.business_tax_incentives_and_credits",
+     "name": "Business tax incentives and credits",
+     "axis": "F"
+    },
+    {
+     "id": "taxes_and_budget.state_budget_and_appropriations",
+     "name": "State budget and appropriations",
+     "axis": "F"
+    },
+    {
+     "id": "taxes_and_budget.bonds_debt_and_pensions_funding",
+     "name": "Bonds, debt and pensions funding",
+     "axis": "F"
+    }
+   ]
+  },
+  {
+   "id": "elections_and_voting",
+   "name": "Elections and voting",
+   "subtopics": [
+    {
+     "id": "elections_and_voting.voter_registration_and_access_mail_votin",
+     "name": "Voter registration and access (mail voting, early voting)",
+     "axis": "A"
+    },
+    {
+     "id": "elections_and_voting.voter_id_and_election_security",
+     "name": "Voter ID and election security",
+     "axis": "R"
+    },
+    {
+     "id": "elections_and_voting.redistricting",
+     "name": "Redistricting",
+     "axis": "N"
+    },
+    {
+     "id": "elections_and_voting.campaign_finance",
+     "name": "Campaign finance",
+     "axis": "R"
+    },
+    {
+     "id": "elections_and_voting.election_administration_and_officials",
+     "name": "Election administration and officials",
+     "axis": "N"
+    },
+    {
+     "id": "elections_and_voting.ballot_measures_and_initiatives",
+     "name": "Ballot measures and initiatives",
+     "axis": "A"
+    }
+   ]
+  },
+  {
+   "id": "transportation",
+   "name": "Transportation",
+   "subtopics": [
+    {
+     "id": "transportation.autonomous_vehicles",
+     "name": "Autonomous vehicles",
+     "axis": "A"
+    },
+    {
+     "id": "transportation.traffic_safety_and_enforcement_speed_cam",
+     "name": "Traffic safety and enforcement (speed cameras, DUI)",
+     "axis": "R"
+    },
+    {
+     "id": "transportation.electric_vehicles_and_charging",
+     "name": "Electric vehicles and charging",
+     "axis": "A"
+    },
+    {
+     "id": "transportation.rideshare_scooters_and_micromobility",
+     "name": "Rideshare, scooters and micromobility",
+     "axis": "R"
+    },
+    {
+     "id": "transportation.drones_and_aviation",
+     "name": "Drones and aviation",
+     "axis": "R"
+    },
+    {
+     "id": "transportation.transit_and_infrastructure_funding",
+     "name": "Transit and infrastructure funding",
+     "axis": "F"
+    },
+    {
+     "id": "transportation.vehicle_registration_licensing_and_fees",
+     "name": "Vehicle registration, licensing and fees",
+     "axis": "N"
+    }
+   ]
+  },
+  {
+   "id": "environment_and_energy",
+   "name": "Environment and energy",
+   "subtopics": [
+    {
+     "id": "environment_and_energy.climate_and_emissions",
+     "name": "Climate and emissions",
+     "axis": "R"
+    },
+    {
+     "id": "environment_and_energy.renewable_energy_and_storage",
+     "name": "Renewable energy and storage",
+     "axis": "A"
+    },
+    {
+     "id": "environment_and_energy.fossil_fuels_pipelines_and_mining",
+     "name": "Fossil fuels, pipelines and mining",
+     "axis": "A"
+    },
+    {
+     "id": "environment_and_energy.nuclear_power",
+     "name": "Nuclear power",
+     "axis": "A"
+    },
+    {
+     "id": "environment_and_energy.utility_regulation_and_rates",
+     "name": "Utility regulation and rates",
+     "axis": "R"
+    },
+    {
+     "id": "environment_and_energy.environmental_permitting_and_review",
+     "name": "Environmental permitting and review",
+     "axis": "R"
+    },
+    {
+     "id": "environment_and_energy.water_land_and_wildlife_protection",
+     "name": "Water, land and wildlife protection",
+     "axis": "R"
+    },
+    {
+     "id": "environment_and_energy.public_lands_and_conservation_funding",
+     "name": "Public lands and conservation funding",
+     "axis": "F"
+    }
+   ]
+  },
+  {
+   "id": "criminal_justice",
+   "name": "Criminal justice",
+   "subtopics": [
+    {
+     "id": "criminal_justice.sentencing_and_penalties",
+     "name": "Sentencing and penalties",
+     "axis": "R"
+    },
+    {
+     "id": "criminal_justice.policing_and_accountability",
+     "name": "Policing and accountability",
+     "axis": "R"
+    },
+    {
+     "id": "criminal_justice.bail_and_pretrial",
+     "name": "Bail and pretrial",
+     "axis": "R"
+    },
+    {
+     "id": "criminal_justice.drug_policy_cannabis_decriminalization",
+     "name": "Drug policy (cannabis, decriminalization)",
+     "axis": "A"
+    },
+    {
+     "id": "criminal_justice.corrections_and_reentry",
+     "name": "Corrections and reentry",
+     "axis": "A"
+    },
+    {
+     "id": "criminal_justice.courts_and_procedure",
+     "name": "Courts and procedure",
+     "axis": "N"
+    },
+    {
+     "id": "criminal_justice.victims_rights",
+     "name": "Victims' rights",
+     "axis": "A"
+    }
+   ]
+  },
+  {
+   "id": "labor_and_employment",
+   "name": "Labor and employment",
+   "subtopics": [
+    {
+     "id": "labor_and_employment.minimum_wage_and_wage_rules",
+     "name": "Minimum wage and wage rules",
+     "axis": "R"
+    },
+    {
+     "id": "labor_and_employment.unions_and_collective_bargaining",
+     "name": "Unions and collective bargaining",
+     "axis": "A"
+    },
+    {
+     "id": "labor_and_employment.worker_safety_and_protections",
+     "name": "Worker safety and protections",
+     "axis": "R"
+    },
+    {
+     "id": "labor_and_employment.paid_leave_and_benefits",
+     "name": "Paid leave and benefits",
+     "axis": "A"
+    },
+    {
+     "id": "labor_and_employment.unemployment_insurance",
+     "name": "Unemployment insurance",
+     "axis": "A"
+    },
+    {
+     "id": "labor_and_employment.gig_work_and_independent_contractors",
+     "name": "Gig work and independent contractors",
+     "axis": "R"
+    },
+    {
+     "id": "labor_and_employment.occupational_licensing",
+     "name": "Occupational licensing",
+     "axis": "R"
+    }
+   ]
+  },
+  {
+   "id": "immigration",
+   "name": "Immigration",
+   "subtopics": [
+    {
+     "id": "immigration.state_cooperation_with_federal_enforceme",
+     "name": "State cooperation with federal enforcement",
+     "axis": "R"
+    },
+    {
+     "id": "immigration.benefits_and_services_for_immigrants",
+     "name": "Benefits and services for immigrants",
+     "axis": "A"
+    },
+    {
+     "id": "immigration.employment_verification",
+     "name": "Employment verification",
+     "axis": "R"
+    },
+    {
+     "id": "immigration.in_state_tuition_and_education_access",
+     "name": "In-state tuition and education access",
+     "axis": "A"
+    }
+   ]
+  },
+  {
+   "id": "civil_rights_and_liberties",
+   "name": "Civil rights and liberties",
+   "subtopics": [
+    {
+     "id": "civil_rights_and_liberties.anti_discrimination_protections_incl_lgb",
+     "name": "Anti-discrimination protections (incl. LGBTQ)",
+     "axis": "A"
+    },
+    {
+     "id": "civil_rights_and_liberties.religious_liberty",
+     "name": "Religious liberty",
+     "axis": "A"
+    },
+    {
+     "id": "civil_rights_and_liberties.free_speech_and_assembly",
+     "name": "Free speech and assembly",
+     "axis": "A"
+    },
+    {
+     "id": "civil_rights_and_liberties.diversity_equity_and_inclusion_programs",
+     "name": "Diversity, equity and inclusion programs",
+     "axis": "R"
+    },
+    {
+     "id": "civil_rights_and_liberties.gender_identity_policies_non_medical",
+     "name": "Gender identity policies (non-medical)",
+     "axis": "A"
+    },
+    {
+     "id": "civil_rights_and_liberties.records_surveillance_and_civil_liberties",
+     "name": "Records, surveillance and civil liberties",
+     "axis": "R"
+    }
+   ]
+  },
+  {
+   "id": "consumer_protection_and_business",
+   "name": "Consumer protection and business",
+   "subtopics": [
+    {
+     "id": "consumer_protection_and_business.consumer_protection_and_fees",
+     "name": "Consumer protection and fees",
+     "axis": "R"
+    },
+    {
+     "id": "consumer_protection_and_business.insurance_market_regulation",
+     "name": "Insurance market regulation",
+     "axis": "R"
+    },
+    {
+     "id": "consumer_protection_and_business.banking_lending_and_crypto",
+     "name": "Banking, lending and crypto",
+     "axis": "R"
+    },
+    {
+     "id": "consumer_protection_and_business.business_licensing_and_regulation",
+     "name": "Business licensing and regulation",
+     "axis": "R"
+    },
+    {
+     "id": "consumer_protection_and_business.gambling_and_sports_betting",
+     "name": "Gambling and sports betting",
+     "axis": "A"
+    },
+    {
+     "id": "consumer_protection_and_business.alcohol_tobacco_and_vaping",
+     "name": "Alcohol, tobacco and vaping",
+     "axis": "R"
+    },
+    {
+     "id": "consumer_protection_and_business.agriculture_and_food",
+     "name": "Agriculture and food",
+     "axis": "R"
+    }
+   ]
+  },
+  {
+   "id": "government_administration",
+   "name": "Government administration",
+   "subtopics": [
+    {
+     "id": "government_administration.ceremonial_and_commemorative_measures",
+     "name": "Ceremonial and commemorative measures",
+     "axis": "N"
+    },
+    {
+     "id": "government_administration.state_agencies_and_structure",
+     "name": "State agencies and structure",
+     "axis": "N"
+    },
+    {
+     "id": "government_administration.public_employees_and_pensions",
+     "name": "Public employees and pensions",
+     "axis": "F"
+    },
+    {
+     "id": "government_administration.local_government_powers_and_preemption",
+     "name": "Local government powers and preemption",
+     "axis": "A"
+    },
+    {
+     "id": "government_administration.ethics_and_transparency",
+     "name": "Ethics and transparency",
+     "axis": "R"
+    },
+    {
+     "id": "government_administration.constitutional_amendments_and_resolution",
+     "name": "Constitutional amendments and resolutions",
+     "axis": "N"
+    },
+    {
+     "id": "government_administration.emergency_powers",
+     "name": "Emergency powers",
+     "axis": "R"
+    }
+   ]
+  }
+ ]
+}
