@@ -16,16 +16,20 @@ jobs:
       R2_BUCKET: ${{ vars.R2_BUCKET }}
       AWS_DEFAULT_REGION: auto
     steps:
-      - name: Report which values are configured
+      - name: Report which values are configured (and whether stray whitespace was pasted in)
         run: |
           for v in AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY R2_ACCOUNT_ID R2_BUCKET; do
-            if [ -n "${!v}" ]; then echo "$v: set"; else echo "$v: NOT set"; fi
+            val="${!v}"
+            if [ -z "$val" ]; then echo "$v: NOT set"
+            elif [ "$val" != "$(printf %s "$val" | tr -d '[:space:]')" ]; then echo "$v: set, but contains stray whitespace (trimmed automatically below)"
+            else echo "$v: set"; fi
           done
       - name: List the top level of the bucket (names only)
         run: |
-          if [ -n "$AWS_ACCESS_KEY_ID" ] && [ -n "$AWS_SECRET_ACCESS_KEY" ] && [ -n "$R2_ACCOUNT_ID" ] && [ -n "$R2_BUCKET" ]; then
-            aws s3 ls "s3://$R2_BUCKET/" --endpoint-url "https://$R2_ACCOUNT_ID.r2.cloudflarestorage.com" | sed -E 's/^[0-9-]+ [0-9:]+ +[0-9]+ //' | head -40
-            echo "connection OK"
-          else
-            echo "skipped: not fully configured"
-          fi
+          set -o pipefail
+          export AWS_ACCESS_KEY_ID="$(printf %s "$AWS_ACCESS_KEY_ID" | tr -d '[:space:]')"
+          export AWS_SECRET_ACCESS_KEY="$(printf %s "$AWS_SECRET_ACCESS_KEY" | tr -d '[:space:]')"
+          acct="$(printf %s "$R2_ACCOUNT_ID" | tr -d '[:space:]')"; bucket="$(printf %s "$R2_BUCKET" | tr -d '[:space:]')"
+          if [ -z "$AWS_ACCESS_KEY_ID" ] || [ -z "$AWS_SECRET_ACCESS_KEY" ] || [ -z "$acct" ] || [ -z "$bucket" ]; then echo "not fully configured"; exit 1; fi
+          aws s3 ls "s3://$bucket/" --endpoint-url "https://$acct.r2.cloudflarestorage.com" | sed -E 's/^[0-9-]+ [0-9:]+ +[0-9]+ //' | head -40
+          echo "connection OK (listed the bucket)"
