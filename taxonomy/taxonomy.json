@@ -1,6 +1,6 @@
 {
- "version": "draft-1",
- "note": "Draft for review. Direction is judged per sub-topic on its axis, from what the bill does.",
+ "version": "1.0",
+ "note": "Approved taxonomy. Direction is judged per sub-topic on its axis, from what the bill does.",
  "axes": {
   "A": {
    "label": "Access / rights",
@@ -25,15 +25,32 @@
    "poles": []
   }
  },
- "directions": [
-  "strongly_restricts",
-  "restricts",
-  "mixed",
-  "neutral",
-  "expands",
-  "strongly_expands",
-  "unclear"
- ],
+ "directions_by_axis": {
+  "A": [
+   "strongly_restricts",
+   "restricts",
+   "mixed",
+   "neutral",
+   "expands",
+   "strongly_expands",
+   "unclear"
+  ],
+  "R": [
+   "strongly_loosens",
+   "loosens",
+   "mixed",
+   "neutral",
+   "tightens",
+   "strongly_tightens",
+   "unclear"
+  ],
+  "F": [
+   "not_applicable"
+  ],
+  "N": [
+   "not_applicable"
+  ]
+ },
  "funding": [
   "increases",
   "decreases",
@@ -51,7 +68,7 @@
      "axis": "A"
     },
     {
-     "id": "health_care.gender_affirming_and_transgender_health_",
+     "id": "health_care.gender_affirming_and_transgender_health_care",
      "name": "Gender-affirming and transgender health care",
      "axis": "A"
     },
@@ -71,17 +88,17 @@
      "axis": "R"
     },
     {
-     "id": "health_care.hospitals_and_providers_certificate_of_n",
+     "id": "health_care.hospitals_and_providers",
      "name": "Hospitals and providers (certificate of need, scope of practice)",
      "axis": "R"
     },
     {
-     "id": "health_care.mental_health_and_substance_use_treatmen",
+     "id": "health_care.mental_health_and_substance_use_treatment",
      "name": "Mental health and substance use treatment",
      "axis": "A"
     },
     {
-     "id": "health_care.public_health_vaccines_and_emergency_mea",
+     "id": "health_care.public_health_vaccines_and_emergency_measures",
      "name": "Public health, vaccines and emergency measures",
      "axis": "R"
     },
@@ -102,7 +119,7 @@
    "name": "Guns and weapons",
    "subtopics": [
     {
-     "id": "guns_and_weapons.firearm_ownership_and_carry_permitless_c",
+     "id": "guns_and_weapons.firearm_ownership_and_carry",
      "name": "Firearm ownership and carry (permitless carry, concealed carry)",
      "axis": "A"
     },
@@ -112,7 +129,7 @@
      "axis": "R"
     },
     {
-     "id": "guns_and_weapons.weapon_and_magazine_types_assault_weapon",
+     "id": "guns_and_weapons.weapon_and_magazine_types",
      "name": "Weapon and magazine types (assault weapons, ghost guns)",
      "axis": "R"
     },
@@ -122,7 +139,7 @@
      "axis": "R"
     },
     {
-     "id": "guns_and_weapons.extreme_risk_protection_orders_red_flag",
+     "id": "guns_and_weapons.extreme_risk_protection_orders",
      "name": "Extreme risk protection orders (\"red flag\")",
      "axis": "R"
     },
@@ -209,7 +226,7 @@
      "axis": "F"
     },
     {
-     "id": "housing.homelessness_services_vs_encampment_rule",
+     "id": "housing.homelessness",
      "name": "Homelessness (services vs. encampment rules)",
      "axis": "A"
     },
@@ -224,7 +241,7 @@
      "axis": "R"
     },
     {
-     "id": "housing.mortgage_ownership_and_property_transact",
+     "id": "housing.mortgage_ownership_and_property_transactions",
      "name": "Mortgage, ownership and property transactions",
      "axis": "N"
     }
@@ -240,7 +257,7 @@
      "axis": "R"
     },
     {
-     "id": "ai_and_technology.ai_development_and_adoption_incentives_v",
+     "id": "ai_and_technology.ai_development_and_adoption",
      "name": "AI development and adoption (incentives vs. burdens)",
      "axis": "A"
     },
@@ -306,7 +323,7 @@
      "axis": "R"
     },
     {
-     "id": "education.higher_education_tuition_tenure_dei",
+     "id": "education.higher_education",
      "name": "Higher education (tuition, tenure, DEI)",
      "axis": "R"
     },
@@ -368,7 +385,7 @@
    "name": "Elections and voting",
    "subtopics": [
     {
-     "id": "elections_and_voting.voter_registration_and_access_mail_votin",
+     "id": "elections_and_voting.voter_registration_and_access",
      "name": "Voter registration and access (mail voting, early voting)",
      "axis": "A"
     },
@@ -409,7 +426,7 @@
      "axis": "A"
     },
     {
-     "id": "transportation.traffic_safety_and_enforcement_speed_cam",
+     "id": "transportation.traffic_safety_and_enforcement",
      "name": "Traffic safety and enforcement (speed cameras, DUI)",
      "axis": "R"
     },
@@ -506,7 +523,7 @@
      "axis": "R"
     },
     {
-     "id": "criminal_justice.drug_policy_cannabis_decriminalization",
+     "id": "criminal_justice.drug_policy",
      "name": "Drug policy (cannabis, decriminalization)",
      "axis": "A"
     },
@@ -573,7 +590,7 @@
    "name": "Immigration",
    "subtopics": [
     {
-     "id": "immigration.state_cooperation_with_federal_enforceme",
+     "id": "immigration.state_cooperation_with_federal_enforcement",
      "name": "State cooperation with federal enforcement",
      "axis": "R"
     },
@@ -599,7 +616,7 @@
    "name": "Civil rights and liberties",
    "subtopics": [
     {
-     "id": "civil_rights_and_liberties.anti_discrimination_protections_incl_lgb",
+     "id": "civil_rights_and_liberties.anti_discrimination_protections",
      "name": "Anti-discrimination protections (incl. LGBTQ)",
      "axis": "A"
     },
@@ -619,7 +636,7 @@
      "axis": "R"
     },
     {
-     "id": "civil_rights_and_liberties.gender_identity_policies_non_medical",
+     "id": "civil_rights_and_liberties.gender_identity_policies",
      "name": "Gender identity policies (non-medical)",
      "axis": "A"
     },
@@ -701,7 +718,7 @@
      "axis": "R"
     },
     {
-     "id": "government_administration.constitutional_amendments_and_resolution",
+     "id": "government_administration.constitutional_amendments_and_resolutions",
      "name": "Constitutional amendments and resolutions",
      "axis": "N"
     },
