@@ -169,6 +169,8 @@ def main():
         if not tags:
             if key is not None and key not in tagged:
                 return '<p class="muted">Not tagged yet.</p>'
+            if key is not None and tagged[key].get("refused"):
+                return '<p class="muted">Not tagged: the AI model declined to process this bill’s text (its safety filter flagged the subject). Read the digest below.</p>'
             return '<p class="muted">No sub-topic fits this bill, or its digest is too thin to tag.</p>'
         rows = []
         for t in tags:
@@ -331,7 +333,7 @@ out.innerHTML=h;cnt.textContent=n+' bills'+(n>200?' (showing the first 200; narr
 <h2>What is labelled</h2><p>Each California bill gets one or more tags. A tag has a <b>sub-topic</b> from a fixed two-level list ({len(TOPICS)} topics, {len(SUB)} sub-topics), a <b>direction</b> on that sub-topic, a <b>mechanism</b> (for example a ban, a licensing rule, a tax incentive, a study) and a <b>funding</b> note (increases, decreases, none).</p>
 <h2>Direction</h2><p>Direction describes what the bill does, not whether that is good or bad. For rights and access sub-topics it is expands or restricts. For regulation sub-topics it is tightens or loosens. Funding-only sub-topics have no direction. Studies, assessments, voluntary programs and rules that only assign responsibility are labelled neutral.</p>
 <h2>Evidence</h2><p>Every direction call must quote a sentence from the Legislative Counsel’s digest of the bill. If the quoted sentence is not in the digest, the call is thrown away and shown as unclear.</p>
-<h2>Who does the labelling</h2><p>An AI model ({esc(model)}) reads each bill’s title and digest and applies the list above. It is fast and cheap but not perfect: in a 50-bill test it agreed with a larger model on about 86% of direction calls. Bills without a digest are tagged from the title alone and usually come out unclear on direction. Treat labels as a guide to read the bill, not a substitute.</p>
+<h2>Who does the labelling</h2><p>An AI model ({esc(model)}) reads each bill’s title and digest and applies the list above. It is fast and cheap but not perfect: in a 50-bill test it agreed with a larger model on about 86% of direction calls. Bills without a digest are tagged from the title alone and usually come out unclear on direction. The model declined to process one bill (a biosecurity bill) and it is shown untagged. Treat labels as a guide to read the bill, not a substitute.</p>
 <h2>Legislators</h2><p>Legislator pages count what each member authored or co-authored and how they voted on the floor, by sub-topic and direction, with every bill linked. Committee votes are not yet matched to members. A co-author can sign on for many reasons, so counts are evidence, not a rating, and the site computes no overall score.</p>
 <h2>Topics</h2><ul>{taxrows}</ul>"""))
     print(f"built {len(bills)} bill pages, {len(TOPICS)} topic pages, {len(leg_rows)} legislator pages; {n_tagged} bills with tags")
