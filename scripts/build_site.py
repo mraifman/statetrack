@@ -85,7 +85,7 @@ def page(title, body, depth=0, desc=""):
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(title)} · StateTrack</title><meta name="description" content="{esc(desc or title)}"><style>{CSS}</style></head><body>
 <header class="site"><div class="wrap"><nav><a class="brand" href="{base}index.html">StateTrack</a><a href="{base}index.html">Overview</a><a href="{base}bills.html">All bills</a>
-<a href="{base}legislators.html">Legislators</a><a href="{base}method.html">How it works</a><span class="muted small">California 2025–26 · demo</span></nav></div></header>
+<a href="{base}find.html">Find my legislators</a><a href="{base}legislators.html">Legislators</a><a href="{base}method.html">How it works</a><span class="muted small">California 2025–26 · demo</span></nav></div></header>
 <main><div class="wrap">{body}</div></main><footer><div class="wrap">Demo for California’s 2025–26 session. Bill data: California Legislative Information (official bulk file). Topics and directions are labelled by an AI model from the bill’s title and the Legislative Counsel’s digest, and are approximate. <a href="{base}method.html">How it works</a></div></footer></body></html>"""
 
 
@@ -295,6 +295,43 @@ def main():
     (OUT / "legislators.html").write_text(page("Legislators", f'<h1>Legislators</h1><p class="lede">{len(leg_rows)} members of the 2025–26 California Legislature.</p>'
         f'<table><thead><tr><th>Name</th><th>Party</th><th>House</th><th>District</th><th class="n">Bills authored</th><th class="n">Bills voted on (floor)</th></tr></thead><tbody>{rows}</tbody></table>'))
 
+    # ---------------- find my legislators (ZIP search)
+    (OUT / "data").mkdir(exist_ok=True)
+    zips = json.loads((DATA / "zip_lookup.json").read_text())
+    (OUT / "data" / "zip-ca.json").write_text(json.dumps(zips, separators=(",", ":")))
+    reps = {"A": {}, "S": {}}
+    for L, lid, na, nv in leg_rows:
+        code = lid.split(":")[0]
+        ch = "A" if code.startswith("AD") else "S" if code.startswith("SD") else None
+        if ch and code[2:].isdigit():
+            reps[ch][int(code[2:])] = {"n": L["name"], "s": lid_slug[lid], "p": L["party"], "a": na}
+    find_js = """const REPS=%s;let Z=null;
+const box=document.getElementById('zip'),out=document.getElementById('res');
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+const PARTY={DEM:'Democrat',REP:'Republican'};
+function card(ch,d,share,only){const r=REPS[ch][d];const name=ch==='A'?'Assembly District ':'State Senate District ';
+if(!r)return '<li>'+name+d+' (no current member on file)</li>';
+const pct=Math.round(share*100);
+return '<li class="card"><b><a href="legislator/'+r.s+'.html">'+esc(r.n.split(', ').reverse().join(' '))+'</a></b> <span class="party '+r.p+'">'+esc(PARTY[r.p]||r.p)+'</span><br><span class="muted small">'+name+d+
+(only?' · covers the whole ZIP code':' · covers about '+pct+'%% of this ZIP code')+' · '+r.a+' bills authored or co-authored</span></li>'}
+function section(ch,label,list){if(!list||!list.length)return '';const sure=list.length===1;
+return '<h2>'+label+'</h2>'+(sure?'':'<p class="muted small">This ZIP code is split between districts. Percentages are the share of the ZIP code’s land area in each district, so they show which is likelier, not who lives where.</p>')+'<ul style="list-style:none;padding:0">'+list.map(x=>card(ch,x[0],x[1],sure)).join('')+'</ul>'}
+async function go(){const raw=box.value.trim();const m=raw.match(/^(\\d{5})(?:-\\d{4})?$/);
+if(!m){out.innerHTML='<p class="note">Enter a 5-digit ZIP code, for example 94110.</p>';return}
+const zip=m[1];history.replaceState(null,'','?zip='+zip);
+if(!Z){try{Z=await (await fetch('data/zip-ca.json')).json()}catch(e){out.innerHTML='<p class="note">The ZIP lookup could not be loaded. Please try again.</p>';return}}
+const r=Z[zip];
+if(!r){out.innerHTML='<p class="note">No California legislators found for '+zip+'. This demo covers California only, and some ZIP codes (such as PO boxes) are not matched to districts. Try your street address on the <a href="https://findyourrep.legislature.ca.gov/">official lookup</a>.</p>';return}
+out.innerHTML='<h2 style="margin-top:20px">ZIP code '+zip+'</h2>'+section('A','Assembly member',r.A)+section('S','State senator',r.S)+
+'<p class="note small">ZIP codes and legislative districts do not line up exactly. For a definite answer, enter your street address on the <a href="https://findyourrep.legislature.ca.gov/">California Legislature’s official lookup</a>.</p>'}
+document.getElementById('f').addEventListener('submit',e=>{e.preventDefault();go()});
+const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}""" % json.dumps(reps, separators=(",", ":"), ensure_ascii=False)
+    (OUT / "find.html").write_text(page("Find my legislators", f"""<h1>Find my legislators</h1>
+<p class="lede">Enter a California ZIP code to see your state Assembly member and state senator, then what each of them has authored and how they have voted.</p>
+<form id="f" class="filters" autocomplete="off"><input id="zip" inputmode="numeric" maxlength="10" placeholder="ZIP code, for example 94110" aria-label="ZIP code" style="max-width:260px"><button type="submit" style="font:inherit;padding:7px 16px;border-radius:8px;border:1px solid var(--axis);background:var(--accent);color:#fff;cursor:pointer">Find</button></form>
+<p class="muted small">Try <a href="?zip=94110">94110</a> (one district), <a href="?zip=90210">90210</a> (split across districts) or <a href="?zip=95814">95814</a>.</p>
+<div id="res"></div><script>{find_js}</script>"""))
+
     # ---------------- overview
     counts = sorted(((len(topic_bills.get(tid, ())), tid) for tid in TOPICS), reverse=True)
     top = counts[0][0] or 1
@@ -304,8 +341,9 @@ def main():
 <p class="lede">Every bill in California’s 2025–26 session, sorted into topics, with a read on which way each bill pushes: does it expand or restrict, tighten or loosen, and where does the money go. Then what each legislator authored and how they voted.</p>
 <div class="tiles"><div class="tile"><b>{len(bills):,}</b><span>bills</span></div><div class="tile"><b>{n_tagged:,}</b><span>with topic tags</span></div><div class="tile"><b>{len(leg_rows)}</b><span>legislators</span></div>
 <div class="tile"><b>{status.get("Chaptered", 0):,}</b><span>signed into law (chaptered)</span></div></div>
+<form class="filters" action="find.html" method="get"><input name="zip" inputmode="numeric" maxlength="10" placeholder="Find my legislators: enter a California ZIP code" aria-label="ZIP code"><button type="submit" style="font:inherit;padding:7px 16px;border-radius:8px;border:1px solid var(--axis);background:var(--accent);color:#fff;cursor:pointer">Find</button></form>
 <h2>Bills by topic</h2><p class="small muted">A bill counts once under each topic it touches, so bars add up to more than the number of bills.</p><div class="bars">{bar}</div>
-<h2>Where to start</h2><ul><li><a href="bills.html">Search all bills</a> by words, topic, status or direction.</li><li><a href="legislators.html">Legislators</a>: authorship and floor votes by sub-topic and direction.</li><li><a href="method.html">How it works</a>, and what the labels can and cannot tell you.</li></ul>"""
+<h2>Where to start</h2><ul><li><a href="bills.html">Search all bills</a> by words, topic, status or direction.</li><li><a href="find.html">Find my legislators</a> by ZIP code.</li><li><a href="legislators.html">Legislators</a>: authorship and floor votes by sub-topic and direction.</li><li><a href="method.html">How it works</a>, and what the labels can and cannot tell you.</li></ul>"""
     (OUT / "index.html").write_text(page("California by topic", body))
 
     # ---------------- bills search page
