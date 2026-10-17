@@ -23,20 +23,17 @@ jobs:
           echo "California (st06) files:"; grep -o 'tab20_[a-z0-9_]*st06\.txt' /tmp/cdsld.html | sort -u | head -60 || true
           echo "distinct prefixes:"; grep -o 'tab20_[a-z0-9]*_[a-z0-9]*' /tmp/cdsld.html | sort -u | head -60 || true
           echo "== block assignment files"; curl -sS -L -m 60 "https://www2.census.gov/geo/docs/maps-data/data/baf2020/" | grep -o 'BlockAssign_ST06[A-Za-z0-9_.]*' | sort -u || true
-      - name: Download the overlap files
+      - name: Download the California ZIP to district overlap files (2024 district maps)
         if: ${{ inputs.build }}
         run: |
           mkdir -p /tmp/rel
+          base="https://www2.census.gov/geo/docs/maps-data/data/rel2020/cd-sld"
           for chamber in sldl sldu; do
-            ok=""
-            for yr in 22 24 18; do
-              f="tab20_zcta520_${chamber}${yr}_natl.txt"
-              code=$(curl -sS -L -m 180 -o "/tmp/rel/$chamber.txt" -w "%{http_code}" "https://www2.census.gov/geo/docs/maps-data/data/rel2020/zcta520/$f" || true)
-              echo "$f -> $code"
-              if [ "$code" = "200" ]; then ok="$f"; break; fi
-            done
-            [ -n "$ok" ] || { echo "no $chamber file found"; exit 1; }
-            echo "$chamber: $ok, $(wc -l < /tmp/rel/$chamber.txt) lines"; head -2 "/tmp/rel/$chamber.txt" | cut -c1-400
+            f="tab20_${chamber}202420_zcta520_st06.txt"
+            code=$(curl -sS -L -m 180 -o "/tmp/rel/$chamber.txt" -w "%{http_code}" "$base/$f")
+            echo "$f -> $code, $(wc -l < /tmp/rel/$chamber.txt) lines"
+            [ "$code" = "200" ] || exit 1
+            head -2 "/tmp/rel/$chamber.txt" | cut -c1-500
           done
       - name: Build the lookup
         if: ${{ inputs.build }}
