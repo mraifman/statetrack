@@ -16,14 +16,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
-      - name: List what the Census publishes (ZCTA relationship files)
+      - name: List what the Census publishes for legislative districts and ZIPs
         run: |
-          for d in rel2020/cd-sld rel2020/zcta520; do
-            echo "== $d"
-            curl -sS -L -m 60 "https://www2.census.gov/geo/docs/maps-data/data/$d/" | grep -o 'href="[^"]*"' | sed 's/href=//' | tr -d '"' | head -80 || true
-          done
-          echo "== other places to look"
-          curl -sS -L -m 60 "https://www.census.gov/geographies/reference-files/time-series/geo/relationship-files.html" | grep -o -i -E '[A-Za-z0-9_./:-]*(sldl|sldu|legislative)[A-Za-z0-9_./:-]*\.(txt|zip|csv)' | sort -u | head -40 || true
+          curl -sS -L -m 90 "https://www2.census.gov/geo/docs/maps-data/data/rel2020/cd-sld/" -o /tmp/cdsld.html || true
+          echo "files mentioning sld or zcta:"; grep -o 'tab20_[a-z0-9_]*\.txt' /tmp/cdsld.html | sort -u | grep -i -E 'sld|zcta' | head -60 || true
+          echo "California (st06) files:"; grep -o 'tab20_[a-z0-9_]*st06\.txt' /tmp/cdsld.html | sort -u | head -60 || true
+          echo "distinct prefixes:"; grep -o 'tab20_[a-z0-9]*_[a-z0-9]*' /tmp/cdsld.html | sort -u | head -60 || true
+          echo "== block assignment files"; curl -sS -L -m 60 "https://www2.census.gov/geo/docs/maps-data/data/baf2020/" | grep -o 'BlockAssign_ST06[A-Za-z0-9_.]*' | sort -u || true
       - name: Download the overlap files
         if: ${{ inputs.build }}
         run: |
