@@ -1,4 +1,4 @@
-name: Publish data files to R2 (new folder only: statetrack/)
+name: "Publish data files to R2 (new folder only, statetrack/)"
 
 on:
   workflow_dispatch:
