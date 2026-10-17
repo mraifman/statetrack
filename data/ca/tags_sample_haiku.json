@@ -1,0 +1,1085 @@
+{
+ "bills": {
+  "AB 1095": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Makes data center waste heat capture projects eligible for I-Bank climate financing and for renewable energy credits under the RPS.",
+   "tags": [
+    {
+     "confidence": "high",
+     "direction": "expands",
+     "evidence": "This bill would require that a data center, as defined, that generates waste heat energy, as defined, be eligible to receive renewable energy credits under the program for that waste heat energy if specified conditions are met, including that the waste heat energy is used at the same facility or location where the waste heat was generated, captured, and converted, as specified.",
+     "evidence_verified": true,
+     "funding": "unclear",
+     "mechanism": "standards_or_requirements",
+     "subtopic": "environment_and_energy.renewable_energy_and_storage",
+     "topic": "Environment and energy"
+    },
+    {
+     "confidence": "medium",
+     "direction": "expands",
+     "evidence": "This bill would authorize the I-Bank to provide financial assistance in connection with the financing or refinancing of an additional category of climate catalyst projects, those projects that enable the capture and conversion of data centers’ waste heat, with the State Energy Resources Conservation and Development Commission (Energy Commission) as the consulting agency.",
+     "evidence_verified": true,
+     "funding": "unclear",
+     "mechanism": "funding_or_appropriation",
+     "subtopic": "ai_and_technology.data_centers_and_compute",
+     "topic": "AI and technology"
+    }
+   ]
+  },
+  "AB 1206": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Requires local agencies to create preapproved housing plan programs and to act within 30 days on applications using those plans.",
+   "tags": [
+    {
+     "confidence": "high",
+     "direction": "loosens",
+     "evidence": "The bill would require a local agency to either approve or deny an application for a single-family or multifamily residential housing unit, both as defined, within 30 days if the lot meets certain conditions and the application utilizes either a single-family or multifamily residential housing unit plan preapproved within the current triennial California Building Standards Code rulemaking cycle or",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "permitting_streamlining",
+     "subtopic": "housing.zoning_and_land_use",
+     "topic": "Housing"
+    },
+    {
+     "confidence": "medium",
+     "direction": "loosens",
+     "evidence": "This bill would require each local agency, as defined, to develop a program for the preapproval of single-family and multifamily residential housing plans, whereby the local agency accepts single-family and multifamily plan submissions for preapproval and approves or denies the preapproval applications, as specified.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "permitting_streamlining",
+     "subtopic": "housing.building_codes_and_construction",
+     "topic": "Housing"
+    }
+   ]
+  },
+  "AB 1254": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Moves the deadline for GO-Biz's annual immigrant integration grant report to the Legislature to May 1.",
+   "tags": [
+    {
+     "confidence": "high",
+     "direction": "not_applicable",
+     "evidence": "This bill would require the report to be submitted on or before May 1.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "disclosure_or_reporting",
+     "subtopic": "government_administration.state_agencies_and_structure",
+     "topic": "Government administration"
+    }
+   ]
+  },
+  "AB 1303": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Bars lifeline phone program data sharing with government and immigration authorities without a subpoena or warrant, and bars requiring Social Security numbers.",
+   "tags": [
+    {
+     "confidence": "high",
+     "direction": "tightens",
+     "evidence": "This bill would prohibit the commission, its staff, the lifeline program’s third-party administrator, and lifeline service providers, and their contractors, agents, successors, or assignees, from sharing, disclosing, or otherwise making accessible any information provided by an applicant or subscriber to the lifeline program, or a subprogram or pilot program of the lifeline program, to any agency ",
+     "evidence_verified": true,
+     "funding": "unclear",
+     "mechanism": "ban_or_prohibition",
+     "subtopic": "ai_and_technology.data_privacy",
+     "topic": "AI and technology"
+    },
+    {
+     "confidence": "medium",
+     "direction": "tightens",
+     "evidence": "This bill would prohibit the commission, its staff, the lifeline program’s third-party administrator, and lifeline service providers, and their contractors, agents, successors, or assignees, from sharing, disclosing, or otherwise making accessible any information provided by an applicant or subscriber to the lifeline program, or a subprogram or pilot program of the lifeline program, to any agency ",
+     "evidence_verified": true,
+     "funding": "unclear",
+     "mechanism": "ban_or_prohibition",
+     "subtopic": "immigration.state_cooperation_with_federal_enforcement",
+     "topic": "Immigration"
+    }
+   ]
+  },
+  "AB 1345": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Expands the Cartwright Act to make it unlawful to act on restraints of trade, monopolization, or monopsonization, with penalties treated as a crime.",
+   "tags": [
+    {
+     "confidence": "medium",
+     "direction": "tightens",
+     "evidence": "This bill would provide that is unlawful for one or more persons to act, cause, take, or direct a measure, action, or event that is either in restraint of trade, as specified, or to monopolize or monopsonize, as specified.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "ban_or_prohibition",
+     "subtopic": "consumer_protection_and_business.business_licensing_and_regulation",
+     "topic": "Consumer protection and business"
+    }
+   ]
+  },
+  "AB 1368": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Extends the smog check biennial inspection exemption to all motor vehicles 30 or more model years old.",
+   "tags": [
+    {
+     "confidence": "medium",
+     "direction": "loosens",
+     "evidence": "This bill would extend the above exemption from vehicles that were manufactured prior to the 1976 model year, to any motor vehicle that is 30 or more model years old.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "repeal_or_exemption",
+     "subtopic": "environment_and_energy.climate_and_emissions",
+     "topic": "Environment and energy"
+    }
+   ]
+  },
+  "AB 1458": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Allows licensed physical therapists to provide animal physical therapy under veterinary supervision or referral, with notification and practice agreement requirements.",
+   "tags": [
+    {
+     "confidence": "high",
+     "direction": "loosens",
+     "evidence": "This bill would authorize a licensed physical therapist who meets specified education, training, and experience requirements to provide animal physical therapy, as specified.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "standards_or_requirements",
+     "subtopic": "health_care.hospitals_and_providers",
+     "topic": "Health care"
+    },
+    {
+     "confidence": "medium",
+     "direction": "loosens",
+     "evidence": "This bill would authorize a licensed physical therapist who meets specified education, training, and experience requirements to provide animal physical therapy, as specified.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "licensing_or_registration",
+     "subtopic": "labor_and_employment.occupational_licensing",
+     "topic": "Labor and employment"
+    }
+   ]
+  },
+  "AB 1489": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Requires law enforcement agencies to adopt policies barring officers from carrying firearms whenever their blood alcohol exceeds 0.00%, except on undercover duty.",
+   "tags": [
+    {
+     "confidence": "high",
+     "direction": "restricts",
+     "evidence": "This bill would require a law enforcement agency that employs a peace officer to have a policy prohibiting that officer from carrying any firearm when the officer has a blood alcohol concentration greater than 0.00%, whether the officer is on duty or off duty, unless the officer is on duty and engaged in an undercover assignment in the course of their employment as a peace officer.",
+     "evidence_verified": true,
+     "funding": "unclear",
+     "mechanism": "ban_or_prohibition",
+     "subtopic": "guns_and_weapons.firearm_ownership_and_carry",
+     "topic": "Guns and weapons"
+    },
+    {
+     "confidence": "medium",
+     "direction": "tightens",
+     "evidence": "This bill would require a law enforcement agency that employs a peace officer to have a policy prohibiting that officer from carrying any firearm when the officer has a blood alcohol concentration greater than 0.00%, whether the officer is on duty or off duty, unless the officer is on duty and engaged in an undercover assignment in the course of their employment as a peace officer.",
+     "evidence_verified": true,
+     "funding": "unclear",
+     "mechanism": "standards_or_requirements",
+     "subtopic": "criminal_justice.policing_and_accountability",
+     "topic": "Criminal justice"
+    }
+   ]
+  },
+  "AB 1500": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Requires the state health department to partner with an organization to expand and update a reproductive health information website, with quarterly reviews and annual reporting.",
+   "tags": [
+    {
+     "confidence": "high",
+     "direction": "expands",
+     "evidence": "The bill would require the internet website to include additional information on sexual and reproductive health, including, among others, sexual and reproductive health information historically relied on and made available on federal internet websites, as specified.",
+     "evidence_verified": true,
+     "funding": "unclear",
+     "mechanism": "program_creation",
+     "subtopic": "health_care.reproductive_health_and_abortion",
+     "topic": "Health care"
+    }
+   ]
+  },
+  "AB 1572": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Requires CIF officials to annually register on a verification platform covering background screening, certificates, training, and liability insurance before assignments.",
+   "tags": [
+    {
+     "confidence": "medium",
+     "direction": "tightens",
+     "evidence": "This bill would require the CIF to verify the eligibility of its officials to officiate CIF contests by requiring those officials to annually register through a platform, as provided.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "licensing_or_registration",
+     "subtopic": "education.school_safety_and_discipline",
+     "topic": "Education"
+    }
+   ]
+  },
+  "AB 1604": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Bans intentionally added bisphenols in paper proofs of purchase starting in 2028-2029, with administrative penalties for violations.",
+   "tags": [
+    {
+     "confidence": "high",
+     "direction": "tightens",
+     "evidence": "This bill would prohibit, on and after January 1, 2028, a person from manufacturing, distributing, or offering for sale a paper proof of purchase containing intentionally added bisphenol A, as defined, and, on and after January 1, 2029, containing any intentionally added bisphenols, as defined.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "ban_or_prohibition",
+     "subtopic": "consumer_protection_and_business.consumer_protection_and_fees",
+     "topic": "Consumer protection and business"
+    }
+   ]
+  },
+  "AB 1724": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Requires the Judicial Council to report every three years on superior courts' compliance with deadlines for sending DMV conviction abstracts.",
+   "tags": [
+    {
+     "confidence": "medium",
+     "direction": "neutral",
+     "evidence": "This bill would require the Judicial Council, commencing on January 1, 2028, and every 3 years thereafter, to prepare and submit a report to the Legislature regarding superior court compliance with specified deadlines for transmitting an abstract of the record of conviction to the DMV, for certain violations, including vehicular manslaughter and driving under the influence of alcohol, pursuant to ",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "study_or_task_force",
+     "subtopic": "transportation.traffic_safety_and_enforcement",
+     "topic": "Transportation"
+    }
+   ]
+  },
+  "AB 1766": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Directs the state to consider adding human trafficking and online safety content to health curriculum and to publish related educator resources.",
+   "tags": [
+    {
+     "confidence": "medium",
+     "direction": "neutral",
+     "evidence": "This bill would require the commission, when the health curriculum framework is next revised on or after January 1, 2027, to consider providing for inclusion in that framework content related to human trafficking and online safety, including how to prevent human trafficking, how to prevent exploitation for labor and services, how to stay safe from sexually exploitative materials and deepfakes onli",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "standards_or_requirements",
+     "subtopic": "education.curriculum_and_classroom_content",
+     "topic": "Education"
+    },
+    {
+     "confidence": "medium",
+     "direction": "neutral",
+     "evidence": "The bill would require the State Department of Education to curate and maintain information on its internet website related to the above-described topics, and related recommended training for educators, as provided.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "program_creation",
+     "subtopic": "children_and_families.kids_online_safety_and_age_verification",
+     "topic": "Children and families"
+    }
+   ]
+  },
+  "AB 1833": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Allows drivers to opt into telematics for auto insurance rating, restricts telematics data use, and requires consent and privacy protections.",
+   "tags": [
+    {
+     "confidence": "high",
+     "direction": "tightens",
+     "evidence": "This bill would prohibit an insurer that uses telematics from taking specified actions, including conditioning eligibility for a discount upon participation in a telematics program, unless the discount is approved by the commissioner.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "standards_or_requirements",
+     "subtopic": "consumer_protection_and_business.insurance_market_regulation",
+     "topic": "Consumer protection and business"
+    },
+    {
+     "confidence": "high",
+     "direction": "tightens",
+     "evidence": "The bill would also set forth consent and privacy requirements for the collection and use of telematics data.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "standards_or_requirements",
+     "subtopic": "ai_and_technology.data_privacy",
+     "topic": "AI and technology"
+    }
+   ]
+  },
+  "AB 1875": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Allows courts to reduce or waive the six-month waiting period before a marriage dissolution is final, for good cause, if all material issues are resolved.",
+   "tags": [
+    {
+     "confidence": "high",
+     "direction": "not_applicable",
+     "evidence": "This bill would additionally authorize the court to reduce or waive the 6-month period described above for good cause shown, as specified, provided that the parties have resolved all material issues related to the dissolution.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "other",
+     "subtopic": "children_and_families.child_support_custody_and_family_law",
+     "topic": "Children and families"
+    }
+   ]
+  },
+  "AB 1883": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Prohibits employers from using AI workplace surveillance tools that collect neural data or detect emotional state, with civil penalties for violations.",
+   "tags": [
+    {
+     "confidence": "high",
+     "direction": "tightens",
+     "evidence": "This bill would, with certain exceptions, prohibit an employer from using a workplace surveillance tool that uses artificial intelligence to, among other things, collect neural data or recognize an individual’s emotional state.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "ban_or_prohibition",
+     "subtopic": "ai_and_technology.ai_in_employment_and_consumer_decisions",
+     "topic": "AI and technology"
+    },
+    {
+     "confidence": "medium",
+     "direction": "tightens",
+     "evidence": "This bill would, with certain exceptions, prohibit an employer from using a workplace surveillance tool that uses artificial intelligence to, among other things, collect neural data or recognize an individual’s emotional state.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "ban_or_prohibition",
+     "subtopic": "ai_and_technology.data_privacy",
+     "topic": "AI and technology"
+    }
+   ]
+  },
+  "AB 1974": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Authorizes local law enforcement to run a voluntary firearm storage program and exempts those transfers from carry prohibitions and dealer-transfer rules.",
+   "tags": [
+    {
+     "confidence": "medium",
+     "direction": "neutral",
+     "evidence": "This bill would authorize a law enforcement agency, as defined, to create a voluntary firearm storage program that allows a person to voluntarily transfer custody of their firearm to the local law enforcement agency for temporary safekeeping purposes to prevent firearm violence, suicide, and other injury.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "program_creation",
+     "subtopic": "guns_and_weapons.safe_storage_and_child_access",
+     "topic": "Guns and weapons"
+    },
+    {
+     "confidence": "medium",
+     "direction": "loosens",
+     "evidence": "This bill would exempt the voluntary transfer of a firearm to a local law enforcement agency pursuant to the provisions above from these prohibitions and regulations.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "repeal_or_exemption",
+     "subtopic": "guns_and_weapons.background_checks_and_licensing",
+     "topic": "Guns and weapons"
+    }
+   ]
+  },
+  "AB 1990": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Regulates compounded GLP-1 obesity drugs, requiring pharmaceutical-grade ingredients and records, with fines and license revocation, and bars misleading ads for them.",
+   "tags": [
+    {
+     "confidence": "medium",
+     "direction": "tightens",
+     "evidence": "This bill would make it unlawful for any person to advertise or otherwise promote certain compounded medications used for obesity or weight management, as provided, unless the advertisement is truthful and not misleading, including not containing an unsubstantiated claim with respect to the product.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "ban_or_prohibition",
+     "subtopic": "consumer_protection_and_business.consumer_protection_and_fees",
+     "topic": "Consumer protection and business"
+    }
+   ]
+  },
+  "AB 1994": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Requires police and prosecutors to inform crime victims of immigration relief rights and provide a new immigrant victims resource card.",
+   "tags": [
+    {
+     "confidence": "high",
+     "direction": "expands",
+     "evidence": "The bill would require a law enforcement agency and a prosecuting agency to provide a victim an \"Immigrant Victims Rights and Resources\" card that would provide specified information pertaining to the victim's rights, including a statement explaining how to consult an immigration attorney to help determine eligibility for immigration relief.",
+     "evidence_verified": true,
+     "funding": "unclear",
+     "mechanism": "disclosure_or_reporting",
+     "subtopic": "immigration.benefits_and_services_for_immigrants",
+     "topic": "Immigration"
+    },
+    {
+     "confidence": "medium",
+     "direction": "unclear",
+     "evidence": "",
+     "evidence_verified": false,
+     "funding": "unclear",
+     "mechanism": "disclosure_or_reporting",
+     "subtopic": "criminal_justice.victims_rights",
+     "topic": "Criminal justice"
+    }
+   ]
+  },
+  "AB 2072": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Creates a state fund and loan authority to keep CalFresh and WIC benefits flowing during federal shutdowns, sunsetting in 2030.",
+   "tags": [
+    {
+     "confidence": "medium",
+     "direction": "not_applicable",
+     "evidence": "This bill would create the CalFresh and WIC Contingency Fund.",
+     "evidence_verified": true,
+     "funding": "increases",
+     "mechanism": "funding_or_appropriation",
+     "subtopic": "children_and_families.children_s_programs_and_funding",
+     "topic": "Children and families"
+    }
+   ]
+  },
+  "AB 2128": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Prohibits housing authorities from imposing term limits or work requirements for eligibility or rent subsidies, with exceptions for voluntary job programs and federal law.",
+   "tags": [
+    {
+     "confidence": "high",
+     "direction": "not_applicable",
+     "evidence": "This bill would, unless required by federal law, and except as specified, prohibit a housing authority or other covered housing provider, as defined, from establishing or implementing any rules, policies, or procedures that impose term limits or work requirements, as defined, as a condition of eligibility for any covered housing or that impact the amount of the rent subsidy or assistance provided ",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "ban_or_prohibition",
+     "subtopic": "housing.affordable_housing_programs",
+     "topic": "Housing"
+    }
+   ]
+  },
+  "AB 2193": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Assigns traffic citations for autonomous vehicles to the owner, driver, or manufacturer depending on whether a person is driving and whether autonomous technology is engaged.",
+   "tags": [
+    {
+     "confidence": "medium",
+     "direction": "neutral",
+     "evidence": "This bill would additionally require that if an autonomous vehicle commits a traffic violation pursuant to the Vehicle Code, the traffic citation be issued to the registered owner of the autonomous vehicle if the autonomous vehicle does not have a person in the driver’s seat.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "penalty_or_enforcement",
+     "subtopic": "transportation.autonomous_vehicles",
+     "topic": "Transportation"
+    },
+    {
+     "confidence": "medium",
+     "direction": "tightens",
+     "evidence": "This bill would require a citation for a traffic violation by a level 4 or 5 autonomous vehicle to be issued to the manufacturer of the autonomous technology if a traffic violation was committed while either the vehicle did not have a person in the driver’s seat or the vehicle had a person in the driver’s seat and the autonomous technology was engaged.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "penalty_or_enforcement",
+     "subtopic": "transportation.traffic_safety_and_enforcement",
+     "topic": "Transportation"
+    }
+   ]
+  },
+  "AB 2271": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Creates a state-funded program paying up to 20 weeks of benefits to immigrants who lost income from federal DHS enforcement, subject to appropriation.",
+   "tags": [
+    {
+     "confidence": "high",
+     "direction": "expands",
+     "evidence": "This bill would establish the Immigration Enforcement Emergency Relief Program administered by the department, as specified.",
+     "evidence_verified": true,
+     "funding": "unclear",
+     "mechanism": "program_creation",
+     "subtopic": "immigration.benefits_and_services_for_immigrants",
+     "topic": "Immigration"
+    },
+    {
+     "confidence": "medium",
+     "direction": "expands",
+     "evidence": "This bill would entitle an individual eligible to receive program benefits to payment every 14 days for each week during which the individual qualified, calculated as prescribed, not to exceed 20 cumulative weeks.",
+     "evidence_verified": true,
+     "funding": "unclear",
+     "mechanism": "program_creation",
+     "subtopic": "labor_and_employment.unemployment_insurance",
+     "topic": "Labor and employment"
+    }
+   ]
+  },
+  "AB 2344": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Extends existing animal seizure, cost liability, and abandonment rules to animals seized under any provision of California law.",
+   "tags": []
+  },
+  "AB 2398": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Creates a physician graduate license letting unresidencied medical graduates practice under supervision, and requires a residency capacity workgroup and report.",
+   "tags": [
+    {
+     "confidence": "medium",
+     "direction": "loosens",
+     "evidence": "This bill would establish the Physician Graduate License Act, under which the board would be required to issue a physician graduate license to an applicant who has graduated from medical school but has not completed a residency program and who satisfies specified requirements.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "licensing_or_registration",
+     "subtopic": "health_care.hospitals_and_providers",
+     "topic": "Health care"
+    },
+    {
+     "confidence": "medium",
+     "direction": "not_applicable",
+     "evidence": "This bill would require the department to convene a workgroup to discuss graduate medical education capacity in California, with a focus on access to residency positions.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "study_or_task_force",
+     "subtopic": "health_care.health_care_workforce_and_funding",
+     "topic": "Health care"
+    }
+   ]
+  },
+  "AB 2469": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Bars local approval of data centers that increase water use unless applicants provide water supply assessments, scarcity plans, and pay infrastructure costs.",
+   "tags": [
+    {
+     "confidence": "high",
+     "direction": "restricts",
+     "evidence": "This bill would prohibit a city, county, or city and county from approving a discretionary or ministerial permit or other entitlement that would result in the construction, or an expansion that increases the maximum peak water use, of a data center unless specified conditions are satisfied, including, among others, that the applicant provides the city, county, or city and county prescribed informa",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "standards_or_requirements",
+     "subtopic": "ai_and_technology.data_centers_and_compute",
+     "topic": "AI and technology"
+    },
+    {
+     "confidence": "medium",
+     "direction": "tightens",
+     "evidence": "The bill would include in this prescribed information a water scarcity plan and a water supply assessment, each as provided.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "disclosure_or_reporting",
+     "subtopic": "environment_and_energy.water_land_and_wildlife_protection",
+     "topic": "Environment and energy"
+    }
+   ]
+  },
+  "AB 256": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Creates a one-year sentence enhancement for armed felons under the influence of a prohibited controlled substance and authorizes blood-sample search warrants for evidence.",
+   "tags": [
+    {
+     "confidence": "high",
+     "direction": "tightens",
+     "evidence": "This bill would create an enhancement for any person who, while armed with a firearm in the commission or attempted commission of a felony, is under the influence of a controlled substance they are prohibited from possessing, as specified.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "penalty_or_enforcement",
+     "subtopic": "criminal_justice.sentencing_and_penalties",
+     "topic": "Criminal justice"
+    },
+    {
+     "confidence": "medium",
+     "direction": "restricts",
+     "evidence": "This bill would create an enhancement for any person who, while armed with a firearm in the commission or attempted commission of a felony, is under the influence of a controlled substance they are prohibited from possessing, as specified.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "penalty_or_enforcement",
+     "subtopic": "criminal_justice.drug_policy",
+     "topic": "Criminal justice"
+    }
+   ]
+  },
+  "AB 2644": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Makes technical changes to Gambling Control Act licensing provisions and requires the Governor to notify the Legislature when removing a Gambling Control Commission member.",
+   "tags": [
+    {
+     "confidence": "high",
+     "direction": "neutral",
+     "evidence": "This bill would make technical, nonsubstantive changes to these provisions.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "other",
+     "subtopic": "consumer_protection_and_business.gambling_and_sports_betting",
+     "topic": "Consumer protection and business"
+    },
+    {
+     "confidence": "medium",
+     "direction": "not_applicable",
+     "evidence": "This bill would additionally require the Governor to notify the Legislature of the removal of any member of the commission.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "disclosure_or_reporting",
+     "subtopic": "government_administration.state_agencies_and_structure",
+     "topic": "Government administration"
+    }
+   ]
+  },
+  "AB 54": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Protects access to medication abortion drugs, including mailing them, and shields patients and providers from civil, criminal, and disciplinary liability.",
+   "tags": [
+    {
+     "confidence": "high",
+     "direction": "expands",
+     "evidence": "the Legislature would reaffirm that it has been, and would continue to be, lawful to cause the delivery of, or mail, ship, take, receive, or otherwise transport, any drug, medicine, or instrument that can be designed or adapted to produce an abortion that is lawful in the State of California.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "repeal_or_exemption",
+     "subtopic": "health_care.reproductive_health_and_abortion",
+     "topic": "Health care"
+    }
+   ]
+  },
+  "AB 633": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Extends human trafficking victim vacatur relief to offenses committed as minors while being trafficked, covering arrests and convictions.",
+   "tags": [
+    {
+     "confidence": "high",
+     "direction": "expands",
+     "evidence": "This bill would expand that relief to also be available for persons who were convicted of or arrested for any offense committed when they were under the age of 18 and while they were a victim of human trafficking.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "other",
+     "subtopic": "criminal_justice.victims_rights",
+     "topic": "Criminal justice"
+    }
+   ]
+  },
+  "AB 773": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Suspends enforcement of copper-based antifouling paint regulations and deems approved paint compliant until agencies complete studies and guidelines.",
+   "tags": [
+    {
+     "confidence": "high",
+     "direction": "loosens",
+     "evidence": "The bill would provide that, until the end of the suspension of the enforcement of those regulations, all boats that are painted with a copper-based antifouling paint that is approved by the department are considered to be in compliance with any regulation relating to copper-based antifouling paint.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "repeal_or_exemption",
+     "subtopic": "environment_and_energy.water_land_and_wildlife_protection",
+     "topic": "Environment and energy"
+    }
+   ]
+  },
+  "AJR 21": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Urges Congress to propose a constitutional amendment requiring all states to use independent redistricting commissions.",
+   "tags": [
+    {
+     "confidence": "high",
+     "direction": "not_applicable",
+     "evidence": "This measure would urge the Congress of the United States to propose a constitutional amendment that would require all states to adopt nonpartisan, independent redistricting commissions to draw congressional and legislative district lines.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "other",
+     "subtopic": "elections_and_voting.redistricting",
+     "topic": "Elections and voting"
+    },
+    {
+     "confidence": "high",
+     "direction": "not_applicable",
+     "evidence": "This measure would urge the Congress of the United States to propose a constitutional amendment that would require all states to adopt nonpartisan, independent redistricting commissions to draw congressional and legislative district lines.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "other",
+     "subtopic": "government_administration.constitutional_amendments_and_resolutions",
+     "topic": "Government administration"
+    }
+   ]
+  },
+  "SB 1086": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Requires the state Office of Land Use and Climate Innovation to develop model local ordinances covering microschools and micro-education entities.",
+   "tags": [
+    {
+     "confidence": "medium",
+     "direction": "neutral",
+     "evidence": "This bill would require the Office of Land Use and Climate Innovation, in consultation with specified state entities, to develop and publish one or more model ordinances regarding micro-education entities and microschools.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "other",
+     "subtopic": "housing.zoning_and_land_use",
+     "topic": "Housing"
+    }
+   ]
+  },
+  "SB 1106": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Adds agentic artificial intelligence to state risk-analysis recommendations and to the state high-risk automated decision system inventory.",
+   "tags": [
+    {
+     "confidence": "medium",
+     "direction": "tightens",
+     "evidence": "This bill would further require the comprehensive inventory in the report to include agentic artificial intelligence that has been, or is being, used, developed, or procured by a state agency.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "disclosure_or_reporting",
+     "subtopic": "ai_and_technology.ai_safety_and_oversight",
+     "topic": "AI and technology"
+    },
+    {
+     "confidence": "medium",
+     "direction": "neutral",
+     "evidence": "This bill would further require the comprehensive inventory in the report to include agentic artificial intelligence that has been, or is being, used, developed, or procured by a state agency.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "disclosure_or_reporting",
+     "subtopic": "ai_and_technology.government_use_of_ai",
+     "topic": "AI and technology"
+    }
+   ]
+  },
+  "SB 1159": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Excludes AI systems from public-access, open-meeting, APA, Coastal Act and CEQA participation terms, lets agencies use AI-detection tools, and bans knowingly using AI to falsely pose as a person dealing with government.",
+   "tags": [
+    {
+     "confidence": "medium",
+     "direction": "tightens",
+     "evidence": "The bill would prohibit a person from knowingly using artificial intelligence to falsely represent that a natural person appeared before, submitted information to, or otherwise engaged with a governmental agency.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "ban_or_prohibition",
+     "subtopic": "ai_and_technology.ai_safety_and_oversight",
+     "topic": "AI and technology"
+    },
+    {
+     "confidence": "medium",
+     "direction": "tightens",
+     "evidence": "This bill would specify that, for purposes of the California Public Records Act, the Bagley-Keene Open Meeting Act, the Ralph M. Brown Act, the Legislative Open Records Act, the Administrative Procedure Act, the California Coastal Act of 1976, and CEQA, \"person,\" \"interested person,\" \"participant,\" \"member of the public,\" as applicable, and any other similar terms under each act referring to those",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "other",
+     "subtopic": "government_administration.ethics_and_transparency",
+     "topic": "Government administration"
+    },
+    {
+     "confidence": "medium",
+     "direction": "neutral",
+     "evidence": "The bill would authorize governmental agencies to use a disclosure verification tool to determine if artificial intelligence is present.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "other",
+     "subtopic": "ai_and_technology.government_use_of_ai",
+     "topic": "AI and technology"
+    }
+   ]
+  },
+  "SB 1168": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Directs the Public Utilities Commission to assess rate structures so data centers pay their share of grid costs.",
+   "tags": [
+    {
+     "confidence": "medium",
+     "direction": "neutral",
+     "evidence": "This bill would require the commission to assess opportunities for rate structures to ensure data centers pay a reasonable share of their costs associated with transmission and distribution needs, ensure that data centers pay for their proportionate share of load increases and procurements needed to reliably serve their loads while maintaining consistency with the applicable integrated resource pl",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "study_or_task_force",
+     "subtopic": "environment_and_energy.utility_regulation_and_rates",
+     "topic": "Environment and energy"
+    }
+   ]
+  },
+  "SB 1182": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Requires fire-zone developers to obtain insurance quotes and meet fire building standards, and safety elements to address insurance availability.",
+   "tags": [
+    {
+     "confidence": "high",
+     "direction": "tightens",
+     "evidence": "This bill, on and after June 1, 2031, would require a developer of a new development that is unable to obtain the insurance quotes described above to ensure that a structure or unit located in a high fire hazard severity zone area meets the applicable building standard requirements adopted by the commission for a very high fire hazard severity zone",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "standards_or_requirements",
+     "subtopic": "housing.building_codes_and_construction",
+     "topic": "Housing"
+    },
+    {
+     "confidence": "medium",
+     "direction": "tightens",
+     "evidence": "This bill would, for safety elements updated on or after January 1, 2028, require the safety element to include the availability of insurance for existing and planned uses within very high fire hazard severity zones and in state responsibility areas.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "standards_or_requirements",
+     "subtopic": "housing.zoning_and_land_use",
+     "topic": "Housing"
+    }
+   ]
+  },
+  "SB 1196": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Requires the PUC by 2027 to set timelines for utilities to respond to and process requests to energize small electrical projects.",
+   "tags": [
+    {
+     "confidence": "medium",
+     "direction": "tightens",
+     "evidence": "This bill would require the commission, by September 30, 2027, in a new or existing proceeding, to establish timelines for electrical corporations to respond to and process requests to energize small energization projects, as provided.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "standards_or_requirements",
+     "subtopic": "environment_and_energy.utility_regulation_and_rates",
+     "topic": "Environment and energy"
+    }
+   ]
+  },
+  "SB 1315": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Requires ADAS manufacturers to let drivers disable driver-assistance or autonomous features where manual driving was previously available, enforceable by civil penalties up to $25,000.",
+   "tags": [
+    {
+     "confidence": "medium",
+     "direction": "restricts",
+     "evidence": "This bill would require the manufacturer of an advanced driver assistance system, or an automobile equipped with an advanced driver assistance system, to ensure a driver is able to disable or disengage either an advanced driver assistance system or autonomous technology as a condition of operating the vehicle under a condition in which manual operation was previously available.",
+     "evidence_verified": true,
+     "funding": "unclear",
+     "mechanism": "standards_or_requirements",
+     "subtopic": "transportation.autonomous_vehicles",
+     "topic": "Transportation"
+    }
+   ]
+  },
+  "SB 1328": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Requires public colleges to designate a contact employee for LGBTQ students, faculty and staff at branch and satellite campuses.",
+   "tags": [
+    {
+     "confidence": "medium",
+     "direction": "expands",
+     "evidence": "This bill would require the trustees and the governing board of a community college district, and would request the regents, to also designate an employee as a point of contact for the needs of the above-described faculty, staff, and students of a branch campus, satellite location, or site other than the main campus, as specified.",
+     "evidence_verified": true,
+     "funding": "unclear",
+     "mechanism": "standards_or_requirements",
+     "subtopic": "civil_rights_and_liberties.anti_discrimination_protections",
+     "topic": "Civil rights and liberties"
+    }
+   ]
+  },
+  "SB 44": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Requires businesses offering brain-computer interfaces to use neural data only for its collection purpose and delete it once that purpose is accomplished.",
+   "tags": [
+    {
+     "confidence": "high",
+     "direction": "tightens",
+     "evidence": "This bill would require, under the CCPA, a covered business to use neural data only for the purpose for which the neural data was collected and would require a covered business to delete neural data when the purpose for which the neural data was collected is accomplished.",
+     "evidence_verified": true,
+     "funding": "unclear",
+     "mechanism": "standards_or_requirements",
+     "subtopic": "ai_and_technology.data_privacy",
+     "topic": "AI and technology"
+    }
+   ]
+  },
+  "SB 511": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Moves up the zero-emission requirement for autonomous vehicles to 2028, broadens the AV definition to Level 2, and requires DMV training and application fees for cost recovery.",
+   "tags": [
+    {
+     "confidence": "medium",
+     "direction": "mixed",
+     "evidence": "This bill would instead require those zero-emission vehicle provisions to commence January 1, 2028, and apply to an autonomous vehicle with a model year of 2028 or later.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "standards_or_requirements",
+     "subtopic": "transportation.autonomous_vehicles",
+     "topic": "Transportation"
+    }
+   ]
+  },
+  "SB 813": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Creates a designation and reporting framework for independent verification organizations that assess AI system risks, with working groups and agency reports.",
+   "tags": [
+    {
+     "confidence": "medium",
+     "direction": "unclear",
+     "evidence": "",
+     "evidence_verified": false,
+     "funding": "unclear",
+     "mechanism": "licensing_or_registration",
+     "subtopic": "ai_and_technology.ai_safety_and_oversight",
+     "topic": "AI and technology"
+    }
+   ]
+  },
+  "SB 925": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Requires a state fusion energy strategic plan by 2029 and lets fusion manufacturing facilities seek CEQA streamlining certification.",
+   "tags": [
+    {
+     "confidence": "high",
+     "direction": "loosens",
+     "evidence": "This bill would expand the types of facilities eligible to be certified as environmental leadership development projects by the commission to include a discretionary project, as described, for the manufacture, production, or assembly of specialized products, components, or systems that are integral to fusion energy.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "permitting_streamlining",
+     "subtopic": "environment_and_energy.environmental_permitting_and_review",
+     "topic": "Environment and energy"
+    },
+    {
+     "confidence": "medium",
+     "direction": "neutral",
+     "evidence": "This bill would require the commission, in coordination with specified agencies, to develop a strategic plan for the development of fusion energy in California, as specified.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "study_or_task_force",
+     "subtopic": "environment_and_energy.nuclear_power",
+     "topic": "Environment and energy"
+    }
+   ]
+  },
+  "SB 978": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Requires the PUC to create a special electricity rate for large data centers, bars cost shifts to other customers, and imposes construction labor requirements.",
+   "tags": [
+    {
+     "confidence": "high",
+     "direction": "tightens",
+     "evidence": "This bill would require the PUC to establish a special rate structure for data centers, as defined, taking transmission level electrical service with an estimated peak demand of at least 75 megawatts of electricity",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "standards_or_requirements",
+     "subtopic": "environment_and_energy.utility_regulation_and_rates",
+     "topic": "Environment and energy"
+    },
+    {
+     "confidence": "medium",
+     "direction": "restricts",
+     "evidence": "The bill would require the construction of data centers subject to the special rate structure to comply with certain labor requirements.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "standards_or_requirements",
+     "subtopic": "ai_and_technology.data_centers_and_compute",
+     "topic": "AI and technology"
+    },
+    {
+     "confidence": "medium",
+     "direction": "tightens",
+     "evidence": "The bill would require the construction of data centers subject to the special rate structure to comply with certain labor requirements.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "standards_or_requirements",
+     "subtopic": "labor_and_employment.minimum_wage_and_wage_rules",
+     "topic": "Labor and employment"
+    }
+   ]
+  },
+  "SCR 139": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Proclaims March 2026 as Afghan American Heritage Month and recognizes Afghan Americans' contributions to California's cultural and civic life.",
+   "tags": [
+    {
+     "confidence": "high",
+     "direction": "not_applicable",
+     "evidence": "This measure would proclaim the month of March 2026 as Afghan American Heritage Month and recognize Afghan Americans as an essential part of cultural and civic life of this state.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "other",
+     "subtopic": "government_administration.ceremonial_and_commemorative_measures",
+     "topic": "Government administration"
+    }
+   ]
+  },
+  "SCR 165": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Designates May 3 to May 9, 2026 as California Wildfire Preparedness Week.",
+   "tags": [
+    {
+     "confidence": "high",
+     "direction": "not_applicable",
+     "evidence": "This measure would designate the week of May 3 to May 9, 2026, inclusive, as California Wildfire Preparedness Week.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "other",
+     "subtopic": "government_administration.ceremonial_and_commemorative_measures",
+     "topic": "Government administration"
+    }
+   ]
+  },
+  "SCR 65": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Designates May 2025 as California Fairgrounds Appreciation Month to honor the state's 77 fairgrounds.",
+   "tags": [
+    {
+     "confidence": "high",
+     "direction": "not_applicable",
+     "evidence": "This measure would designate the month of May 2025 as California Fairgrounds Appreciation Month in appreciation for the services provided to California by the 77 fairgrounds in the state.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "other",
+     "subtopic": "government_administration.ceremonial_and_commemorative_measures",
+     "topic": "Government administration"
+    }
+   ]
+  },
+  "SCR 68": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Declares the week of May 5, 2025, as Tardive Dyskinesia Awareness Week.",
+   "tags": [
+    {
+     "confidence": "high",
+     "direction": "not_applicable",
+     "evidence": "This measure would declare the week of May 5, 2025, as Tardive Dyskinesia Awareness Week.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "other",
+     "subtopic": "government_administration.ceremonial_and_commemorative_measures",
+     "topic": "Government administration"
+    }
+   ]
+  },
+  "SJR 4": {
+   "dropped_low_confidence": 0,
+   "has_digest": true,
+   "summary": "Urges the federal government to rescind NIH funding cuts and affirms the Legislature's commitment to postsecondary institutions.",
+   "tags": [
+    {
+     "confidence": "high",
+     "direction": "not_applicable",
+     "evidence": "This measure would urge the administration of President Donald J. Trump and the Congress of the United States to rescind the National Institutes of Health funding cuts.",
+     "evidence_verified": true,
+     "funding": "none",
+     "mechanism": "other",
+     "subtopic": "government_administration.constitutional_amendments_and_resolutions",
+     "topic": "Government administration"
+    }
+   ]
+  }
+ },
+ "model": "claude-haiku-5-5",
+ "taxonomy": "1.0"
+}
