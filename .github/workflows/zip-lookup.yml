@@ -1,0 +1,39 @@
+name: "Build the California ZIP-to-district lookup from Census overlap files"
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: List what the Census publishes for ZCTA to state legislative districts
+        run: |
+          curl -sS -L -m 60 https://www2.census.gov/geo/docs/maps-data/data/rel2020/zcta520/ | grep -o 'tab20_zcta520_sld[a-z0-9_]*\.txt' | sort -u || true
+      - name: Download the overlap files
+        run: |
+          mkdir -p /tmp/rel
+          for chamber in sldl sldu; do
+            ok=""
+            for yr in 22 24 18; do
+              f="tab20_zcta520_${chamber}${yr}_natl.txt"
+              code=$(curl -sS -L -m 180 -o "/tmp/rel/$chamber.txt" -w "%{http_code}" "https://www2.census.gov/geo/docs/maps-data/data/rel2020/zcta520/$f" || true)
+              echo "$f -> $code"
+              if [ "$code" = "200" ]; then ok="$f"; break; fi
+            done
+            [ -n "$ok" ] || { echo "no $chamber file found"; exit 1; }
+            echo "$chamber: $ok, $(wc -l < /tmp/rel/$chamber.txt) lines"; head -2 "/tmp/rel/$chamber.txt" | cut -c1-400
+          done
+      - name: Build the lookup
+        run: python3 scripts/build_zip_lookup.py /tmp/rel/sldl.txt /tmp/rel/sldu.txt data/ca/zip_lookup.json
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ca/zip_lookup.json
+          git diff --cached --quiet && { echo "no change"; exit 0; }
+          git commit -q -m "California ZIP to legislative district lookup (Census overlap files)"
+          git pull -q --rebase origin main && git push -q origin main
