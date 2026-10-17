@@ -2,6 +2,11 @@ name: "Build the California ZIP-to-district lookup from Census overlap files"
 
 on:
   workflow_dispatch:
+    inputs:
+      build:
+        description: "Download and build (otherwise only list what Census offers)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -11,10 +16,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
-      - name: List what the Census publishes for ZCTA to state legislative districts
+      - name: List what the Census publishes (ZCTA relationship files)
         run: |
-          curl -sS -L -m 60 https://www2.census.gov/geo/docs/maps-data/data/rel2020/zcta520/ | grep -o 'tab20_zcta520_sld[a-z0-9_]*\.txt' | sort -u || true
+          for d in rel2020/zcta520 rel2020; do
+            echo "== $d"
+            curl -sS -L -m 60 "https://www2.census.gov/geo/docs/maps-data/data/$d/" | grep -o 'href="[^"]*"' | sed 's/href=//' | tr -d '"' | grep -i -E 'sld|zcta|legis|state' | head -60 || true
+          done
+          echo "== other places to look"
+          curl -sS -L -m 60 "https://www.census.gov/geographies/reference-files/time-series/geo/relationship-files.html" | grep -o -i -E '[A-Za-z0-9_./:-]*(sldl|sldu|legislative)[A-Za-z0-9_./:-]*\.(txt|zip|csv)' | sort -u | head -40 || true
       - name: Download the overlap files
+        if: ${{ inputs.build }}
         run: |
           mkdir -p /tmp/rel
           for chamber in sldl sldu; do
@@ -29,8 +40,10 @@ jobs:
             echo "$chamber: $ok, $(wc -l < /tmp/rel/$chamber.txt) lines"; head -2 "/tmp/rel/$chamber.txt" | cut -c1-400
           done
       - name: Build the lookup
+        if: ${{ inputs.build }}
         run: python3 scripts/build_zip_lookup.py /tmp/rel/sldl.txt /tmp/rel/sldu.txt data/ca/zip_lookup.json
       - name: Commit
+        if: ${{ inputs.build }}
         run: |
           git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/ca/zip_lookup.json
