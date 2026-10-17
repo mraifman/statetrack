@@ -1,0 +1,47 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AB 1992 · StateTrack</title><meta name="description" content="Exempts 501(c)(3) nonprofits from paying PAGA notice filing fees under the Labor Code enforcement process."><style>
+:root{color-scheme:light;--bg:#f9f9f7;--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;--line:#e1e0d9;--axis:#c3c2b7;--accent:#2a78d6;
+--rest2:#a82b2a;--rest1:#e34948;--mixed:#898781;--neutral:#c3c2b7;--perm1:#5598e7;--perm2:#1c5cab;--chip:#efeee9;--link:#1c5cab}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0d0d0d;--surface:#1a1a19;--ink:#f0efec;--ink2:#c3c2b7;--muted:#898781;--line:#2c2c2a;--axis:#383835;--accent:#3987e5;
+--rest2:#b84040;--rest1:#e66767;--mixed:#898781;--neutral:#55544f;--perm1:#5598e7;--perm2:#3987e5;--chip:#262624;--link:#6da7ec}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0d0d0d;--surface:#1a1a19;--ink:#f0efec;--ink2:#c3c2b7;--muted:#898781;--line:#2c2c2a;--axis:#383835;--accent:#3987e5;
+--rest2:#b84040;--rest1:#e66767;--mixed:#898781;--neutral:#55544f;--perm1:#5598e7;--perm2:#3987e5;--chip:#262624;--link:#6da7ec}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:var(--link)}header.site{background:var(--surface);border-bottom:1px solid var(--line)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}nav{display:flex;gap:18px;align-items:center;flex-wrap:wrap;padding:12px 0}
+nav .brand{font-weight:700;color:var(--ink);text-decoration:none;margin-right:8px}nav a{color:var(--ink2);text-decoration:none}nav a:hover{color:var(--ink);text-decoration:underline}
+main{padding:24px 0 64px}h1{font-size:30px;line-height:1.2;margin:8px 0 6px}h2{font-size:20px;margin:32px 0 8px}h3{font-size:16px;margin:20px 0 6px}
+.lede{color:var(--ink2);max-width:70ch;margin:0 0 16px}.muted{color:var(--muted)}.small{font-size:13px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:16px 0}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px}.tile b{display:block;font-size:28px;line-height:1.1}.tile span{color:var(--ink2);font-size:13px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:12px 0}
+table{border-collapse:collapse;width:100%;font-size:14px}th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--ink2);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.03em}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+.bars .row{display:grid;grid-template-columns:minmax(120px,230px) 1fr 56px;gap:10px;align-items:center;padding:3px 0}
+.bars .track{height:16px}.bars .fill{height:100%;background:var(--accent);border-radius:0 4px 4px 0;min-width:2px}
+.bars a{color:var(--ink);text-decoration:none}.bars a:hover{text-decoration:underline}.bars .v{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink2)}
+.div{display:flex;height:16px;gap:2px;border-radius:4px;overflow:hidden;background:transparent}.div i{display:block;height:100%;min-width:2px}
+.div .rest2{background:var(--rest2)}.div .rest1{background:var(--rest1)}.div .mixed{background:var(--mixed)}.div .neutral{background:var(--neutral)}.div .perm1{background:var(--perm1)}.div .perm2{background:var(--perm2)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin:8px 0;font-size:13px;color:var(--ink2)}.legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px;background:var(--c)}
+.chip{display:inline-block;background:var(--chip);border-radius:999px;padding:1px 9px;font-size:12px;color:var(--ink2);margin:1px 4px 1px 0;white-space:nowrap}
+.dot{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:0}
+.party{font-weight:600}.DEM{color:#2a78d6}.REP{color:#d03b3b}
+blockquote{margin:6px 0;padding:6px 12px;border-left:3px solid var(--axis);color:var(--ink2);background:var(--surface)}
+input,select{font:inherit;padding:7px 9px;border:1px solid var(--axis);border-radius:8px;background:var(--surface);color:var(--ink)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.filters input{flex:1;min-width:200px}
+details summary{cursor:pointer;color:var(--ink2)}footer{color:var(--muted);font-size:13px;padding:24px 0;border-top:1px solid var(--line)}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}.note{border-left:3px solid var(--accent);padding:6px 12px;background:var(--surface)}
+@media (max-width:640px){.bars .row{grid-template-columns:1fr 60px}.bars .track{grid-column:1/-1;order:3}}
+</style></head><body>
+<header class="site"><div class="wrap"><nav><a class="brand" href="../index.html">StateTrack</a><a href="../index.html">Overview</a><a href="../bills.html">All bills</a>
+<a href="../legislators.html">Legislators</a><a href="../method.html">How it works</a><span class="muted small">California 2025–26 · demo</span></nav></div></header>
+<main><div class="wrap"><p class="small"><a href="../bills.html">← All bills</a></p><h1>AB 1992 · Labor Code Private Attorneys General Act of 2004: notice and cure: filing fees.</h1>
+<p class="lede">Exempts 501(c)(3) nonprofits from paying PAGA notice filing fees under the Labor Code enforcement process.</p>
+<div class="tiles"><div class="tile"><b style="font-size:18px">In Committee Process</b><span>Status</span></div><div class="tile"><b style="font-size:18px">2026-03-02</b><span>Last action</span></div>
+<div class="tile"><b style="font-size:18px">Assembly</b><span>Currently in</span></div></div>
+<p><b>Authors:</b> <a href="../legislator/ad72.html">Dixon, Diane</a> <span class="muted small">(lead author)</span></p>
+<h2>Topic tags</h2><div class="scroll"><table><thead><tr><th>Topic → sub-topic</th><th>Direction</th><th>Mechanism</th><th>Funding</th><th>Confidence</th><th>Quoted from the digest</th></tr></thead><tbody><tr><td><a href="../topic/criminal_justice.html">Criminal justice</a> → Courts and procedure</td><td><b>—</b></td><td>repeal or exemption</td><td>none</td><td>medium</td><td><blockquote>“This bill would exempt a nonprofit organization exempt from federal income taxation pursuant to Section 501(c)(3) of the Internal Revenue Code of 1986 from the requirement to pay those filing fees.”</blockquote></td></tr></tbody></table></div>
+<h2>What the bill does (Legislative Counsel’s digest)</h2><div class="card small">The Labor Code Private Attorneys General Act of 2004 (PAGA) authorizes an aggrieved employee, as defined, to bring a civil action on behalf of that employee, and other current or former employees against whom a violation of the same provision of the Labor Code was committed, to enforce a violation of any provision of the Labor Code that provides for a civil penalty to be assessed and collected by the Labor and Workforce Development Agency, as specified, pursuant to certain notice and cure provisions, as prescribed. Before a civil action alleging certain violations of the Labor Code by an aggrieved employee pursuant to PAGA commences, PAGA requires the aggrieved employee or representative to give written notice by online filing with the Labor and Workforce Development Agency and by certified mail to the employer of the specific provisions of the Labor Code alleged to have been violated, including the facts and theories to support the alleged violation, and requires that notice and any response to that notice by the employer to be accompanied by a filing fee of $75, as specified. This bill would exempt a nonprofit organization exempt from federal income taxation pursuant to Section 501(c)(3) of the Internal Revenue Code of 1986 from the requirement to pay those filing fees.</div>
+<h2>Floor votes</h2><p class="muted">No recorded floor votes.</p>
+<h2>Recent actions</h2><div class="scroll"><table><tbody><tr><td class="small">2026-03-02</td><td>Referred to Coms. on  L. &amp; E. and  JUD.</td></tr><tr><td class="small">2026-02-18</td><td>From printer.  May be heard in committee  March  20.</td></tr><tr><td class="small">2026-02-17</td><td>Read first time.  To print.</td></tr></tbody></table></div>
+<p class="small"><a href="https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202520260AB1992">Official record on leginfo.legislature.ca.gov ↗</a></p></div></main><footer><div class="wrap">Demo for California’s 2025–26 session. Bill data: California Legislative Information (official bulk file). Topics and directions are labelled by an AI model from the bill’s title and the Legislative Counsel’s digest, and are approximate. <a href="../method.html">How it works</a></div></footer></body></html>
