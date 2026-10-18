@@ -1,28 +1,28 @@
 state,topic,sub_topic,bills,directional_tags,mean_direction,became_law
-CA,Health care,Reproductive Health and Abortion,32,26,1.038,14
-CA,Health care,Gender-Affirming and Transgender Health Care,10,9,0.778,6
+CA,Health care,Reproductive Health and Abortion,32,29,1.172,14
+CA,Health care,Gender-Affirming and Transgender Health Care,10,10,0.900,6
 CA,Health care,Medicaid and Public Coverage,98,67,0.746,26
 CA,Health care,Private Insurance Rules and Mandates,87,76,-0.789,35
 CA,Health care,Drug Pricing and Pharmacy,34,29,-0.034,14
 CA,Health care,"Hospitals and Providers (Certificate of Need, Scope of Practice)",136,117,-0.026,61
 CA,Health care,Mental Health and Substance Use Treatment,118,81,0.494,47
-CA,Health care,"Public Health, Vaccines and Emergency Measures",64,48,-0.271,27
+CA,Health care,"Public Health, Vaccines and Emergency Measures",64,44,-0.364,27
 CA,Health care,Long-Term Care and Disability Services,79,0,,31
 CA,Health care,Health Care Workforce and Funding,59,0,,19
 CA,Guns and weapons,"Carry and Ownership, Including Public Places and Schools",18,18,-0.167,7
-CA,Guns and weapons,"Purchase, Licensing and Dealers",21,18,-0.556,13
+CA,Guns and weapons,"Purchase, Licensing and Dealers",21,20,-0.700,13
 CA,Guns and weapons,Weapon and Magazine Types,9,7,-0.143,4
 CA,Guns and weapons,Safe Storage and Extreme-Risk Orders,9,7,-1.000,6
 CA,Guns and weapons,Violence Prevention Programs,5,0,,2
 CA,Children and families,Child Welfare and Foster Care,87,0,,44
 CA,Children and families,Child Care and Early Education,42,30,0.933,18
 CA,Children and families,Parental Rights,19,19,0.684,8
-CA,Children and families,Kids' Online Safety and Age Verification,21,20,-1.000,12
+CA,Children and families,Kids' Online Safety and Age Verification,21,20,-1.150,12
 CA,Children and families,Juvenile Justice,35,29,-0.207,14
 CA,Children and families,"Child Support, Custody and Family Law",22,0,,15
 CA,Children and families,Children's Programs and Funding,60,0,,21
-CA,Housing,"Zoning, Land Use and Short-Term Rentals",147,103,0.417,85
-CA,Housing,Rent Regulation and Tenant Protections,61,49,-0.735,26
+CA,Housing,"Zoning, Land Use and Short-Term Rentals",147,125,0.336,85
+CA,Housing,Rent Regulation and Tenant Protections,61,55,-0.691,26
 CA,Housing,Affordable Housing Programs,78,0,,36
 CA,Housing,Homelessness (Services vs. Encampment Rules),51,34,0.647,19
 CA,Housing,Building Codes and Construction,68,46,0.413,30
@@ -33,12 +33,12 @@ CA,AI and technology,Government Use of AI,13,8,-0.250,4
 CA,AI and technology,Deepfakes and Synthetic Media,18,17,-0.706,11
 CA,AI and technology,AI in Employment and Consumer Decisions,15,13,-1.077,4
 CA,AI and technology,Data Centers and Compute,12,5,-0.200,8
-CA,AI and technology,Data Privacy and Security,82,71,-0.803,41
+CA,AI and technology,Data Privacy and Security,82,76,-0.882,41
 CA,AI and technology,Social Media and Online Platforms,20,19,-0.895,8
 CA,AI and technology,Broadband and Telecom,15,12,0.667,3
 CA,Education,K-12 Funding,54,0,,18
 CA,Education,School Choice and Vouchers,14,8,0.750,6
-CA,Education,Curriculum and Classroom Content,65,27,-0.481,29
+CA,Education,Curriculum and Classroom Content,65,44,-0.523,29
 CA,Education,Higher Education Costs and Aid,69,0,,32
 CA,Education,"Campus Policy (Speech, DEI, Tenure)",13,6,-1.000,6
 CA,Education,Teacher Workforce and Pay,45,0,,28
@@ -49,7 +49,7 @@ CA,Taxes and budget,Sales and Excise Taxes,51,0,,23
 CA,Taxes and budget,Business Tax Incentives and Credits,48,0,,12
 CA,Taxes and budget,State Budget and Appropriations,162,0,,46
 CA,Taxes and budget,"Bonds, Debt and Pensions Funding",22,0,,11
-CA,Elections and voting,"Voter Registration and Access (Mail Voting, Early Voting)",41,32,0.438,18
+CA,Elections and voting,"Voter Registration and Access (Mail Voting, Early Voting)",41,36,0.444,18
 CA,Elections and voting,Voter ID and Election Security,22,20,-0.900,14
 CA,Elections and voting,Redistricting,11,0,,7
 CA,Elections and voting,Campaign Finance,30,27,-0.444,21
@@ -63,25 +63,25 @@ CA,Transportation,Drones and Aviation,11,7,-1.000,3
 CA,Transportation,Transit and Infrastructure Funding,57,0,,23
 CA,Transportation,"Vehicle Registration, Licensing and Fees",39,0,,11
 CA,Environment and energy,Climate and Emissions,94,58,0.207,24
-CA,Environment and energy,"Clean Energy (Renewables, Storage, Nuclear)",71,57,0.702,30
+CA,Environment and energy,"Clean Energy (Renewables, Storage, Nuclear)",71,60,0.700,30
 CA,Environment and energy,"Fossil Fuels, Pipelines and Mining",31,23,-0.391,13
-CA,Environment and energy,Utility Regulation and Rates,118,87,-0.586,37
+CA,Environment and energy,Utility Regulation and Rates,118,97,-0.557,37
 CA,Environment and energy,Environmental Permitting and Review,138,116,0.647,57
 CA,Environment and energy,"Water, Land and Wildlife Protection",162,114,-0.105,68
 CA,Environment and energy,Public Lands and Conservation Funding,73,0,,24
 CA,Criminal justice,Sentencing and Penalties,162,156,-0.667,61
-CA,Criminal justice,Policing and Accountability,70,56,-0.589,37
+CA,Criminal justice,Policing and Accountability,70,66,-0.530,37
 CA,Criminal justice,"Bail, Pretrial and Courts",66,49,-0.082,39
-CA,Criminal justice,"Drug Policy (Cannabis, Decriminalization)",31,25,0.200,11
+CA,Criminal justice,"Drug Policy (Cannabis, Decriminalization)",31,25,0.280,11
 CA,Criminal justice,Corrections and Reentry,97,80,0.362,30
 CA,Criminal justice,Victims' Rights,50,48,0.938,25
-CA,Labor and employment,Minimum Wage and Wage Rules,35,27,-0.519,19
-CA,Labor and employment,Unions and Collective Bargaining,35,30,1.033,18
+CA,Labor and employment,Minimum Wage and Wage Rules,35,32,-0.656,19
+CA,Labor and employment,Unions and Collective Bargaining,35,34,0.971,18
 CA,Labor and employment,Worker Safety and Protections,67,56,-0.714,35
 CA,Labor and employment,"Worker Benefits (Paid Leave, Unemployment Insurance)",31,24,0.792,14
 CA,Labor and employment,Gig Work and Independent Contractors,10,9,0.444,4
 CA,Labor and employment,Occupational Licensing,86,69,0.043,55
-CA,Immigration,"State Cooperation with Federal Enforcement, Including Employment Verification",40,36,-0.667,17
+CA,Immigration,"State Cooperation with Federal Enforcement, Including Employment Verification",40,38,-0.553,17
 CA,Immigration,"Benefits, Education and Services for Immigrants",43,38,0.605,15
 CA,Civil rights and liberties,"Anti-Discrimination Protections, Including DEI Programs",46,42,0.476,21
 CA,Civil rights and liberties,Speech and Religion,15,14,0.500,11
@@ -91,39 +91,39 @@ CA,Consumer protection and business,Consumer Protection and Fees,189,179,-0.827,
 CA,Consumer protection and business,Insurance Market Regulation,72,59,-0.678,33
 CA,Consumer protection and business,"Banking, Lending and Crypto",46,31,-0.581,22
 CA,Consumer protection and business,Business Licensing and Regulation,99,85,-0.435,52
-CA,Consumer protection and business,Gambling and Sports Betting,30,13,0.462,17
-CA,Consumer protection and business,"Alcohol, Tobacco and Vaping",46,42,-0.119,28
+CA,Consumer protection and business,Gambling and Sports Betting,30,18,0.611,17
+CA,Consumer protection and business,"Alcohol, Tobacco and Vaping",46,41,-0.122,28
 CA,Consumer protection and business,Food and Agriculture,71,0,,33
 CA,Government and administration,State Agencies and Programs,288,0,,114
-CA,Government and administration,Local Control and Preemption,158,147,-0.177,90
+CA,Government and administration,Local Control and Preemption,158,152,-0.250,90
 CA,Government and administration,Ethics and Transparency,145,131,-0.634,68
 CA,Government and administration,Public Employees and Pensions,68,0,,30
 CA,Government and administration,State Constitution and Ballot Measures,59,0,,24
 CA,Government and administration,Emergency Powers,46,0,,10
-FL,Health care,Reproductive Health and Abortion,41,34,0.412,1
-FL,Health care,Gender-Affirming and Transgender Health Care,6,6,0.167,0
+FL,Health care,Reproductive Health and Abortion,41,36,0.417,1
+FL,Health care,Gender-Affirming and Transgender Health Care,6,6,0.500,0
 FL,Health care,Medicaid and Public Coverage,105,81,0.864,5
 FL,Health care,Private Insurance Rules and Mandates,66,60,-0.700,4
 FL,Health care,Drug Pricing and Pharmacy,57,49,-0.306,3
 FL,Health care,"Hospitals and Providers (Certificate of Need, Scope of Practice)",172,158,0.139,28
 FL,Health care,Mental Health and Substance Use Treatment,78,59,0.593,10
-FL,Health care,"Public Health, Vaccines and Emergency Measures",72,50,-0.680,13
+FL,Health care,"Public Health, Vaccines and Emergency Measures",72,50,-0.640,13
 FL,Health care,Long-Term Care and Disability Services,74,0,,15
 FL,Health care,Health Care Workforce and Funding,40,0,,9
 FL,Guns and weapons,"Carry and Ownership, Including Public Places and Schools",34,34,0.059,5
-FL,Guns and weapons,"Purchase, Licensing and Dealers",25,20,-0.050,1
+FL,Guns and weapons,"Purchase, Licensing and Dealers",25,21,-0.381,1
 FL,Guns and weapons,Weapon and Magazine Types,10,9,-0.556,0
 FL,Guns and weapons,Safe Storage and Extreme-Risk Orders,16,12,-0.500,1
 FL,Guns and weapons,Violence Prevention Programs,5,0,,0
 FL,Children and families,Child Welfare and Foster Care,71,0,,6
 FL,Children and families,Child Care and Early Education,19,5,0.600,4
 FL,Children and families,Parental Rights,50,47,0.553,0
-FL,Children and families,Kids' Online Safety and Age Verification,13,13,-1.000,0
+FL,Children and families,Kids' Online Safety and Age Verification,13,13,-1.308,0
 FL,Children and families,Juvenile Justice,14,11,-0.364,3
 FL,Children and families,"Child Support, Custody and Family Law",39,0,,1
 FL,Children and families,Children's Programs and Funding,29,0,,4
-FL,Housing,"Zoning, Land Use and Short-Term Rentals",79,70,0.686,14
-FL,Housing,Rent Regulation and Tenant Protections,37,32,-0.812,2
+FL,Housing,"Zoning, Land Use and Short-Term Rentals",79,79,0.620,14
+FL,Housing,Rent Regulation and Tenant Protections,37,34,-0.882,2
 FL,Housing,Affordable Housing Programs,44,0,,5
 FL,Housing,Homelessness (Services vs. Encampment Rules),10,10,0.800,1
 FL,Housing,Building Codes and Construction,90,76,0.158,10
@@ -134,12 +134,12 @@ FL,AI and technology,Government Use of AI,8,6,-0.667,0
 FL,AI and technology,Deepfakes and Synthetic Media,8,8,-1.000,2
 FL,AI and technology,AI in Employment and Consumer Decisions,6,4,-1.000,0
 FL,AI and technology,Data Centers and Compute,3,3,-1.000,1
-FL,AI and technology,Data Privacy and Security,38,36,-0.389,4
+FL,AI and technology,Data Privacy and Security,38,38,-0.395,4
 FL,AI and technology,Social Media and Online Platforms,7,7,-1.000,1
 FL,AI and technology,Broadband and Telecom,5,3,0.333,1
 FL,Education,K-12 Funding,32,0,,5
 FL,Education,School Choice and Vouchers,34,22,0.727,3
-FL,Education,Curriculum and Classroom Content,63,30,-0.400,5
+FL,Education,Curriculum and Classroom Content,63,54,-0.593,5
 FL,Education,Higher Education Costs and Aid,45,0,,3
 FL,Education,"Campus Policy (Speech, DEI, Tenure)",12,7,-0.286,0
 FL,Education,Teacher Workforce and Pay,43,0,,7
@@ -150,7 +150,7 @@ FL,Taxes and budget,Sales and Excise Taxes,44,0,,5
 FL,Taxes and budget,Business Tax Incentives and Credits,34,0,,2
 FL,Taxes and budget,State Budget and Appropriations,85,0,,21
 FL,Taxes and budget,"Bonds, Debt and Pensions Funding",17,0,,7
-FL,Elections and voting,"Voter Registration and Access (Mail Voting, Early Voting)",26,22,0.182,1
+FL,Elections and voting,"Voter Registration and Access (Mail Voting, Early Voting)",26,23,0.348,1
 FL,Elections and voting,Voter ID and Election Security,21,20,-0.650,1
 FL,Elections and voting,Redistricting,11,0,,3
 FL,Elections and voting,Campaign Finance,12,12,-0.583,0
@@ -164,25 +164,25 @@ FL,Transportation,Drones and Aviation,6,4,0.000,2
 FL,Transportation,Transit and Infrastructure Funding,34,0,,7
 FL,Transportation,"Vehicle Registration, Licensing and Fees",61,0,,4
 FL,Environment and energy,Climate and Emissions,10,7,0.000,3
-FL,Environment and energy,"Clean Energy (Renewables, Storage, Nuclear)",10,8,-0.250,0
+FL,Environment and energy,"Clean Energy (Renewables, Storage, Nuclear)",10,9,0.111,0
 FL,Environment and energy,"Fossil Fuels, Pipelines and Mining",15,11,-0.182,2
-FL,Environment and energy,Utility Regulation and Rates,31,25,-0.880,3
+FL,Environment and energy,Utility Regulation and Rates,31,29,-0.759,3
 FL,Environment and energy,Environmental Permitting and Review,32,31,-0.258,12
 FL,Environment and energy,"Water, Land and Wildlife Protection",79,60,-0.550,12
 FL,Environment and energy,Public Lands and Conservation Funding,16,0,,3
 FL,Criminal justice,Sentencing and Penalties,181,172,-0.814,42
-FL,Criminal justice,Policing and Accountability,53,41,-0.439,10
+FL,Criminal justice,Policing and Accountability,53,44,-0.159,10
 FL,Criminal justice,"Bail, Pretrial and Courts",54,38,-0.605,13
-FL,Criminal justice,"Drug Policy (Cannabis, Decriminalization)",49,47,0.085,5
+FL,Criminal justice,"Drug Policy (Cannabis, Decriminalization)",49,48,0.021,5
 FL,Criminal justice,Corrections and Reentry,66,53,0.774,6
 FL,Criminal justice,Victims' Rights,54,51,0.980,10
-FL,Labor and employment,Minimum Wage and Wage Rules,11,11,0.545,0
-FL,Labor and employment,Unions and Collective Bargaining,12,8,-0.500,2
+FL,Labor and employment,Minimum Wage and Wage Rules,11,11,0.455,0
+FL,Labor and employment,Unions and Collective Bargaining,12,11,-0.091,2
 FL,Labor and employment,Worker Safety and Protections,29,25,-0.360,3
 FL,Labor and employment,"Worker Benefits (Paid Leave, Unemployment Insurance)",31,29,0.586,2
 FL,Labor and employment,Gig Work and Independent Contractors,7,7,0.429,0
 FL,Labor and employment,Occupational Licensing,124,109,0.138,13
-FL,Immigration,"State Cooperation with Federal Enforcement, Including Employment Verification",47,39,-0.846,3
+FL,Immigration,"State Cooperation with Federal Enforcement, Including Employment Verification",47,44,-1.295,3
 FL,Immigration,"Benefits, Education and Services for Immigrants",24,23,-0.565,2
 FL,Civil rights and liberties,"Anti-Discrimination Protections, Including DEI Programs",51,45,0.178,2
 FL,Civil rights and liberties,Speech and Religion,25,24,0.333,3
@@ -192,27 +192,27 @@ FL,Consumer protection and business,Consumer Protection and Fees,156,143,-0.804,
 FL,Consumer protection and business,Insurance Market Regulation,147,110,-0.473,11
 FL,Consumer protection and business,"Banking, Lending and Crypto",36,24,-0.500,6
 FL,Consumer protection and business,Business Licensing and Regulation,77,68,-0.574,12
-FL,Consumer protection and business,Gambling and Sports Betting,22,16,-0.250,1
-FL,Consumer protection and business,"Alcohol, Tobacco and Vaping",41,27,0.000,6
+FL,Consumer protection and business,Gambling and Sports Betting,22,18,-0.167,1
+FL,Consumer protection and business,"Alcohol, Tobacco and Vaping",41,40,-0.075,6
 FL,Consumer protection and business,Food and Agriculture,27,0,,3
 FL,Government and administration,State Agencies and Programs,278,0,,42
-FL,Government and administration,Local Control and Preemption,195,188,-0.553,37
+FL,Government and administration,Local Control and Preemption,195,193,-0.710,37
 FL,Government and administration,Ethics and Transparency,196,180,0.172,32
 FL,Government and administration,Public Employees and Pensions,61,0,,9
 FL,Government and administration,State Constitution and Ballot Measures,36,0,,3
 FL,Government and administration,Emergency Powers,22,0,,3
-MA,Health care,Reproductive Health and Abortion,42,23,0.739,0
-MA,Health care,Gender-Affirming and Transgender Health Care,4,1,1.000,0
+MA,Health care,Reproductive Health and Abortion,42,31,0.742,0
+MA,Health care,Gender-Affirming and Transgender Health Care,4,3,1.000,0
 MA,Health care,Medicaid and Public Coverage,66,35,1.029,0
 MA,Health care,Private Insurance Rules and Mandates,149,77,-0.870,0
 MA,Health care,Drug Pricing and Pharmacy,49,21,-0.524,0
 MA,Health care,"Hospitals and Providers (Certificate of Need, Scope of Practice)",89,45,-0.156,0
 MA,Health care,Mental Health and Substance Use Treatment,157,68,0.956,0
-MA,Health care,"Public Health, Vaccines and Emergency Measures",111,45,-0.422,1
+MA,Health care,"Public Health, Vaccines and Emergency Measures",111,60,-0.400,1
 MA,Health care,Long-Term Care and Disability Services,141,0,,1
 MA,Health care,Health Care Workforce and Funding,71,0,,0
 MA,Guns and weapons,"Carry and Ownership, Including Public Places and Schools",17,12,0.500,0
-MA,Guns and weapons,"Purchase, Licensing and Dealers",17,12,-0.333,0
+MA,Guns and weapons,"Purchase, Licensing and Dealers",17,15,-0.133,0
 MA,Guns and weapons,Weapon and Magazine Types,12,6,0.500,0
 MA,Guns and weapons,Safe Storage and Extreme-Risk Orders,7,2,1.000,0
 MA,Guns and weapons,Violence Prevention Programs,2,0,,0
@@ -223,8 +223,8 @@ MA,Children and families,Kids' Online Safety and Age Verification,7,5,-1.000,0
 MA,Children and families,Juvenile Justice,23,7,0.429,0
 MA,Children and families,"Child Support, Custody and Family Law",42,0,,0
 MA,Children and families,Children's Programs and Funding,31,0,,0
-MA,Housing,"Zoning, Land Use and Short-Term Rentals",82,40,-0.150,0
-MA,Housing,Rent Regulation and Tenant Protections,55,35,-0.943,0
+MA,Housing,"Zoning, Land Use and Short-Term Rentals",82,60,0.483,0
+MA,Housing,Rent Regulation and Tenant Protections,55,45,-1.022,0
 MA,Housing,Affordable Housing Programs,106,0,,5
 MA,Housing,Homelessness (Services vs. Encampment Rules),47,28,0.643,0
 MA,Housing,Building Codes and Construction,40,22,-0.455,1
@@ -234,12 +234,12 @@ MA,AI and technology,AI Development and Adoption (Incentives vs. Burdens),2,0,,0
 MA,AI and technology,Deepfakes and Synthetic Media,11,9,-1.000,0
 MA,AI and technology,AI in Employment and Consumer Decisions,2,2,-1.000,0
 MA,AI and technology,Data Centers and Compute,1,0,,0
-MA,AI and technology,Data Privacy and Security,48,35,-1.000,0
+MA,AI and technology,Data Privacy and Security,48,44,-1.091,0
 MA,AI and technology,Social Media and Online Platforms,10,5,-1.000,0
 MA,AI and technology,Broadband and Telecom,29,17,0.647,1
 MA,Education,K-12 Funding,82,0,,0
 MA,Education,School Choice and Vouchers,19,8,0.750,0
-MA,Education,Curriculum and Classroom Content,55,7,-1.000,0
+MA,Education,Curriculum and Classroom Content,55,42,-0.929,0
 MA,Education,Higher Education Costs and Aid,64,0,,0
 MA,Education,"Campus Policy (Speech, DEI, Tenure)",8,7,-1.000,0
 MA,Education,Teacher Workforce and Pay,29,0,,0
@@ -250,7 +250,7 @@ MA,Taxes and budget,Sales and Excise Taxes,108,0,,0
 MA,Taxes and budget,Business Tax Incentives and Credits,43,0,,0
 MA,Taxes and budget,State Budget and Appropriations,86,0,,14
 MA,Taxes and budget,"Bonds, Debt and Pensions Funding",20,0,,3
-MA,Elections and voting,"Voter Registration and Access (Mail Voting, Early Voting)",54,45,0.867,0
+MA,Elections and voting,"Voter Registration and Access (Mail Voting, Early Voting)",54,47,0.915,0
 MA,Elections and voting,Voter ID and Election Security,6,6,-1.000,0
 MA,Elections and voting,Redistricting,1,0,,0
 MA,Elections and voting,Campaign Finance,25,15,-0.600,0
@@ -263,25 +263,25 @@ MA,Transportation,Drones and Aviation,6,4,-1.000,0
 MA,Transportation,Transit and Infrastructure Funding,86,0,,5
 MA,Transportation,"Vehicle Registration, Licensing and Fees",88,0,,0
 MA,Environment and energy,Climate and Emissions,53,19,-0.789,0
-MA,Environment and energy,"Clean Energy (Renewables, Storage, Nuclear)",67,32,0.438,0
+MA,Environment and energy,"Clean Energy (Renewables, Storage, Nuclear)",67,42,0.524,0
 MA,Environment and energy,"Fossil Fuels, Pipelines and Mining",13,9,-1.111,0
-MA,Environment and energy,Utility Regulation and Rates,50,20,-0.700,3
+MA,Environment and energy,Utility Regulation and Rates,50,28,-0.786,3
 MA,Environment and energy,Environmental Permitting and Review,15,12,0.167,0
 MA,Environment and energy,"Water, Land and Wildlife Protection",156,88,-0.477,7
 MA,Environment and energy,Public Lands and Conservation Funding,55,0,,9
 MA,Criminal justice,Sentencing and Penalties,117,82,-0.585,0
-MA,Criminal justice,Policing and Accountability,89,53,0.396,19
+MA,Criminal justice,Policing and Accountability,89,76,0.158,19
 MA,Criminal justice,"Bail, Pretrial and Courts",37,10,0.000,0
-MA,Criminal justice,"Drug Policy (Cannabis, Decriminalization)",80,41,0.195,1
+MA,Criminal justice,"Drug Policy (Cannabis, Decriminalization)",80,55,0.055,1
 MA,Criminal justice,Corrections and Reentry,89,57,0.649,0
 MA,Criminal justice,Victims' Rights,55,32,1.000,0
-MA,Labor and employment,Minimum Wage and Wage Rules,46,24,-0.833,0
-MA,Labor and employment,Unions and Collective Bargaining,30,17,1.000,0
+MA,Labor and employment,Minimum Wage and Wage Rules,46,41,-0.805,0
+MA,Labor and employment,Unions and Collective Bargaining,30,24,1.042,0
 MA,Labor and employment,Worker Safety and Protections,55,35,-1.000,0
 MA,Labor and employment,"Worker Benefits (Paid Leave, Unemployment Insurance)",141,110,1.000,26
 MA,Labor and employment,Gig Work and Independent Contractors,9,2,-1.000,0
 MA,Labor and employment,Occupational Licensing,99,50,0.040,0
-MA,Immigration,"State Cooperation with Federal Enforcement, Including Employment Verification",14,9,-0.333,0
+MA,Immigration,"State Cooperation with Federal Enforcement, Including Employment Verification",14,12,-0.833,0
 MA,Immigration,"Benefits, Education and Services for Immigrants",9,6,0.333,0
 MA,Civil rights and liberties,"Anti-Discrimination Protections, Including DEI Programs",59,36,0.944,0
 MA,Civil rights and liberties,Speech and Religion,15,9,1.000,0
@@ -291,39 +291,39 @@ MA,Consumer protection and business,Consumer Protection and Fees,162,99,-0.939,1
 MA,Consumer protection and business,Insurance Market Regulation,56,21,-0.905,0
 MA,Consumer protection and business,"Banking, Lending and Crypto",54,19,-0.368,1
 MA,Consumer protection and business,Business Licensing and Regulation,50,31,-0.935,0
-MA,Consumer protection and business,Gambling and Sports Betting,22,9,0.556,0
-MA,Consumer protection and business,"Alcohol, Tobacco and Vaping",155,120,0.558,29
+MA,Consumer protection and business,Gambling and Sports Betting,22,13,0.846,0
+MA,Consumer protection and business,"Alcohol, Tobacco and Vaping",155,149,0.564,29
 MA,Consumer protection and business,Food and Agriculture,83,0,,0
 MA,Government and administration,State Agencies and Programs,432,0,,16
-MA,Government and administration,Local Control and Preemption,308,247,0.960,69
+MA,Government and administration,Local Control and Preemption,308,278,0.971,69
 MA,Government and administration,Ethics and Transparency,61,36,-0.722,0
 MA,Government and administration,Public Employees and Pensions,476,0,,35
 MA,Government and administration,State Constitution and Ballot Measures,22,0,,0
 MA,Government and administration,Emergency Powers,14,0,,1
-OR,Health care,Reproductive Health and Abortion,24,22,-0.364,3
-OR,Health care,Gender-Affirming and Transgender Health Care,7,6,-1.167,1
+OR,Health care,Reproductive Health and Abortion,24,21,-0.333,3
+OR,Health care,Gender-Affirming and Transgender Health Care,7,6,-1.000,1
 OR,Health care,Medicaid and Public Coverage,88,49,0.816,21
 OR,Health care,Private Insurance Rules and Mandates,62,46,-0.761,18
 OR,Health care,Drug Pricing and Pharmacy,35,28,-0.571,7
 OR,Health care,"Hospitals and Providers (Certificate of Need, Scope of Practice)",104,72,-0.139,40
 OR,Health care,Mental Health and Substance Use Treatment,116,63,0.714,25
-OR,Health care,"Public Health, Vaccines and Emergency Measures",35,20,0.150,8
+OR,Health care,"Public Health, Vaccines and Emergency Measures",35,21,0.048,8
 OR,Health care,Long-Term Care and Disability Services,57,0,,11
 OR,Health care,Health Care Workforce and Funding,87,0,,5
 OR,Guns and weapons,"Carry and Ownership, Including Public Places and Schools",14,13,-0.154,1
-OR,Guns and weapons,"Purchase, Licensing and Dealers",14,10,0.200,2
+OR,Guns and weapons,"Purchase, Licensing and Dealers",14,11,0.000,2
 OR,Guns and weapons,Weapon and Magazine Types,6,4,0.000,2
 OR,Guns and weapons,Safe Storage and Extreme-Risk Orders,4,2,0.000,0
 OR,Guns and weapons,Violence Prevention Programs,2,0,,0
 OR,Children and families,Child Welfare and Foster Care,53,0,,15
 OR,Children and families,Child Care and Early Education,28,17,0.941,7
 OR,Children and families,Parental Rights,23,23,0.565,3
-OR,Children and families,Kids' Online Safety and Age Verification,6,6,-1.000,2
+OR,Children and families,Kids' Online Safety and Age Verification,6,6,-1.167,2
 OR,Children and families,Juvenile Justice,12,4,0.000,3
 OR,Children and families,"Child Support, Custody and Family Law",28,0,,8
 OR,Children and families,Children's Programs and Funding,53,0,,9
-OR,Housing,"Zoning, Land Use and Short-Term Rentals",119,90,0.667,28
-OR,Housing,Rent Regulation and Tenant Protections,41,37,-0.135,13
+OR,Housing,"Zoning, Land Use and Short-Term Rentals",119,100,0.720,28
+OR,Housing,Rent Regulation and Tenant Protections,41,38,-0.342,13
 OR,Housing,Affordable Housing Programs,71,0,,20
 OR,Housing,Homelessness (Services vs. Encampment Rules),26,19,-0.053,5
 OR,Housing,Building Codes and Construction,39,30,0.133,15
@@ -334,12 +334,12 @@ OR,AI and technology,Government Use of AI,4,0,,1
 OR,AI and technology,Deepfakes and Synthetic Media,4,4,-1.000,1
 OR,AI and technology,AI in Employment and Consumer Decisions,1,1,-1.000,0
 OR,AI and technology,Data Centers and Compute,5,4,-0.500,2
-OR,AI and technology,Data Privacy and Security,29,18,-0.556,12
+OR,AI and technology,Data Privacy and Security,29,23,-0.522,12
 OR,AI and technology,Social Media and Online Platforms,4,3,-1.000,0
 OR,AI and technology,Broadband and Telecom,6,3,1.000,1
 OR,Education,K-12 Funding,85,0,,10
 OR,Education,School Choice and Vouchers,25,23,1.000,1
-OR,Education,Curriculum and Classroom Content,48,25,-0.560,6
+OR,Education,Curriculum and Classroom Content,48,37,-0.459,6
 OR,Education,Higher Education Costs and Aid,63,0,,10
 OR,Education,"Campus Policy (Speech, DEI, Tenure)",6,5,-0.600,0
 OR,Education,Teacher Workforce and Pay,48,0,,6
@@ -350,7 +350,7 @@ OR,Taxes and budget,Sales and Excise Taxes,36,0,,5
 OR,Taxes and budget,Business Tax Incentives and Credits,72,0,,10
 OR,Taxes and budget,State Budget and Appropriations,236,0,,103
 OR,Taxes and budget,"Bonds, Debt and Pensions Funding",33,0,,10
-OR,Elections and voting,"Voter Registration and Access (Mail Voting, Early Voting)",30,25,-0.400,1
+OR,Elections and voting,"Voter Registration and Access (Mail Voting, Early Voting)",30,25,-0.560,1
 OR,Elections and voting,Voter ID and Election Security,17,17,-1.000,0
 OR,Elections and voting,Redistricting,6,0,,0
 OR,Elections and voting,Campaign Finance,13,8,-0.375,4
@@ -363,25 +363,25 @@ OR,Transportation,Drones and Aviation,10,6,-1.000,1
 OR,Transportation,Transit and Infrastructure Funding,63,0,,5
 OR,Transportation,"Vehicle Registration, Licensing and Fees",40,0,,7
 OR,Environment and energy,Climate and Emissions,37,23,0.304,2
-OR,Environment and energy,"Clean Energy (Renewables, Storage, Nuclear)",72,51,0.843,9
+OR,Environment and energy,"Clean Energy (Renewables, Storage, Nuclear)",72,50,0.880,9
 OR,Environment and energy,"Fossil Fuels, Pipelines and Mining",17,12,0.000,2
-OR,Environment and energy,Utility Regulation and Rates,54,36,-0.417,16
+OR,Environment and energy,Utility Regulation and Rates,54,38,-0.289,16
 OR,Environment and energy,Environmental Permitting and Review,45,41,0.634,12
 OR,Environment and energy,"Water, Land and Wildlife Protection",140,62,-0.048,31
 OR,Environment and energy,Public Lands and Conservation Funding,75,0,,10
 OR,Criminal justice,Sentencing and Penalties,127,100,-0.590,22
-OR,Criminal justice,Policing and Accountability,43,25,-0.440,3
+OR,Criminal justice,Policing and Accountability,43,28,-0.429,3
 OR,Criminal justice,"Bail, Pretrial and Courts",63,23,-0.043,12
-OR,Criminal justice,"Drug Policy (Cannabis, Decriminalization)",42,25,-0.400,9
+OR,Criminal justice,"Drug Policy (Cannabis, Decriminalization)",42,26,-0.308,9
 OR,Criminal justice,Corrections and Reentry,59,19,0.211,4
 OR,Criminal justice,Victims' Rights,30,20,0.950,3
-OR,Labor and employment,Minimum Wage and Wage Rules,42,31,-0.161,7
-OR,Labor and employment,Unions and Collective Bargaining,27,21,0.286,6
+OR,Labor and employment,Minimum Wage and Wage Rules,42,32,-0.188,7
+OR,Labor and employment,Unions and Collective Bargaining,27,23,0.348,6
 OR,Labor and employment,Worker Safety and Protections,41,29,-0.690,12
 OR,Labor and employment,"Worker Benefits (Paid Leave, Unemployment Insurance)",51,27,0.519,14
 OR,Labor and employment,Gig Work and Independent Contractors,3,3,-1.000,1
 OR,Labor and employment,Occupational Licensing,63,46,0.239,25
-OR,Immigration,"State Cooperation with Federal Enforcement, Including Employment Verification",23,19,-0.737,8
+OR,Immigration,"State Cooperation with Federal Enforcement, Including Employment Verification",23,21,-0.524,8
 OR,Immigration,"Benefits, Education and Services for Immigrants",18,11,0.273,4
 OR,Civil rights and liberties,"Anti-Discrimination Protections, Including DEI Programs",26,21,0.429,6
 OR,Civil rights and liberties,Speech and Religion,14,13,0.385,3
@@ -391,39 +391,39 @@ OR,Consumer protection and business,Consumer Protection and Fees,96,84,-0.702,31
 OR,Consumer protection and business,Insurance Market Regulation,32,18,-0.444,9
 OR,Consumer protection and business,"Banking, Lending and Crypto",20,14,0.143,7
 OR,Consumer protection and business,Business Licensing and Regulation,69,57,-0.456,26
-OR,Consumer protection and business,Gambling and Sports Betting,10,4,-0.750,6
-OR,Consumer protection and business,"Alcohol, Tobacco and Vaping",25,18,-0.889,7
+OR,Consumer protection and business,Gambling and Sports Betting,10,4,0.000,6
+OR,Consumer protection and business,"Alcohol, Tobacco and Vaping",25,19,-0.947,7
 OR,Consumer protection and business,Food and Agriculture,59,0,,10
 OR,Government and administration,State Agencies and Programs,426,0,,90
-OR,Government and administration,Local Control and Preemption,58,55,0.127,12
+OR,Government and administration,Local Control and Preemption,58,56,0.107,12
 OR,Government and administration,Ethics and Transparency,76,57,-0.368,14
 OR,Government and administration,Public Employees and Pensions,35,0,,10
 OR,Government and administration,State Constitution and Ballot Measures,63,0,,2
 OR,Government and administration,Emergency Powers,38,0,,1
-WA,Health care,Reproductive Health and Abortion,23,17,1.000,6
-WA,Health care,Gender-Affirming and Transgender Health Care,5,3,-0.667,1
+WA,Health care,Reproductive Health and Abortion,23,21,0.952,6
+WA,Health care,Gender-Affirming and Transgender Health Care,5,4,-0.750,1
 WA,Health care,Medicaid and Public Coverage,46,37,0.865,13
 WA,Health care,Private Insurance Rules and Mandates,58,55,-0.782,16
 WA,Health care,Drug Pricing and Pharmacy,19,19,0.158,7
 WA,Health care,"Hospitals and Providers (Certificate of Need, Scope of Practice)",63,60,0.333,26
 WA,Health care,Mental Health and Substance Use Treatment,63,47,0.766,14
-WA,Health care,"Public Health, Vaccines and Emergency Measures",27,20,-0.150,6
+WA,Health care,"Public Health, Vaccines and Emergency Measures",27,21,-0.238,6
 WA,Health care,Long-Term Care and Disability Services,63,0,,20
 WA,Health care,Health Care Workforce and Funding,33,0,,6
 WA,Guns and weapons,"Carry and Ownership, Including Public Places and Schools",10,9,-0.111,1
-WA,Guns and weapons,"Purchase, Licensing and Dealers",9,6,-1.000,3
+WA,Guns and weapons,"Purchase, Licensing and Dealers",9,7,-0.857,3
 WA,Guns and weapons,Weapon and Magazine Types,6,5,0.200,1
 WA,Guns and weapons,Safe Storage and Extreme-Risk Orders,2,1,-1.000,1
 WA,Guns and weapons,Violence Prevention Programs,1,0,,0
 WA,Children and families,Child Welfare and Foster Care,45,0,,13
 WA,Children and families,Child Care and Early Education,44,35,0.543,14
 WA,Children and families,Parental Rights,15,14,0.143,3
-WA,Children and families,Kids' Online Safety and Age Verification,5,5,-1.000,1
+WA,Children and families,Kids' Online Safety and Age Verification,5,5,-1.200,1
 WA,Children and families,Juvenile Justice,26,20,-0.050,4
 WA,Children and families,"Child Support, Custody and Family Law",12,0,,4
 WA,Children and families,Children's Programs and Funding,30,0,,6
-WA,Housing,"Zoning, Land Use and Short-Term Rentals",87,80,0.713,25
-WA,Housing,Rent Regulation and Tenant Protections,29,21,-0.762,13
+WA,Housing,"Zoning, Land Use and Short-Term Rentals",87,85,0.565,25
+WA,Housing,Rent Regulation and Tenant Protections,29,24,-0.542,13
 WA,Housing,Affordable Housing Programs,60,0,,15
 WA,Housing,Homelessness (Services vs. Encampment Rules),33,22,0.909,9
 WA,Housing,Building Codes and Construction,41,30,0.300,14
@@ -434,12 +434,12 @@ WA,AI and technology,Government Use of AI,5,2,-1.000,2
 WA,AI and technology,Deepfakes and Synthetic Media,6,6,-1.000,3
 WA,AI and technology,AI in Employment and Consumer Decisions,8,7,-1.000,1
 WA,AI and technology,Data Centers and Compute,5,3,-0.333,1
-WA,AI and technology,Data Privacy and Security,23,20,-0.750,6
+WA,AI and technology,Data Privacy and Security,23,23,-0.652,6
 WA,AI and technology,Social Media and Online Platforms,6,6,-1.000,0
 WA,AI and technology,Broadband and Telecom,8,7,0.714,0
 WA,Education,K-12 Funding,71,0,,14
 WA,Education,School Choice and Vouchers,7,6,1.000,1
-WA,Education,Curriculum and Classroom Content,25,11,-0.273,4
+WA,Education,Curriculum and Classroom Content,25,20,-0.550,4
 WA,Education,Higher Education Costs and Aid,58,0,,8
 WA,Education,"Campus Policy (Speech, DEI, Tenure)",10,6,-0.667,1
 WA,Education,Teacher Workforce and Pay,18,0,,6
@@ -450,7 +450,7 @@ WA,Taxes and budget,Sales and Excise Taxes,164,0,,20
 WA,Taxes and budget,Business Tax Incentives and Credits,65,0,,14
 WA,Taxes and budget,State Budget and Appropriations,61,0,,15
 WA,Taxes and budget,"Bonds, Debt and Pensions Funding",20,0,,6
-WA,Elections and voting,"Voter Registration and Access (Mail Voting, Early Voting)",23,19,0.737,7
+WA,Elections and voting,"Voter Registration and Access (Mail Voting, Early Voting)",23,20,0.750,7
 WA,Elections and voting,Voter ID and Election Security,16,12,-0.667,6
 WA,Elections and voting,Redistricting,2,0,,1
 WA,Elections and voting,Campaign Finance,8,6,0.000,0
@@ -464,25 +464,25 @@ WA,Transportation,Drones and Aviation,6,2,-1.000,0
 WA,Transportation,Transit and Infrastructure Funding,58,0,,14
 WA,Transportation,"Vehicle Registration, Licensing and Fees",54,0,,16
 WA,Environment and energy,Climate and Emissions,54,39,0.000,16
-WA,Environment and energy,"Clean Energy (Renewables, Storage, Nuclear)",48,40,0.700,10
+WA,Environment and energy,"Clean Energy (Renewables, Storage, Nuclear)",48,42,0.643,10
 WA,Environment and energy,"Fossil Fuels, Pipelines and Mining",7,6,-0.667,3
-WA,Environment and energy,Utility Regulation and Rates,30,25,-0.160,12
+WA,Environment and energy,Utility Regulation and Rates,30,28,-0.071,12
 WA,Environment and energy,Environmental Permitting and Review,39,32,0.250,10
 WA,Environment and energy,"Water, Land and Wildlife Protection",65,47,-0.021,12
 WA,Environment and energy,Public Lands and Conservation Funding,35,0,,10
 WA,Criminal justice,Sentencing and Penalties,102,92,-0.293,15
-WA,Criminal justice,Policing and Accountability,44,26,-0.692,14
+WA,Criminal justice,Policing and Accountability,44,31,-0.516,14
 WA,Criminal justice,"Bail, Pretrial and Courts",34,16,0.062,13
-WA,Criminal justice,"Drug Policy (Cannabis, Decriminalization)",38,32,0.375,6
+WA,Criminal justice,"Drug Policy (Cannabis, Decriminalization)",38,32,0.406,6
 WA,Criminal justice,Corrections and Reentry,74,59,0.288,15
 WA,Criminal justice,Victims' Rights,19,17,1.000,6
-WA,Labor and employment,Minimum Wage and Wage Rules,30,26,-0.462,8
-WA,Labor and employment,Unions and Collective Bargaining,38,32,0.938,16
+WA,Labor and employment,Minimum Wage and Wage Rules,30,28,-0.500,8
+WA,Labor and employment,Unions and Collective Bargaining,38,35,0.971,16
 WA,Labor and employment,Worker Safety and Protections,37,33,-0.667,21
 WA,Labor and employment,"Worker Benefits (Paid Leave, Unemployment Insurance)",55,44,0.818,18
 WA,Labor and employment,Gig Work and Independent Contractors,8,8,-0.750,2
 WA,Labor and employment,Occupational Licensing,48,35,0.343,25
-WA,Immigration,"State Cooperation with Federal Enforcement, Including Employment Verification",12,10,-0.600,3
+WA,Immigration,"State Cooperation with Federal Enforcement, Including Employment Verification",12,12,-0.333,3
 WA,Immigration,"Benefits, Education and Services for Immigrants",11,9,0.778,4
 WA,Civil rights and liberties,"Anti-Discrimination Protections, Including DEI Programs",14,14,1.000,6
 WA,Civil rights and liberties,Speech and Religion,9,8,0.250,2
@@ -492,11 +492,11 @@ WA,Consumer protection and business,Consumer Protection and Fees,88,81,-0.642,25
 WA,Consumer protection and business,Insurance Market Regulation,41,33,-0.606,12
 WA,Consumer protection and business,"Banking, Lending and Crypto",14,12,-0.583,0
 WA,Consumer protection and business,Business Licensing and Regulation,75,67,-0.522,24
-WA,Consumer protection and business,Gambling and Sports Betting,7,6,0.333,2
-WA,Consumer protection and business,"Alcohol, Tobacco and Vaping",41,35,-0.029,9
+WA,Consumer protection and business,Gambling and Sports Betting,7,6,0.833,2
+WA,Consumer protection and business,"Alcohol, Tobacco and Vaping",41,37,-0.189,9
 WA,Consumer protection and business,Food and Agriculture,36,0,,8
 WA,Government and administration,State Agencies and Programs,228,0,,65
-WA,Government and administration,Local Control and Preemption,86,84,-0.095,23
+WA,Government and administration,Local Control and Preemption,86,85,-0.141,23
 WA,Government and administration,Ethics and Transparency,66,58,-0.052,15
 WA,Government and administration,Public Employees and Pensions,64,0,,21
 WA,Government and administration,State Constitution and Ballot Measures,24,0,,1
@@ -507,7 +507,7 @@ DC,Health care,Private Insurance Rules and Mandates,10,7,-0.714,4
 DC,Health care,Drug Pricing and Pharmacy,2,1,-1.000,1
 DC,Health care,"Hospitals and Providers (Certificate of Need, Scope of Practice)",9,6,0.500,3
 DC,Health care,Mental Health and Substance Use Treatment,8,5,1.000,1
-DC,Health care,"Public Health, Vaccines and Emergency Measures",8,5,-0.200,1
+DC,Health care,"Public Health, Vaccines and Emergency Measures",8,5,-0.400,1
 DC,Health care,Long-Term Care and Disability Services,1,0,,0
 DC,Health care,Health Care Workforce and Funding,12,0,,3
 DC,Guns and weapons,"Carry and Ownership, Including Public Places and Schools",1,0,,0
@@ -518,18 +518,18 @@ DC,Children and families,Parental Rights,4,4,0.000,2
 DC,Children and families,Juvenile Justice,10,4,-1.000,3
 DC,Children and families,"Child Support, Custody and Family Law",6,0,,0
 DC,Children and families,Children's Programs and Funding,13,0,,1
-DC,Housing,"Zoning, Land Use and Short-Term Rentals",16,7,1.000,3
-DC,Housing,Rent Regulation and Tenant Protections,18,16,-0.375,4
+DC,Housing,"Zoning, Land Use and Short-Term Rentals",16,8,0.625,3
+DC,Housing,Rent Regulation and Tenant Protections,18,17,-0.471,4
 DC,Housing,Affordable Housing Programs,40,0,,8
 DC,Housing,Homelessness (Services vs. Encampment Rules),8,4,1.000,4
 DC,Housing,Building Codes and Construction,10,9,0.333,2
 DC,Housing,"Mortgage, Ownership and Property Transactions",46,0,,12
 DC,AI and technology,Deepfakes and Synthetic Media,1,1,-1.000,0
 DC,AI and technology,AI in Employment and Consumer Decisions,2,2,-1.000,0
-DC,AI and technology,Data Privacy and Security,4,4,-1.000,0
+DC,AI and technology,Data Privacy and Security,4,4,-1.250,0
 DC,Education,K-12 Funding,3,0,,1
 DC,Education,School Choice and Vouchers,2,1,1.000,1
-DC,Education,Curriculum and Classroom Content,4,2,0.000,0
+DC,Education,Curriculum and Classroom Content,4,2,-0.500,0
 DC,Education,Higher Education Costs and Aid,4,0,,0
 DC,Education,"Campus Policy (Speech, DEI, Tenure)",3,3,-0.333,2
 DC,Education,Teacher Workforce and Pay,2,0,,0
@@ -549,20 +549,20 @@ DC,Transportation,"Rideshare, Scooters and Micromobility",7,4,-0.250,2
 DC,Transportation,Transit and Infrastructure Funding,12,0,,1
 DC,Transportation,"Vehicle Registration, Licensing and Fees",6,0,,2
 DC,Environment and energy,Climate and Emissions,3,2,-1.000,0
-DC,Environment and energy,"Clean Energy (Renewables, Storage, Nuclear)",4,3,1.000,0
+DC,Environment and energy,"Clean Energy (Renewables, Storage, Nuclear)",4,4,1.000,0
 DC,Environment and energy,"Fossil Fuels, Pipelines and Mining",1,1,-1.000,0
-DC,Environment and energy,Utility Regulation and Rates,10,7,-0.714,0
+DC,Environment and energy,Utility Regulation and Rates,10,8,-0.625,0
 DC,Environment and energy,Environmental Permitting and Review,2,2,-1.000,0
 DC,Environment and energy,"Water, Land and Wildlife Protection",6,6,-0.667,1
 DC,Environment and energy,Public Lands and Conservation Funding,6,0,,1
 DC,Criminal justice,Sentencing and Penalties,6,6,-0.667,1
-DC,Criminal justice,Policing and Accountability,11,4,-0.250,3
+DC,Criminal justice,Policing and Accountability,11,5,-0.600,3
 DC,Criminal justice,"Bail, Pretrial and Courts",5,4,-1.000,2
-DC,Criminal justice,"Drug Policy (Cannabis, Decriminalization)",8,6,0.667,2
+DC,Criminal justice,"Drug Policy (Cannabis, Decriminalization)",8,7,0.857,2
 DC,Criminal justice,Corrections and Reentry,11,8,1.000,4
 DC,Criminal justice,Victims' Rights,4,4,1.000,1
 DC,Labor and employment,Minimum Wage and Wage Rules,3,3,-1.000,0
-DC,Labor and employment,Unions and Collective Bargaining,7,0,,0
+DC,Labor and employment,Unions and Collective Bargaining,7,7,1.000,0
 DC,Labor and employment,Worker Safety and Protections,1,0,,0
 DC,Labor and employment,"Worker Benefits (Paid Leave, Unemployment Insurance)",8,8,0.750,1
 DC,Labor and employment,Occupational Licensing,10,8,0.500,2
@@ -573,8 +573,8 @@ DC,Consumer protection and business,Consumer Protection and Fees,23,21,-0.762,8
 DC,Consumer protection and business,Insurance Market Regulation,7,7,-1.000,2
 DC,Consumer protection and business,"Banking, Lending and Crypto",6,3,-0.333,2
 DC,Consumer protection and business,Business Licensing and Regulation,19,17,-0.294,2
-DC,Consumer protection and business,Gambling and Sports Betting,4,3,1.000,0
-DC,Consumer protection and business,"Alcohol, Tobacco and Vaping",9,8,0.250,3
+DC,Consumer protection and business,Gambling and Sports Betting,4,4,1.000,0
+DC,Consumer protection and business,"Alcohol, Tobacco and Vaping",9,9,0.333,3
 DC,Consumer protection and business,Food and Agriculture,4,0,,1
 DC,Government and administration,State Agencies and Programs,453,0,,65
 DC,Government and administration,Local Control and Preemption,1,1,1.000,0
