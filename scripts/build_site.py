@@ -316,12 +316,14 @@ def main():
                       "tp": sorted({SUB[t["subtopic"]]["topic_id"] for t in policy_tags[k]}),
                       "d": sorted({group(t["direction"]) for t in policy_tags[k] if group(t["direction"]) in ORDER}), "su": summary})
 
-    def bill_li(k, extra="", depth=1, sid=None):
+    def bill_li(k, extra="", depth=1, sid=None, brief=False):
         b = bills[k]
         sm = tagged.get(k, {}).get("summary", "")
         if not tagged.get(k, {}).get("has_digest", True) or "text was provided" in sm:
             sm = ""
         det = []
+        if brief:
+            return f'<li class="{"" if alive[k] else "dead"}"><a href="{"../" * depth}bill/{slug(k)}.html">{esc(k)}</a> · {esc(b.get("title", ""))} <span class="chip">{esc(b["status"])}</span>{extra}</li>'
         if sm:
             det.append(f'<div class="bsum">{esc(sm)}</div>')
         meta = []
@@ -505,7 +507,7 @@ def main():
                     m = m.replace('<b class="dot', '<b class="dot') if n >= MIN_TAGS else m
                     kind, word = ("rest", "Restrictive") if wm <= -CUT else ("perm", "Permissive") if wm >= CUT else ("mid", "Balanced")
                     chip = f'<span class="chip {kind}">{word}</span>'
-                rows.append(f'<div class="mrow"><a href="../topic/{tid}.html">{esc(TOPICS[tid]["name"])}</a>{m}<div class="v">{chip}<br><span class="muted small">{n} bill{"" if n == 1 else "s"}</span></div></div>')
+                rows.append(f'<div class="mrow"><a href="#t-{tid}">{esc(TOPICS[tid]["name"])}</a>{m}<div class="v">{chip}<br><span class="muted small">{n} bill{"" if n == 1 else "s"}</span></div></div>')
             lean_html = (f'<h2>Lean by issue</h2><p class="small muted">From the bills this legislator authored or co-authored. Each bill’s direction is measured against current law; lead authors count 3×, principal co-authors 2×, co-authors 1×. '
                          f'A tag needs at least {MIN_LEG} directional bills; <b>Restrictive</b> is a weighted average of −{CUT} or lower, <b>Permissive</b> is +{CUT} or higher, otherwise <b>Balanced</b>. '
                          f'The dark tick is the average of all California bills on the topic, so you can see where this legislator sits relative to the typical bill.</p>{AXIS}{"".join(rows) if rows else "<p class=muted>No tagged bills with a direction.</p>"}')
@@ -525,7 +527,7 @@ def main():
                         pole = "R" if g in ("rest1", "rest2") else "P" if g in ("perm1", "perm2") else None
                         if pole:
                             prof[t["subtopic"]][("ay" if v == "AYE" else "no") + pole] += 1
-            drows = "".join(f'<tr><td>{esc(SUB[sid]["topic"])} → {esc(SUB[sid]["name"])}</td><td class="n">{c["auR"]}</td><td class="n">{c["auP"]}</td><td class="n">{c["auN"]}</td>'
+            drows = "".join(f'<tr><td><a href="#t-{SUB[sid]["topic_id"]}">{esc(SUB[sid]["topic"])}</a> → {esc(SUB[sid]["name"])}</td><td class="n">{c["auR"]}</td><td class="n">{c["auP"]}</td><td class="n">{c["auN"]}</td>'
                             f'<td class="n">{c["ayR"]}</td><td class="n">{c["ayP"]}</td><td class="n">{c["noR"]}</td><td class="n">{c["noP"]}</td></tr>'
                             for sid, c in sorted(prof.items(), key=lambda kv: -sum(kv[1].values())))
             detail = ('<h2>Record by sub-topic</h2><table><thead><tr><th rowspan="2">Sub-topic</th><th colspan="3" class="n">Authored or Co-authored</th><th colspan="2" class="n">Voted Aye on</th><th colspan="2" class="n">Voted No on</th></tr>'
@@ -533,12 +535,44 @@ def main():
                       + drows + "</tbody></table>") if drows else ""
             return tiles + lean_html + detail
 
+        role_of = dict(au)
+        by_topic = defaultdict(list)
+        for k in set(role_of) | set(vt):
+            for tid in {SUB[t["subtopic"]]["topic_id"] for t in policy_tags[k]}:
+                by_topic[tid].append(k)
+        sections = []
+        for tid in POLICY_TOPICS:
+            ks = by_topic.get(tid, [])
+            if not ks:
+                continue
+            ks.sort(key=lambda k: (k not in role_of, role_of.get(k) != "LEAD_AUTHOR", bills[k]["type"], bills[k]["number"]))
+            items = []
+            for k in ks[:max(40, sum(1 for k in ks if k in role_of))]:
+                chips = ""
+                if k in role_of:
+                    chips += f' <span class="chip">{esc(T(role_of[k]))}</span>'
+                if k in vt and vt[k][1] in ("AYE", "NOE"):
+                    chips += f' <span class="chip">Voted {"Aye" if vt[k][1] == "AYE" else "No"}</span>'
+                dirs = []
+                for t in policy_tags[k]:
+                    if SUB[t["subtopic"]]["topic_id"] == tid and t["direction"] in SCORE and SUB[t["subtopic"]]["axis"] in ("A", "R"):
+                        w = DIR_WORD(t["direction"])
+                        if w not in dirs:
+                            dirs.append(w)
+                chips += "".join(f' <span class="chip">{esc(w)}</span>' for w in dirs)
+                items.append(bill_li(k, chips, brief=k not in role_of))
+            more = f'<p class="muted small">Showing {min(len(ks), max(40, sum(1 for k in ks if k in role_of)))} of {len(ks)}: all authored bills plus the first votes.</p>' if len(ks) > max(40, sum(1 for k in ks if k in role_of)) else ""
+            n_all, n_live = len(ks), len([k for k in ks if alive[k]])
+            sections.append(f'<h3 id="t-{tid}">{esc(TOPICS[tid]["name"])} <span class="muted small">({vv(n_all, n_live)})</span></h3>'
+                            f'<ul>{"".join(items)}</ul>{more}<p class="small"><a href="../topic/{tid}.html">All California bills on {esc(TOPICS[tid]["name"])} →</a></p>')
+        record = f'<h2>Record by topic</h2><p class="small muted">Bills this legislator authored or co-authored first (with summaries), then bills they voted on. Direction chips are measured against current law.</p>{"".join(sections)}' if sections else ""
         au_sorted = sorted(au, key=lambda x: (x[1] != "LEAD_AUTHOR", bills[x[0]]["type"], bills[x[0]]["number"]))
-        au_list = "".join(bill_li(k, f' <span class="chip">{esc(T(role))}</span>') for k, role in au_sorted[:400])
+        au_list = "".join(bill_li(k, f' <span class="chip">{esc(T(role))}</span>', brief=True) for k, role in au_sorted[:400])
         body = f"""<p class="small"><a href="../legislators.html">← All legislators</a></p><h1>{esc(L["name"])}</h1>
 <p class="lede"><span class="party {L["party"]}">{esc({"DEM": "Democrat", "REP": "Republican"}.get(L["party"], L["party"]))}</span> · {esc(L["house"])} · District {esc(re.sub(r"^[A-Z]+0*", "", lid.split(":")[0]))}</p>
 {vb(leg_block(False), leg_block(True))}
 <p class="note small">These come from what this legislator authored and how they voted on tagged bills, with the bills linked below. A co-author may sign on to a bill they have reservations about, and a vote reflects one amendment stage. Most bills that reach a floor vote pass with large majorities and almost every member votes aye, so aye counts mostly mirror what reached the floor; authorship is the more distinctive signal. Treat the tags as a summary of the record, not a rating. Only floor votes are counted; committee votes are not matched to members yet.</p>
+{record}
 <h2>Bills authored ({len(au)})</h2><ul>{au_list}</ul>"""
         (OUT / "legislator" / f"{lid_slug[lid]}.html").write_text(page(L["name"], body, 1))
         leg_rows.append((L, lid, len(au), len([k for k, _ in au if alive[k]]), len(vt)))
