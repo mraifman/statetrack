@@ -755,7 +755,7 @@ const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}"
     (OUT / "vetoes.html").write_text(page("What is the Governor vetoing?", f"""<h1>What is the Governor vetoing?</h1>
 <p class="lede">Of {n_v + n_s:,} bills that reached the Governor in the 2025–26 session, {n_v} were vetoed ({100 * n_v / (n_v + n_s):.1f}%) and {n_s:,} were signed. This page shows which topics, directions and authors the vetoes fall on.</p>
 <div class="tiles"><div class="tile"><b>{n_v}</b><span>vetoed</span></div><div class="tile"><b>{n_s:,}</b><span>signed into law</span></div><div class="tile"><b>{100 * n_v / (n_v + n_s):.1f}%</b><span>veto rate</span></div><div class="tile"><b>{n_proof}</b><span>vetoed after a two-thirds vote in both houses</span></div></div>
-<div class="note small">Direction compares each bill with current California law, as everywhere else on this site. The Governor’s veto messages (the stated reasons) are not included yet; the bill’s own summary and votes are.</div>
+<div class="note small">Direction compares each bill with current California law, as everywhere else on this site. The Governor’s veto messages (the stated reasons) are not part of this data; each bill shows its own summary and votes.</div>
 <h2>By topic</h2><p class="small muted">Topics with at least 10 signed or vetoed bills, highest veto rate first. “Lean” is the average direction of that topic’s tags, from −2 (Restrictive) to +2 (Permissive).</p>{topic_tbl}
 <h2>Restrictive or Permissive?</h2><p class="small muted">Share of directional tags on each group of bills.</p>{dir_tbl}
 <h2>By lead author’s party</h2>{party_tbl}
