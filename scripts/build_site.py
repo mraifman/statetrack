@@ -120,7 +120,7 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 blockquote{margin:6px 0;padding:6px 12px;border-left:3px solid var(--axis);color:var(--ink2);background:var(--surface)}
 input[type=text],input:not([type]),select{font:inherit;padding:7px 9px;border:1px solid var(--axis);border-radius:8px;background:var(--surface);color:var(--ink)}
 .filters{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.filters input{flex:1;min-width:200px}
-.bsum{margin:3px 0 2px;color:var(--ink2);font-size:14px;max-width:70ch}.bmeta{color:var(--muted);font-size:12.5px;margin-bottom:10px}h3:target,h4:target{background:var(--chip);border-radius:6px;padding:2px 8px}details summary{cursor:pointer;color:var(--ink2)}footer{color:var(--muted);font-size:13px;padding:24px 0;border-top:1px solid var(--line)}
+.bsum{margin:3px 0 2px;color:var(--ink2);font-size:14px;max-width:70ch}.bmeta{color:var(--muted);font-size:12.5px;margin-bottom:10px}details.why{margin:0 0 12px;padding:6px 10px;background:var(--chip);border-radius:8px}h3:target,h4:target{background:var(--chip);border-radius:6px;padding:2px 8px}details summary{cursor:pointer;color:var(--ink2)}footer{color:var(--muted);font-size:13px;padding:24px 0;border-top:1px solid var(--line)}
 .axis{display:grid;grid-template-columns:minmax(120px,230px) 1fr 92px;gap:10px;font-size:12px;color:var(--ink2);margin-top:8px}.axis .ends{display:flex;justify-content:space-between}
 .mrow{display:grid;grid-template-columns:minmax(120px,230px) 1fr 92px;gap:10px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line)}.mrow a{color:var(--ink);text-decoration:none}.mrow a:hover{text-decoration:underline}
 .mrow .v{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink2);font-size:13px}.mrow.sub{padding-left:14px}
@@ -148,7 +148,7 @@ def page(title, body, depth=0, desc=""):
     body = body.replace("<table", '<div class="scroll"><table').replace("</table>", "</table></div>")
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(title)} · StateTrack</title><meta name="description" content="{esc(desc or title)}"><link rel="stylesheet" href="{base}style.css">{HEAD_JS}</head><body>
-<header class="site"><div class="wrap"><nav><a class="brand" href="{base}index.html">StateTrack</a><a href="{base}index.html">Overview</a><a href="{base}bills.html">All bills</a>
+<header class="site"><div class="wrap"><nav><a class="brand" href="{base}index.html">StateTrack</a><a href="{base}index.html">Overview</a><a href="{base}bills.html">All bills</a><a href="{base}vetoes.html">Vetoes</a>
 <a href="{base}find.html">Find my legislators</a><a href="{base}legislators.html">Legislators</a><a href="{base}method.html">How it works</a>
 <label class="toggle" title="Hides bills the official record marks as died, failed in committee or vetoed"><input type="checkbox" id="alive"> Hide bills that died</label></nav></div></header>
 <main><div class="wrap">{body}</div></main><footer><div class="wrap">Demo for California’s 2025–26 session. Bill data: California Legislative Information (official bulk file). Topics and directions are labelled by an AI model from the bill’s title and the Legislative Counsel’s digest, and are approximate. <a href="{base}method.html">How it works</a></div></footer>{TOGGLE_JS}</body></html>"""
@@ -499,11 +499,11 @@ def main():
                 for t in policy_tags[k]:
                     s = lean(t)
                     if s is not None:
-                        per[SUB[t["subtopic"]]["topic_id"]].append((s, w))
+                        per[SUB[t["subtopic"]]["topic_id"]].append((s, w, k, t, role))
             rows = []
             for tid, items in sorted(per.items(), key=lambda kv: -len(kv[1])):
                 n = len(items)
-                wm = sum(s * w for s, w in items) / sum(w for _, w in items)
+                wm = sum(it[0] * it[1] for it in items) / sum(it[1] for it in items)
                 if n < MIN_LEG:
                     chip, m = '<span class="chip">Not enough bills</span>', '<span class="muted small">fewer than 3 directional bills</span>'
                 else:
@@ -512,6 +512,21 @@ def main():
                     kind, word = ("rest", "Restrictive") if wm <= -CUT else ("perm", "Permissive") if wm >= CUT else ("mid", "Balanced")
                     chip = f'<span class="chip {kind}">{word}</span>'
                 rows.append(f'<div class="mrow"><a href="#t-{tid}">{esc(TOPICS[tid]["name"])}</a>{m}<div class="v">{chip}<br><span class="muted small">{n} bill{"" if n == 1 else "s"}</span></div></div>')
+                if n >= MIN_LEG:
+                    wd = {-2: "Strongly Restrictive", -1: "Restrictive", 0: "Mixed", 1: "Permissive", 2: "Strongly Permissive"}
+                    lines = "".join(
+                        f'<tr><td><a href="../bill/{slug(k)}.html">{esc(k)}</a> · {esc(bills[k].get("title", ""))}</td><td>{esc(RL(role))} (×{w})</td><td>{esc(SUB[t["subtopic"]]["name"])}</td><td>{esc(DIR_WORD(t["direction"]))}</td><td class="n">{sc:+d}</td></tr>'
+                        for sc, w, k, t, role in sorted(items, key=lambda it: (it[0], it[2])))
+                    tw = sum(it[1] for it in items)
+                    tot = sum(it[0] * it[1] for it in items)
+                    verdict = ("Restrictive" if wm <= -CUT else "Permissive" if wm >= CUT else "Balanced")
+                    meaning = {"Restrictive": "On balance, the bills this legislator wrote or co-wrote on this topic would tighten rules or limit access compared with current California law.",
+                               "Permissive": "On balance, the bills this legislator wrote or co-wrote on this topic would loosen rules or widen access compared with current California law.",
+                               "Balanced": "The bills this legislator wrote or co-wrote on this topic split between tightening and loosening, or change little."}[verdict]
+                    rows.append(f'<details class="why"><summary>Why {verdict}? See the {n} tagged bill{"" if n == 1 else "s"} behind this score</summary>'
+                                f'<p class="small">{meaning} It describes the bills, not necessarily the person’s views.</p>'
+                                f'<table><thead><tr><th>Bill</th><th>Role (weight)</th><th>Sub-topic</th><th>Direction vs. current law</th><th class="n">Score</th></tr></thead><tbody>{lines}</tbody></table>'
+                                f'<p class="small muted">Score: Strongly Restrictive −2, Restrictive −1, Mixed 0, Permissive +1, Strongly Permissive +2. Weighted average = {tot:+d} ÷ {tw} = <b>{wm:+.2f}</b>. Restrictive is −{CUT} or lower, Permissive is +{CUT} or higher, otherwise Balanced.</p></details>')
             lean_html = (f'<h2>Lean by issue</h2><p class="small muted">From the bills this legislator authored or co-authored. Each bill’s direction is measured against current law; lead authors count 3×, principal co-authors 2×, co-authors 1×. '
                          f'A tag needs at least {MIN_LEG} directional bills; <b>Restrictive</b> is a weighted average of −{CUT} or lower, <b>Permissive</b> is +{CUT} or higher, otherwise <b>Balanced</b>. '
                          f'The dark tick is the average of all California bills on the topic, so you can see where this legislator sits relative to the typical bill.</p>{AXIS}{"".join(rows) if rows else "<p class=muted>No tagged bills with a direction.</p>"}')
@@ -624,6 +639,114 @@ const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}"
 <form id="f" class="filters" autocomplete="off"><input id="zip" inputmode="numeric" maxlength="10" placeholder="ZIP code, for example 94110" aria-label="ZIP code" style="max-width:260px"><button type="submit" style="font:inherit;padding:7px 16px;border-radius:8px;border:1px solid var(--axis);background:var(--accent);color:#fff;cursor:pointer">Find</button></form>
 <p class="muted small">Try <a href="?zip=94110">94110</a> (one district), <a href="?zip=90210">90210</a> (split across districts) or <a href="?zip=95814">95814</a>.</p>
 <div id="res"></div><script>{find_js}</script>"""))
+
+    # ---------------- vetoes tracker
+    def veto_date(k):
+        d = [x[0] for x in history.get(k, []) if "Vetoed by Governor" in x[2]]
+        return d[-1] if d else ""
+
+    def final_votes(k):
+        out = {}
+        for v in sorted((v for v in votes.get(k, []) if "FLOOR" in v["loc"].upper()), key=lambda v: (v["date"], int(v["seq"] or 0))):
+            out["A" if v["loc"].upper().startswith("A") else "S"] = (v["ayes"], v["noes"])
+        return out
+
+    def lead_party(k):
+        for a in bills[k].get("authors", []):
+            if a["role"] == "LEAD_AUTHOR" and isinstance(a["legislator"], str) and a["legislator"] in legislators:
+                return legislators[a["legislator"]]["party"]
+        return ""
+
+    vetoed = sorted((k for k, b in bills.items() if b["status"] == "Vetoed"), key=lambda k: (veto_date(k), k), reverse=True)
+    signed = [k for k, b in bills.items() if b["status"] == "Chaptered"]
+    n_v, n_s = len(vetoed), len(signed)
+
+    def proof(k):
+        fv = final_votes(k)
+        return fv.get("A") and fv.get("S") and fv["A"][0] >= 54 and fv["S"][0] >= 27
+
+    n_proof = sum(1 for k in vetoed if proof(k))
+
+    def bill_topics(k):
+        return sorted({SUB[t["subtopic"]]["topic_id"] for t in policy_tags[k]})
+
+    def mean_lean(ks, tid=None):
+        sc = [lean(t) for k in ks for t in policy_tags[k] if lean(t) is not None and (tid is None or SUB[t["subtopic"]]["topic_id"] == tid)]
+        return (sum(sc) / len(sc), len(sc)) if sc else (None, 0)
+
+    trows = []
+    for tid in POLICY_TOPICS:
+        v_k = [k for k in vetoed if tid in bill_topics(k)]
+        s_k = [k for k in signed if tid in bill_topics(k)]
+        if len(v_k) + len(s_k) < 10:
+            continue
+        mv, nv_ = mean_lean(v_k, tid)
+        ms, ns_ = mean_lean(s_k, tid)
+        fmt = lambda m, n: f"{m:+.2f}" if m is not None and n >= 3 else "n/a"
+        trows.append((len(v_k) / (len(v_k) + len(s_k)), f'<tr><td><a href="topic/{tid}.html">{esc(TOPICS[tid]["name"])}</a></td><td class="n">{len(s_k)}</td><td class="n">{len(v_k)}</td><td class="n">{100 * len(v_k) / (len(v_k) + len(s_k)):.0f}%</td><td class="n">{fmt(ms, ns_)}</td><td class="n">{fmt(mv, nv_)}</td></tr>'))
+    trows.sort(reverse=True)
+    topic_tbl = ('<table><thead><tr><th>Topic</th><th class="n">Signed</th><th class="n">Vetoed</th><th class="n">Veto rate</th><th class="n">Avg. lean of signed</th><th class="n">Avg. lean of vetoed</th></tr></thead><tbody>'
+                 + "".join(r for _, r in trows) + "</tbody></table>")
+    prow = []
+    for code_, name in (("DEM", "Democratic"), ("REP", "Republican")):
+        v_k = [k for k in vetoed if lead_party(k) == code_]
+        s_k = [k for k in signed if lead_party(k) == code_]
+        if v_k or s_k:
+            prow.append(f'<tr><td>{name} lead author</td><td class="n">{len(s_k)}</td><td class="n">{len(v_k)}</td><td class="n">{100 * len(v_k) / max(1, len(v_k) + len(s_k)):.0f}%</td></tr>')
+    party_tbl = '<table><thead><tr><th>Bills by</th><th class="n">Signed</th><th class="n">Vetoed</th><th class="n">Veto rate</th></tr></thead><tbody>' + "".join(prow) + "</tbody></table>"
+
+    def pole_share(ks):
+        c = Counter(group(t["direction"]) for k in ks for t in policy_tags[k] if lean(t) is not None)
+        tot = sum(c.values()) or 1
+        r = (c["rest1"] + c["rest2"]) / tot
+        p_ = (c["perm1"] + c["perm2"]) / tot
+        return f"{100 * r:.0f}%", f"{100 * (1 - r - p_):.0f}%", f"{100 * p_:.0f}%", tot
+
+    dr = []
+    for label, ks in (("Signed into law", signed), ("Vetoed", vetoed)):
+        a_, b_, c_, n_ = pole_share(ks)
+        dr.append(f'<tr><td>{label}</td><td class="n">{a_}</td><td class="n">{b_}</td><td class="n">{c_}</td><td class="n">{n_:,}</td></tr>')
+    dir_tbl = '<table><thead><tr><th></th><th class="n">Restrictive</th><th class="n">Mixed or Neutral</th><th class="n">Permissive</th><th class="n">Directional tags</th></tr></thead><tbody>' + "".join(dr) + "</tbody></table>"
+
+    months = Counter(veto_date(k)[:7] for k in vetoed)
+    mtop = max(months.values()) if months else 1
+    month_bars = '<div class="bars">' + "".join(f'<div class="row"><span>{m}</span><div class="track"><div class="fill" style="width:{100 * n / mtop:.1f}%"></div></div><div class="v">{n}</div></div>' for m, n in sorted(months.items())) + "</div>"
+
+    items = []
+    for k in vetoed:
+        b = bills[k]
+        fv = final_votes(k)
+        vt_txt = " · ".join(f'{"Assembly" if h == "A" else "Senate"} {fv[h][0]}–{fv[h][1]}' for h in ("A", "S") if h in fv)
+        tg = {}
+        for t in policy_tags[k]:
+            tg.setdefault(SUB[t["subtopic"]]["topic_id"], []).append(t)
+        topic_chips = ""
+        for tid, ts_ in tg.items():
+            dirs = []
+            for t in ts_:
+                if lean(t) is not None and DIR_WORD(t["direction"]) not in dirs:
+                    dirs.append(DIR_WORD(t["direction"]))
+            topic_chips += f'<span class="chip">{esc(TOPICS[tid]["name"])}{": " + esc(", ".join(dirs)) if dirs else ""}</span>'
+        sm = tagged.get(k, {}).get("summary", "")
+        if not tagged.get(k, {}).get("has_digest", True) or "text was provided" in sm:
+            sm = ""
+        lead = next((a for a in b.get("authors", []) if a["role"] == "LEAD_AUTHOR" and isinstance(a["legislator"], str) and a["legislator"] in legislators), None)
+        au = f'<a href="legislator/{lid_slug[lead["legislator"]]}.html">{esc(legislators[lead["legislator"]]["name"])}</a> ({esc(legislators[lead["legislator"]]["party"])})' if lead else "—"
+        items.append(f'<li data-t="{" ".join(bill_topics(k))}"><a href="bill/{slug(k)}.html">{esc(k)}</a> · {esc(b.get("title", ""))}'
+                     f'{" <span class=chip>Veto-proof margin in both houses</span>" if proof(k) else ""}'
+                     f'<div class="bmeta">Vetoed {esc(veto_date(k))} · Author: {au} · {esc(vt_txt) or "no floor votes recorded"}</div>'
+                     f'{f"<div class=bsum>{esc(sm)}</div>" if sm else ""}<div>{topic_chips}</div></li>')
+    opts = "".join(f'<option value="{tid}">{esc(TOPICS[tid]["name"])}</option>' for tid in POLICY_TOPICS)
+    vjs = """<script>const sel=document.getElementById('vt');sel.onchange=()=>{document.querySelectorAll('#vlist li').forEach(li=>{li.style.display=(!sel.value||li.dataset.t.split(' ').includes(sel.value))?'':'none'})}</script>"""
+    (OUT / "vetoes.html").write_text(page("What is the Governor vetoing?", f"""<h1>What is the Governor vetoing?</h1>
+<p class="lede">Of {n_v + n_s:,} bills that reached the Governor in the 2025–26 session, {n_v} were vetoed ({100 * n_v / (n_v + n_s):.1f}%) and {n_s:,} were signed. This page shows which topics, directions and authors the vetoes fall on.</p>
+<div class="tiles"><div class="tile"><b>{n_v}</b><span>vetoed</span></div><div class="tile"><b>{n_s:,}</b><span>signed into law</span></div><div class="tile"><b>{100 * n_v / (n_v + n_s):.1f}%</b><span>veto rate</span></div><div class="tile"><b>{n_proof}</b><span>vetoed after a two-thirds vote in both houses</span></div></div>
+<div class="note small">Direction compares each bill with current California law, as everywhere else on this site. The Governor’s veto messages (the stated reasons) are not included yet; the bill’s own summary and votes are.</div>
+<h2>By topic</h2><p class="small muted">Topics with at least 10 signed or vetoed bills, highest veto rate first. “Lean” is the average direction of that topic’s tags, from −2 (Restrictive) to +2 (Permissive).</p>{topic_tbl}
+<h2>Restrictive or Permissive?</h2><p class="small muted">Share of directional tags on each group of bills.</p>{dir_tbl}
+<h2>By lead author’s party</h2>{party_tbl}
+<h2>When</h2>{month_bars}
+<h2>All {n_v} vetoed bills</h2><p><label class="small">Topic <select id="vt" aria-label="Topic"><option value="">All topics</option>{opts}</select></label></p><ul id="vlist">{"".join(items)}</ul>{vjs}""", 0, "Bills vetoed by the Governor in California’s 2025–26 session"))
 
     # ---------------- overview
     def topic_meters(live):
