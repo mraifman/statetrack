@@ -530,15 +530,15 @@ def main():
                         sk = {"Restrictive": "rest", "Permissive": "perm", "Balanced": "mid"}[sv]
                         smeter, _ = meter([sm_], SUB[sid]["name"])
                         sl = "".join(
-                            f'<tr><td><a href="../bill/{slug(k)}.html">{esc(k)}</a> · {esc(bills[k].get("title", ""))}</td><td>{esc(RL(role))} (×{w})</td><td>{esc(DIR_WORD(t["direction"]))}</td></tr>'
+                            f'<tr><td><a href="../bill/{slug(k)}.html">{esc(k)}</a> · {esc(bills[k].get("title", ""))}</td><td>{esc(RL(role))}</td><td>{esc(DIR_WORD(t["direction"]))}</td></tr>'
                             for sc, w, k, t, role in sorted(its, key=lambda it: (it[0], it[2])))
                         note_ = SUB[sid].get("note")
                         blocks.append(f'<div class="mrow sub"><span><b>{esc(T(SUB[sid]["name"]))}</b> <span class="muted small">({len(its)} bill{"" if len(its) == 1 else "s"})</span>'
                                       f'{NOTE_DIV(note_)}</span>{smeter}<div class="v"><span class="chip {sk}">{sv}</span><br><span class="muted small">{sm_:+.2f}</span></div></div>'
-                                      f'<table><thead><tr><th>Bill</th><th>Role (weight)</th><th>Direction vs. current law</th></tr></thead><tbody>{sl}</tbody></table>')
+                                      f'<table><thead><tr><th>Bill</th><th>Role</th><th>Direction vs. current law</th></tr></thead><tbody>{sl}</tbody></table>')
                     tw = sum(it[1] for it in items)
                     tot = sum(it[0] * it[1] for it in items)
-                    rows.append(f'<details class="cat"><summary>{row}</summary>{"".join(blocks)}<p class="small muted">Weighted average = {tot:+d} ÷ {tw} = <b>{wm:+.2f}</b> (lead ×3, principal co-author ×2, co-author ×1).</p></details>')
+                    rows.append(f'<details class="cat"><summary>{row}</summary>{"".join(blocks)}<p class="small muted">Weighted average = {tot:+d} ÷ {tw} = <b>{wm:+.2f}</b></p></details>')
                 else:
                     rows.append(row)
             lean_html = (f'<h2>Lean by issue</h2><p class="small muted">From the bills this legislator authored or co-authored. Each bill’s direction is measured against current law; lead authors count 3×, principal co-authors 2×, co-authors 1×. '
