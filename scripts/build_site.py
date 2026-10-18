@@ -111,6 +111,18 @@ def official_link(b):
     return f'<p class="small"><a href="{esc(href)}">Official record on {esc(CFG["official_bill_label"])} ↗</a></p>' if href else ""
 
 
+def dkey(v):
+    """Comparable key for a district label; the same rule runs in the browser on the Census geocoder's answer."""
+    v = str(v).strip()
+    m = re.match(r"^(?:[A-Z]{2}|Ward\s+)0*(\d+)$", v)
+    if m:
+        return m.group(1)
+    if v.isdigit():
+        return str(int(v))
+    words = sorted(w for w in re.findall(r"[a-z0-9]+", v.lower()) if w not in ("and", "the", "district"))
+    return " ".join(words)
+
+
 def dist_label(L):
     d = disp_district(L)
     return f"District {d}" if d.isdigit() else d
@@ -267,7 +279,7 @@ def build_state(code):
     votes = load_votes(DATA / "votes.json.gz")
     history = json.load(gzip.open(DATA / "history.json.gz", "rt"))
     tagged = json.loads((DATA / "tags.json").read_text())["bills"]
-    HAS_FIND = bool(CFG.get("zip")) and (DATA / "zip_lookup.json").exists()
+    HAS_FIND = CFG.get("find", True)
     HAS_VETOES = any(b["status"] == "Vetoed" for b in bills.values())
     if OUT.exists():
         shutil.rmtree(OUT)
@@ -724,42 +736,56 @@ def build_state(code):
     (OUT / "legislators.html").write_text(page("Legislators", f'<h1>Legislators</h1><p class="lede">{len(leg_rows)} members of the {SESS} {SN} Legislature.{lookup_note}</p>'
         f'<table><thead><tr><th>Name</th><th>Party</th><th>House</th><th>District</th><th class="n">Bills authored</th><th class="n">Bills voted on (floor)</th></tr></thead><tbody>{rows}</tbody></table>'))
 
-    # ---------------- find my legislators (ZIP lookup; only where the Census files give numbered districts)
+    # ---------------- find my legislators (street address -> Census geocoder -> districts; runs in the visitor's browser)
     if HAS_FIND:
-        zips = json.loads((DATA / "zip_lookup.json").read_text())
-        (OUT / "data" / "zip.json").write_text(json.dumps(zips, separators=(",", ":")))
-        reps = {"A": {}, "S": {}}
+        reps = {"L": {}, "U": {}, "X": []}
+        extra = CFG.get("extra_districts", [])
         for L, lid, na, nal, nv in leg_rows:
-            ch = "A" if L["house"] == CFG["lower"] else "S" if L["house"] == CFG.get("upper") else None
-            d = disp_district(L)
-            if ch and d.isdigit() and L.get("active", True):
-                reps[ch].setdefault(int(d), []).append({"n": L["name"], "s": lid_slug[lid], "p": L["party"], "a": na})
-        find_js = """const REPS=__REPS__;let Z=null;const LD=__LD__,UD=__UD__,LL=__LL__,UL=__UL__,OFF=__OFF__,OFFL=__OFFL__,SNAME=__SNAME__;
-const box=document.getElementById('zip'),out=document.getElementById('res');
+            if not L.get("active", True):
+                continue
+            ch = "L" if L["house"] == CFG["lower"] else "U" if L["house"] == CFG.get("upper") else None
+            if not ch:
+                continue
+            card_ = {"n": L["name"], "s": lid_slug[lid], "p": L["party"], "a": na, "d": dist_label(L)}
+            if extra and L["district"] in extra:
+                reps["X"].append(card_)
+            else:
+                reps[ch].setdefault(dkey(L["district"]), []).append(card_)
+        find_js = """const REPS=__REPS__,LL=__LL__,UL=__UL__,LLY=__LLY__,ULY=__ULY__,XL=__XL__,OFF=__OFF__,OFFL=__OFFL__,SNAME=__SNAME__,STATE=__STATE__;
+const BASE='https://geocoding.geo.census.gov/geocoder/geographies/onelineaddress';
+const box=document.getElementById('addr'),out=document.getElementById('res');
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function dkey(v){v=String(v).trim();let m=v.match(/^(?:[A-Z]{2}|Ward\\s+)0*(\\d+)$/);if(m)return m[1];if(/^\\d+$/.test(v))return String(parseInt(v,10));
+return (v.toLowerCase().match(/[a-z0-9]+/g)||[]).filter(w=>!['and','the','district'].includes(w)).sort().join(' ')}
 const PARTY={DEM:'Democrat',REP:'Republican'};
-function card(ch,d,share,only){const list=REPS[ch][d];const name=(ch==='A'?LD:UD)+' ';
-if(!list)return '<li>'+name+d+' (no current member on file)</li>';
-const pct=Math.round(share*100);
-return list.map(r=>'<li class="card"><b><a href="legislator/'+r.s+'.html">'+esc(r.n.split(', ').reverse().join(' '))+'</a></b> <span class="party '+r.p+'">'+esc(PARTY[r.p]||r.p)+'</span><br><span class="muted small">'+name+d+
-(only?' · covers the whole ZIP code':' · covers about '+pct+'% of this ZIP code')+' · '+r.a+' bills authored or co-authored</span></li>').join('')}
-function section(ch,label,list){if(!list||!list.length)return '';const sure=list.length===1;
-return '<h2>'+label+'</h2>'+(sure?'':'<p class="muted small">This ZIP code is split between districts. Percentages are the share of the ZIP code’s land area in each district, so they show which is likelier, not who lives where.</p>')+'<ul style="list-style:none;padding:0">'+list.map(x=>card(ch,x[0],x[1],sure)).join('')+'</ul>'}
-async function go(){const raw=box.value.trim();const m=raw.match(/^(\\d{5})(?:-\\d{4})?$/);
-if(!m){out.innerHTML='<p class="note">Enter a 5-digit ZIP code.</p>';return}
-const zip=m[1];history.replaceState(null,'','?zip='+zip);
-if(!Z){try{Z=await (await fetch('data/zip.json')).json()}catch(e){out.innerHTML='<p class="note">The ZIP lookup could not be loaded. Please try again.</p>';return}}
-const r=Z[zip];
-if(!r){out.innerHTML='<p class="note">No '+SNAME+' legislators found for '+zip+'. Some ZIP codes (such as PO boxes) are not matched to districts. Try your street address on the <a href="'+OFF+'">'+OFFL+'</a>.</p>';return}
-out.innerHTML='<h2 style="margin-top:20px">ZIP code '+zip+'</h2>'+section('A',LL,r.A)+(UD?section('S',UL,r.S):'')+
-'<p class="note small">ZIP codes and legislative districts do not line up exactly. For a definite answer, enter your street address on the <a href="'+OFF+'">'+OFFL+'</a>.</p>'}
+function card(r){return '<li class="card"><b><a href="legislator/'+r.s+'.html">'+esc(r.n.split(', ').reverse().join(' '))+'</a></b> <span class="party '+r.p+'">'+esc(PARTY[r.p]||r.p)+'</span><br><span class="muted small">'+esc(r.d)+' · '+r.a+' bills authored or co-authored</span></li>'}
+function section(label,list){return list&&list.length?'<h2>'+label+'</h2><ul style="list-style:none;padding:0">'+list.map(card).join('')+'</ul>':''}
+function lookup(addr){return new Promise((res,rej)=>{const cb='stcb'+Date.now();const s=document.createElement('script');
+function done(){clearTimeout(t);delete window[cb];s.remove()}
+const t=setTimeout(()=>{done();rej(new Error('timeout'))},25000);
+window[cb]=d=>{done();res(d)};s.onerror=()=>{done();rej(new Error('network'))};
+s.src=BASE+'?'+new URLSearchParams({address:addr,benchmark:'Public_AR_Current',vintage:'Current_Current',layers:'all',format:'jsonp',callback:cb});document.head.appendChild(s)})}
+function layer(g,which){const k=Object.keys(g).find(x=>x.indexOf('State Legislative Districts - '+which)>=0);return k&&g[k][0]?(g[k][0].BASENAME||g[k][0].NAME):null}
+async function go(){let raw=box.value.trim();
+if(raw.length<6){out.innerHTML='<p class="note">Enter a street address and city, for example “1 Main St, Springfield”.</p>';return}
+const q=/,\\s*[A-Za-z]{2}\\b/.test(raw)?raw:raw+', '+STATE;
+history.replaceState(null,'','?address='+encodeURIComponent(raw));
+out.innerHTML='<p class="muted">Looking up your districts…</p>';
+let d;try{d=await lookup(q)}catch(e){out.innerHTML='<p class="note">The Census address lookup did not respond. Please try again, or use the <a href="'+OFF+'">'+OFFL+'</a>.</p>';return}
+const m=d.result&&d.result.addressMatches&&d.result.addressMatches[0];
+if(!m){out.innerHTML='<p class="note">The Census geocoder could not match that address. Check the street, city and ZIP, or use the <a href="'+OFF+'">'+OFFL+'</a>.</p>';return}
+const g=m.geographies||{};let html='<p class="muted small">Matched address: <b>'+esc(m.matchedAddress)+'</b></p>';let found=false;
+if(LLY){const k=layer(g,LLY);const list=k!==null?REPS.L[dkey(k)]:null;if(list){found=true;html+=section(LL,list)}}
+if(ULY){const k=layer(g,ULY);const list=k!==null?REPS.U[dkey(k)]:null;if(list){found=true;html+=section(UL,list)}}
+if(XL)html+=section(XL,REPS.X);
+if(!found&&!XL)html+='<p class="note">That address matched, but no current '+SNAME+' member is on file for its district.</p>';
+out.innerHTML=html+'<p class="note small">Your address went from your browser straight to the U.S. Census Bureau’s public geocoder, which returns the districts; this site does not receive or store it. Districts come from the Census Bureau’s 2026 maps. For an official answer use the <a href="'+OFF+'">'+OFFL+'</a>.</p>'}
 document.getElementById('f').addEventListener('submit',e=>{e.preventDefault();go()});
-const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}""".replace("__REPS__", json.dumps(reps, separators=(",", ":"), ensure_ascii=False)).replace("__LD__", json.dumps(CFG.get("lower_dist", ""))).replace("__UD__", json.dumps(CFG.get("upper_dist", ""))).replace("__LL__", json.dumps(CFG.get("lower_label", ""))).replace("__UL__", json.dumps(CFG.get("upper_label", ""))).replace("__OFFL__", json.dumps(CFG["lookup_label"])).replace("__OFF__", json.dumps(CFG["official_lookup"])).replace("__SNAME__", json.dumps(SN))
-        ex = " or ".join(f'<a href="?zip={z}">{z}</a>' for z in CFG.get("zip_example", []))
+const q0=new URLSearchParams(location.search).get('address');if(q0){box.value=q0;go()}""".replace("__REPS__", json.dumps(reps, separators=(",", ":"), ensure_ascii=False)).replace("__LLY__", json.dumps(CFG.get("lower_layer", "Lower"))).replace("__ULY__", json.dumps(CFG.get("upper_layer", "Upper") if CFG.get("upper") else None)).replace("__LL__", json.dumps(CFG.get("lower_label", ""))).replace("__UL__", json.dumps(CFG.get("upper_label", ""))).replace("__XL__", json.dumps(CFG.get("extra_label"))).replace("__OFFL__", json.dumps(CFG["lookup_label"])).replace("__OFF__", json.dumps(CFG["official_lookup"])).replace("__SNAME__", json.dumps(SN)).replace("__STATE__", json.dumps(ST))
         (OUT / "find.html").write_text(page("Find my legislators", f"""<h1>Find my legislators</h1>
-<p class="lede">Enter your {SN} ZIP code to see the state legislators for it, then what each of them has authored and how they have voted.</p>
-<form id="f" class="filters" autocomplete="off"><input id="zip" inputmode="numeric" maxlength="10" placeholder="ZIP code" aria-label="ZIP code" style="max-width:260px"><button type="submit" style="font:inherit;padding:7px 16px;border-radius:8px;border:0;background:var(--accent);color:#161d2e;cursor:pointer">Find</button></form>
-<p class="muted small">Try {ex}.</p>
+<p class="lede">Enter your street address and city to see who represents you in the {SN} Legislature, then what each of them has authored and how they have voted.</p>
+<form id="f" class="filters" autocomplete="off"><input id="addr" placeholder="Street address and city, e.g. 400 Main St, Springfield" aria-label="Street address and city" style="min-width:320px"><button type="submit" style="font:inherit;padding:7px 16px;border-radius:8px;border:0;background:var(--accent);color:#161d2e;cursor:pointer">Find</button></form>
+<p class="muted small">Addresses are matched by the U.S. Census Bureau’s geocoder, called from your browser; StateTrack never sees them.</p>
 <div id="res"></div><script>{find_js}</script>"""))
 
     # ---------------- vetoes tracker
@@ -974,8 +1000,8 @@ const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}"
     status = Counter(b["status"] for b in bills.values())
     n_dead = sum(status[s] for s in DEAD)
     issues_html = (f'<h2>Issues in the news</h2><p class="small muted">Chosen from {SN} coverage as of {esc(ISSUES["as_of"])}. Each links to the bills, how they lean and who is authoring them.</p><div class="issues">{"".join(issue_cards)}</div>') if issue_cards else ""
-    find_form = f'''<form class="filters" action="find.html" method="get"><input name="zip" inputmode="numeric" maxlength="10" placeholder="Find my legislators: enter your {SN} ZIP code" aria-label="ZIP code"><button type="submit" style="font:inherit;padding:7px 16px;border-radius:8px;border:1px solid var(--axis);background:var(--accent);color:#fff;cursor:pointer">Find</button></form>''' if HAS_FIND else ""
-    find_li = '<li><a href="find.html">Find my legislators</a> by ZIP code.</li>' if HAS_FIND else ""
+    find_form = f'''<form class="filters" action="find.html" method="get"><input name="address" placeholder="Find my legislators: enter your street address and city" aria-label="Street address and city"><button type="submit" style="font:inherit;padding:7px 16px;border-radius:8px;border:0;background:var(--accent);color:#161d2e;cursor:pointer">Find</button></form>''' if HAS_FIND else ""
+    find_li = '<li><a href="find.html">Find my legislators</a> by street address.</li>' if HAS_FIND else ""
     body = f"""<h1>{SN} legislation by topic and direction</h1>
 <p class="lede">Every bill in {SN}’s {SESS} session, sorted into topics, with a read on which way each bill pushes against current law, Restrictive or Permissive, and where the money goes. Then what each legislator authored and how they voted.</p>
 <div class="tiles"><div class="tile"><b>{vv(f"{len(bills):,}", f"{len(bills) - n_dead:,}")}</b><span>Bills</span></div><div class="tile"><b>{vv(f"{n_policy:,}", f"{sum(1 for k in bills if policy_tags[k] and alive[k]):,}")}</b><span>With Policy Topic Tags</span></div><div class="tile"><b>{len(leg_rows)}</b><span>Legislators</span></div>
@@ -1008,6 +1034,7 @@ out.innerHTML=h;cnt.textContent=n+' bills'+(n>200?' (showing the first 200; narr
 
     # ---------------- method
     taxrows = "".join(f'<li><b>{esc(t["name"])}</b>: ' + ", ".join(esc(s["name"]) for s in t["subtopics"]) + "</li>" for t in TAX["topics"] if not t.get("excluded"))
+    find_method = '<h2>Find my legislators</h2><p>Enter a street address and the page asks the U.S. Census Bureau’s public geocoder which state legislative districts the address falls in, then shows the members for those districts. The request goes from your browser directly to the Census Bureau, so this site never sees or stores the address. District maps are the Census Bureau’s 2026 files; for an official answer use the state’s own lookup, linked on the page.</p>' if HAS_FIND else ""
     vetoes_method = f'''<h2>Vetoes</h2><p>The <a href="vetoes.html">Vetoes page</a> counts every bill that reached the {SX} in the {SESS} session. For each topic it shows the average direction of the bills signed and of the bills vetoed, on the same Restrictive / Permissive scale and measured against current law, so you can see what kind of bills get vetoed. Click a topic, then a sub-topic, to see the bills. The {SX}’s veto messages (the stated reasons) are not part of this data.</p>''' if HAS_VETOES else ""
     issues_method = f'''<h2>Issues in the news</h2><p>The issues on the overview were picked from news coverage as of {esc(ISSUES["as_of"])}. Each issue page lists its sources and states exactly which bills it includes (by tag and by wording in the title or digest). Keyword matching can include a bill that only mentions the subject in passing.</p>''' if issue_data else ""
     meta = json.loads((DATA / "tags.json").read_text())
@@ -1022,7 +1049,7 @@ out.innerHTML=h;cnt.textContent=n+' bills'+(n>200?' (showing the first 200; narr
 <h2>Bill status</h2><p>Statuses come from the Legislature’s record. <b>Became Law</b> means the bill was chaptered: the {SX} signed it, or it became law without a signature, and it has a chapter number. <b>Vetoed</b> bills were returned by the {SX}. <b>Died</b> and <b>Failed Passage in Committee</b> bills did not advance.</p>
 {vetoes_method}
 <h2>Autonomous vehicles and driver assistance</h2><p>These are separate sub-topics. <b>Autonomous vehicles</b> covers driverless or automated driving systems that operate without a human driver continuously in control. <b>Driver-assistance systems (ADAS)</b> covers partially automated features where a human must stay in control, such as lane-keeping and adaptive cruise control. A drunk-driving or other traffic offense by a human using these features is filed under Traffic safety unless the bill regulates the feature itself.</p>
-<h2>Reading legislator pages</h2><p>Click a topic to see that legislator’s sub-topics, each with its own score, and click a sub-topic to see the bills behind it, with their role and direction. The label on a topic is a summary of those sub-topic scores.</p>
+{find_method}<h2>Reading legislator pages</h2><p>Click a topic to see that legislator’s sub-topics, each with its own score, and click a sub-topic to see the bills behind it, with their role and direction. The label on a topic is a summary of those sub-topic scores.</p>
 <h2>Evidence</h2><p>Every direction call must quote a sentence from the bill’s title or {CFG["digest"]}. If the quoted sentence is not in the digest, the call is thrown away and shown as unclear.</p>
 <h2>Who does the labelling</h2><p>An AI model ({esc(meta.get("model", ""))}) reads each bill’s title and digest and applies the list above. It is fast and cheap but not perfect: in a 50-bill test it agreed with a larger model on about 86% of direction calls. Bills without a digest are tagged from the title alone and usually come out unclear on direction. The model declined to process one bill (a biosecurity bill) and it is shown untagged. Labels are a guide to read the bill, not a substitute.</p>
 <h2>Legislators</h2><p>Legislator pages count what each member authored or co-authored and how they voted on the floor, with every bill linked. Committee votes are not yet matched to members.</p>

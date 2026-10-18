@@ -88,7 +88,9 @@
   "zip": false,
   "official_lookup": "https://malegislature.gov/Search/FindMyLegislator",
   "lookup_label": "Massachusetts Legislature’s official lookup",
-  "fips": "25"
+  "fips": "25",
+  "lower_label": "State representative",
+  "upper_label": "State senator"
  },
  "DC": {
   "name": "the District of Columbia",
@@ -105,7 +107,15 @@
   "zip": false,
   "official_lookup": "https://dccouncil.gov/councilmembers/",
   "lookup_label": "DC Council’s member directory",
-  "fips": "11"
+  "fips": "11",
+  "lower_label": "Ward councilmember",
+  "lower_dist": "Ward",
+  "lower_layer": "Upper",
+  "extra_districts": [
+   "Chairman",
+   "At-Large"
+  ],
+  "extra_label": "Citywide members (Chair and At-Large)"
  },
  "FL": {
   "name": "Florida",
