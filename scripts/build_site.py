@@ -520,7 +520,7 @@ def main():
                     by_sid[it[3]["subtopic"]].append(it)
                 ordered = sorted(by_sid.items(), key=lambda kv: -len(kv[1]))
                 driven = ", ".join(f'{esc(T(SUB[sid]["name"]))} ({len(v)})' for sid, v in ordered[:3]) + ("…" if len(ordered) > 3 else "")
-                row = f'<div class="mrow"><span><b>{esc(TOPICS[tid]["name"])}</b><div class="muted small">From: {driven}</div></span>{m}<div class="v">{chip}<br><span class="muted small">{n} bill{"" if n == 1 else "s"}</span></div></div>'
+                row = f'<div class="mrow"><span><b>{esc(TOPICS[tid]["name"])}</b></span>{m}<div class="v">{chip}<br><span class="muted small">{n} bill{"" if n == 1 else "s"}</span></div></div>'
                 if n >= MIN_LEG:
                     blocks = []
                     for sid, its in ordered:
