@@ -66,6 +66,10 @@ MIN_LEG = 3         # fewer authored directional tags than this: "not enough bil
 CUT = 0.25          # |weighted mean| at or above this earns a Restrictive / Permissive tag
 
 
+def NOTE_DIV(n):
+    return f'<div class="muted small">{esc(display_note(n))}</div>' if n else ""
+
+
 def RL(role):
     return {"LEAD_AUTHOR": "Lead author", "PRINCIPAL_COAUTHOR": "Principal co-author", "COAUTHOR": "Co-author"}.get(role, T(role))
 
@@ -120,7 +124,7 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 blockquote{margin:6px 0;padding:6px 12px;border-left:3px solid var(--axis);color:var(--ink2);background:var(--surface)}
 input[type=text],input:not([type]),select{font:inherit;padding:7px 9px;border:1px solid var(--axis);border-radius:8px;background:var(--surface);color:var(--ink)}
 .filters{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.filters input{flex:1;min-width:200px}
-.bsum{margin:3px 0 2px;color:var(--ink2);font-size:14px;max-width:70ch}.bmeta{color:var(--muted);font-size:12.5px;margin-bottom:10px}details.why{margin:0 0 12px;padding:6px 10px;background:var(--chip);border-radius:8px}h3:target,h4:target{background:var(--chip);border-radius:6px;padding:2px 8px}details summary{cursor:pointer;color:var(--ink2)}footer{color:var(--muted);font-size:13px;padding:24px 0;border-top:1px solid var(--line)}
+.bsum{margin:3px 0 2px;color:var(--ink2);font-size:14px;max-width:70ch}.bmeta{color:var(--muted);font-size:12.5px;margin-bottom:10px}details.cat>summary{list-style:none;cursor:pointer}details.cat>summary::-webkit-details-marker{display:none}details.cat{border-bottom:1px solid var(--line);margin:0 0 4px;padding-bottom:6px}details.cat[open]>summary .mrow{background:var(--chip);border-radius:8px}details.cat>summary:hover .mrow{background:var(--chip);border-radius:8px}h3:target,h4:target{background:var(--chip);border-radius:6px;padding:2px 8px}details summary{cursor:pointer;color:var(--ink2)}footer{color:var(--muted);font-size:13px;padding:24px 0;border-top:1px solid var(--line)}
 .axis{display:grid;grid-template-columns:minmax(120px,230px) 1fr 92px;gap:10px;font-size:12px;color:var(--ink2);margin-top:8px}.axis .ends{display:flex;justify-content:space-between}
 .mrow{display:grid;grid-template-columns:minmax(120px,230px) 1fr 92px;gap:10px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line)}.mrow a{color:var(--ink);text-decoration:none}.mrow a:hover{text-decoration:underline}
 .mrow .v{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink2);font-size:13px}.mrow.sub{padding-left:14px}
@@ -511,27 +515,35 @@ def main():
                     m = m.replace('<b class="dot', '<b class="dot') if n >= MIN_TAGS else m
                     kind, word = ("rest", "Restrictive") if wm <= -CUT else ("perm", "Permissive") if wm >= CUT else ("mid", "Balanced")
                     chip = f'<span class="chip {kind}">{word}</span>'
-                rows.append(f'<div class="mrow"><a href="#t-{tid}">{esc(TOPICS[tid]["name"])}</a>{m}<div class="v">{chip}<br><span class="muted small">{n} bill{"" if n == 1 else "s"}</span></div></div>')
+                by_sid = defaultdict(list)
+                for it in items:
+                    by_sid[it[3]["subtopic"]].append(it)
+                ordered = sorted(by_sid.items(), key=lambda kv: -len(kv[1]))
+                driven = ", ".join(f'{esc(T(SUB[sid]["name"]))} ({len(v)})' for sid, v in ordered[:3]) + ("…" if len(ordered) > 3 else "")
+                row = f'<div class="mrow"><span><b>{esc(TOPICS[tid]["name"])}</b><div class="muted small">From: {driven}</div></span>{m}<div class="v">{chip}<br><span class="muted small">{n} bill{"" if n == 1 else "s"}</span></div></div>'
                 if n >= MIN_LEG:
-                    wd = {-2: "Strongly Restrictive", -1: "Restrictive", 0: "Mixed", 1: "Permissive", 2: "Strongly Permissive"}
-                    lines = "".join(
-                        f'<tr><td><a href="../bill/{slug(k)}.html">{esc(k)}</a> · {esc(bills[k].get("title", ""))}</td><td>{esc(RL(role))} (×{w})</td><td>{esc(SUB[t["subtopic"]]["name"])}</td><td>{esc(DIR_WORD(t["direction"]))}</td><td class="n">{sc:+d}</td></tr>'
-                        for sc, w, k, t, role in sorted(items, key=lambda it: (it[0], it[2])))
+                    blocks = []
+                    for sid, its in ordered:
+                        sw = sum(i[1] for i in its)
+                        sm_ = sum(i[0] * i[1] for i in its) / sw
+                        sv = "Restrictive" if sm_ <= -CUT else "Permissive" if sm_ >= CUT else "Balanced"
+                        sk = {"Restrictive": "rest", "Permissive": "perm", "Balanced": "mid"}[sv]
+                        smeter, _ = meter([sm_], SUB[sid]["name"])
+                        sl = "".join(
+                            f'<tr><td><a href="../bill/{slug(k)}.html">{esc(k)}</a> · {esc(bills[k].get("title", ""))}</td><td>{esc(RL(role))} (×{w})</td><td>{esc(DIR_WORD(t["direction"]))}</td><td class="n">{sc:+d}</td></tr>'
+                            for sc, w, k, t, role in sorted(its, key=lambda it: (it[0], it[2])))
+                        note_ = SUB[sid].get("note")
+                        blocks.append(f'<div class="mrow sub"><span><b>{esc(T(SUB[sid]["name"]))}</b> <span class="muted small">({len(its)} bill{"" if len(its) == 1 else "s"})</span>'
+                                      f'{NOTE_DIV(note_)}</span>{smeter}<div class="v"><span class="chip {sk}">{sv}</span><br><span class="muted small">{sm_:+.2f}</span></div></div>'
+                                      f'<table><thead><tr><th>Bill</th><th>Role (weight)</th><th>Direction vs. current law</th><th class="n">Score</th></tr></thead><tbody>{sl}</tbody></table>')
                     tw = sum(it[1] for it in items)
                     tot = sum(it[0] * it[1] for it in items)
-                    by_sub = Counter(SUB[it[3]["subtopic"]]["name"] for it in items)
-                    mix = "; ".join(f"{esc(nm)} ({c})" for nm, c in by_sub.most_common())
-                    verdict = ("Restrictive" if wm <= -CUT else "Permissive" if wm >= CUT else "Balanced")
-                    meaning = {"Restrictive": "On balance, the bills this legislator wrote or co-wrote on this topic would tighten rules or limit access compared with current California law.",
-                               "Permissive": "On balance, the bills this legislator wrote or co-wrote on this topic would loosen rules or widen access compared with current California law.",
-                               "Balanced": "The bills this legislator wrote or co-wrote on this topic split between tightening and loosening, or change little."}[verdict]
-                    rows.append(f'<details class="why"><summary>Why {verdict}? See the {n} tagged bill{"" if n == 1 else "s"} behind this score</summary>'
-                                f'<p class="small">{meaning} It describes the bills, not necessarily the person’s views.</p><p class="small"><b>What the tags are about:</b> {mix}.</p>'
-                                f'<table><thead><tr><th>Bill</th><th>Role (weight)</th><th>Sub-topic</th><th>Direction vs. current law</th><th class="n">Score</th></tr></thead><tbody>{lines}</tbody></table>'
-                                f'<p class="small muted">Score: Strongly Restrictive −2, Restrictive −1, Mixed 0, Permissive +1, Strongly Permissive +2. Weighted average = {tot:+d} ÷ {tw} = <b>{wm:+.2f}</b>. Restrictive is −{CUT} or lower, Permissive is +{CUT} or higher, otherwise Balanced.</p></details>')
+                    rows.append(f'<details class="cat"><summary>{row}</summary>{"".join(blocks)}<p class="small muted">Weighted average = {tot:+d} ÷ {tw} = <b>{wm:+.2f}</b> (lead ×3, principal co-author ×2, co-author ×1).</p></details>')
+                else:
+                    rows.append(row)
             lean_html = (f'<h2>Lean by issue</h2><p class="small muted">From the bills this legislator authored or co-authored. Each bill’s direction is measured against current law; lead authors count 3×, principal co-authors 2×, co-authors 1×. '
                          f'A tag needs at least {MIN_LEG} directional bills; <b>Restrictive</b> is a weighted average of −{CUT} or lower, <b>Permissive</b> is +{CUT} or higher, otherwise <b>Balanced</b>. '
-                         f'The dark tick is the average of all California bills on the topic, so you can see where this legislator sits relative to the typical bill.</p>{AXIS}{"".join(rows) if rows else "<p class=muted>No tagged bills with a direction.</p>"}')
+                         f'The dark tick is the average of all California bills on the topic. Click a topic to see the bills behind it.</p>{AXIS}{"".join(rows) if rows else "<p class=muted>No tagged bills with a direction.</p>"}')
             # detail by sub-topic
             prof = defaultdict(lambda: defaultdict(int))
             for k, role in a_k:
