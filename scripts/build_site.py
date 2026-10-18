@@ -256,6 +256,14 @@ def build_state(code):
     set_state(code)
     bills = json.loads((DATA / "bills.json").read_text())
     legislators = json.loads((DATA / "legislators.json").read_text())
+    ov = DATA / "legislator_overrides.json"   # hand corrections to extracted legislator fields, keyed by legislator id
+    if ov.exists():
+        for lid_, fix in json.loads(ov.read_text(encoding="utf-8")).items():
+            if lid_ in legislators:
+                legislators[lid_].update(fix)
+    for b_ in bills.values():   # DC adopts proposed resolutions; they are not laws
+        if ST == "DC" and b_.get("type") == "PR" and b_["status"] == "Chaptered":
+            b_["status"] = "Adopted"
     votes = load_votes(DATA / "votes.json.gz")
     history = json.load(gzip.open(DATA / "history.json.gz", "rt"))
     tagged = json.loads((DATA / "tags.json").read_text())["bills"]
