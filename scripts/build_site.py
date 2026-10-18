@@ -722,7 +722,8 @@ def build_state(code):
         leg_rows.append((L, lid, len(au), len([k for k, _ in au if alive[k]]), len(vt)))
     rows = "".join(f'<tr><td><a href="legislator/{lid_slug[lid]}.html">{esc(L["name"])}</a></td><td><span class="party {L["party"]}">{esc(L["party"])}</span></td><td>{esc(L["house"])}</td>'
                    f'<td>{esc(disp_district(L))}</td><td class="n">{vv(na, nal)}</td><td class="n">{nv}</td></tr>' for L, lid, na, nal, nv in leg_rows)
-    (OUT / "legislators.html").write_text(page("Legislators", f'<h1>Legislators</h1><p class="lede">{len(leg_rows)} members of the {SESS} {SN} Legislature.</p>'
+    lookup_note = "" if HAS_FIND else f' To find who represents you, use the <a href="{CFG["official_lookup"]}">{CFG["lookup_label"]}</a>.'
+    (OUT / "legislators.html").write_text(page("Legislators", f'<h1>Legislators</h1><p class="lede">{len(leg_rows)} members of the {SESS} {SN} Legislature.{lookup_note}</p>'
         f'<table><thead><tr><th>Name</th><th>Party</th><th>House</th><th>District</th><th class="n">Bills authored</th><th class="n">Bills voted on (floor)</th></tr></thead><tbody>{rows}</tbody></table>'))
 
     # ---------------- find my legislators (ZIP lookup; only where the Census files give numbered districts)
