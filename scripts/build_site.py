@@ -287,6 +287,8 @@ def main():
     index = []
     for k, b in sorted(bills.items(), key=lambda kv: (kv[1]["type"], kv[1]["number"])):
         summary = tagged.get(k, {}).get("summary", "")
+        if not tagged.get(k, {}).get("has_digest", True) or "text was provided" in summary:
+            summary = "Not tagged: the Legislature published no summary for this measure, so its policy effect is not classified."
         hist_rows = "".join(f'<tr><td class="small">{esc(d)}</td><td>{esc(t)}</td></tr>' for d, _, t in history.get(k, [])[-25:][::-1])
         digest = esc(b.get("digest", "")) or '<span class="muted">No digest on file for this bill.</span>'
         body = f"""<p class="small"><a href="../bills.html">← All bills</a></p><h1>{esc(k)} · {esc(b.get("title", ""))}</h1>
