@@ -91,6 +91,7 @@ BENCHMARK = ("Every direction is measured against the <b>status quo</b>: current
              "<b>Permissive</b> means the bill moves the law toward more permission, access or fewer rules. <b>Restrictive</b> means it moves toward less permission or more rules. "
              "A bill that continues, studies or clarifies current law is neutral and is left out of the averages.")
 
+CSS_V = ""
 CSS = """
 :root{color-scheme:light;--bg:#f9f9f7;--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;--line:#e1e0d9;--axis:#c3c2b7;--accent:#2a78d6;
 --rest2:#a82b2a;--rest1:#e34948;--mixed:#898781;--neutral:#c3c2b7;--perm1:#5598e7;--perm2:#1c5cab;--chip:#efeee9;--link:#1c5cab}
@@ -137,6 +138,9 @@ input[type=text],input:not([type]),select{font:inherit;padding:7px 9px;border:1p
 .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}.note{border-left:3px solid var(--accent);padding:6px 12px;background:var(--surface)}
 @media (max-width:640px){.bars .row{grid-template-columns:1fr 60px}.bars .track{grid-column:1/-1;order:3}.mrow,.axis{grid-template-columns:1fr 70px}.mrow .meter,.axis .ends{grid-column:1/-1;order:3}nav .toggle{margin-left:0}}
 """
+import hashlib
+CSS_V = hashlib.md5(CSS.encode()).hexdigest()[:8]
+
 
 HEAD_JS = """<script>try{if(/[?&]alive=1/.test(location.search)||localStorage.getItem('st_alive')==='1')document.documentElement.classList.add('alive')}catch(e){}</script>"""
 TOGGLE_JS = """<script>(function(){var c=document.getElementById('alive');if(!c)return;var r=document.documentElement;c.checked=r.classList.contains('alive');
@@ -151,7 +155,7 @@ def page(title, body, depth=0, desc=""):
     base = "../" * depth
     body = body.replace("<table", '<div class="scroll"><table').replace("</table>", "</table></div>")
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{esc(title)} · StateTrack</title><meta name="description" content="{esc(desc or title)}"><link rel="stylesheet" href="{base}style.css">{HEAD_JS}</head><body>
+<title>{esc(title)} · StateTrack</title><meta name="description" content="{esc(desc or title)}"><link rel="stylesheet" href="{base}style.css?v={CSS_V}">{HEAD_JS}</head><body>
 <header class="site"><div class="wrap"><nav><a class="brand" href="{base}index.html">StateTrack</a><a href="{base}index.html">Overview</a><a href="{base}bills.html">All bills</a><a href="{base}vetoes.html">Vetoes</a>
 <a href="{base}find.html">Find my legislators</a><a href="{base}legislators.html">Legislators</a><a href="{base}method.html">How it works</a>
 <label class="toggle" title="Hides bills the official record marks as died, failed in committee or vetoed"><input type="checkbox" id="alive"> Hide bills that died</label></nav></div></header>
@@ -701,7 +705,41 @@ const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}"
     trows.sort(reverse=True)
     topic_tbl = ('<table><thead><tr><th>Topic</th><th class="n">Signed</th><th class="n">Vetoed</th><th class="n">Veto rate</th><th class="n">Avg. lean of signed</th><th class="n">Avg. lean of vetoed</th></tr></thead><tbody>'
                  + "".join(r for _, r in trows) + "</tbody></table>")
+    def gov_detail(ks, tid):
+        by_sub = defaultdict(list)
+        for k in ks:
+            for t in policy_tags[k]:
+                if SUB[t["subtopic"]]["topic_id"] == tid:
+                    by_sub[t["subtopic"]].append((k, t))
+        out = []
+        for sid, its in sorted(by_sub.items(), key=lambda kv: -len(kv[1])):
+            sc = [lean(t) for _, t in its if lean(t) is not None]
+            if sc:
+                sm_ = sum(sc) / len(sc)
+                sv = "Restrictive" if sm_ <= -CUT else "Permissive" if sm_ >= CUT else "Balanced"
+                sk = {"Restrictive": "rest", "Permissive": "perm", "Balanced": "mid"}[sv]
+                smeter, _ = meter(sc, SUB[sid]["name"])
+                right = f'<span class="chip {sk}">{sv}</span><br><span class="muted small">{sm_:+.2f}</span>'
+            else:
+                smeter, right = f'<span class="muted small">{"funding only" if SUB[sid]["axis"] == "F" else "no direction"}</span>', ""
+            rows_ = "".join(
+                f'<tr><td><a href="bill/{slug(k)}.html">{esc(k)}</a> · {esc(bills[k].get("title", ""))}</td><td>{au_link(k)}</td><td>{esc(DIR_WORD(t["direction"])) if t["direction"] in SCORE and SUB[sid]["axis"] in ("A", "R") else ""}</td></tr>'
+                for k, t in sorted(its, key=lambda x: (bills[x[0]]["type"], bills[x[0]]["number"])))
+            out.append(f'<details class="subcat"><summary><div class="mrow sub"><span><b>{esc(T(SUB[sid]["name"]))}</b> <span class="muted small">({len(its)} bill{"" if len(its) == 1 else "s"})</span>{NOTE_DIV(SUB[sid].get("note"))}</span>{smeter}<div class="v">{right}</div></div></summary>'
+                       f'<table><thead><tr><th>Bill</th><th>Lead author</th><th>Direction vs. current law</th></tr></thead><tbody>{rows_}</tbody></table></details>')
+        return "".join(out)
+
+    def au_link(k):
+        lead = next((a for a in bills[k].get("authors", []) if a["role"] == "LEAD_AUTHOR" and isinstance(a["legislator"], str) and a["legislator"] in legislators), None)
+        return f'<a href="legislator/{lid_slug[lead["legislator"]]}.html">{esc(legislators[lead["legislator"]]["name"])}</a>' if lead else "—"
+
     def lean_row(label, ks, tid, avg, extra):
+        row = lean_row_plain(label, ks, tid, avg, extra)
+        if tid is None or not ks:
+            return row
+        return f'<details class="cat"><summary>{row}</summary>{gov_detail(ks, tid)}</details>'
+
+    def lean_row_plain(label, ks, tid, avg, extra):
         sc = [lean(t) for k in ks for t in policy_tags[k] if lean(t) is not None and (tid is None or SUB[t["subtopic"]]["topic_id"] == tid)]
         if len(sc) < MIN_LEG:
             return f'<div class="mrow"><span>{label}</span><span class="muted small">fewer than {MIN_LEG} directional bills</span><div class="v">{extra}</div></div>'
