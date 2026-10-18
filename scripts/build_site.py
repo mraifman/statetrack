@@ -709,7 +709,7 @@ const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}"
         by_sub = defaultdict(list)
         for k in ks:
             for t in policy_tags[k]:
-                if SUB[t["subtopic"]]["topic_id"] == tid:
+                if SUB[t["subtopic"]]["topic_id"] == tid and lean(t) is not None:
                     by_sub[t["subtopic"]].append((k, t))
         out = []
         for sid, its in sorted(by_sub.items(), key=lambda kv: -len(kv[1])):
@@ -735,9 +735,11 @@ const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}"
 
     def lean_row(label, ks, tid, avg, extra):
         row = lean_row_plain(label, ks, tid, avg, extra)
-        if tid is None or not ks:
+        sc = [lean(t) for k in ks for t in policy_tags[k] if lean(t) is not None and SUB[t["subtopic"]]["topic_id"] == tid] if tid else []
+        if tid is None or len(sc) < MIN_LEG:
             return row
-        return f'<details class="cat"><summary>{row}</summary>{gov_detail(ks, tid)}</details>'
+        return (f'<details class="cat"><summary>{row}</summary>{gov_detail(ks, tid)}'
+                f'<p class="small muted">Average = {sum(sc):+d} ÷ {len(sc)} = <b>{sum(sc) / len(sc):+.2f}</b></p></details>')
 
     def lean_row_plain(label, ks, tid, avg, extra):
         sc = [lean(t) for k in ks for t in policy_tags[k] if lean(t) is not None and (tid is None or SUB[t["subtopic"]]["topic_id"] == tid)]
@@ -758,9 +760,10 @@ const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}"
         if len(v_k) + len(s_k) < 10:
             continue
         avg_t, _ = mean_lean(v_k + s_k, tid)
-        name = f'<a href="topic/{tid}.html">{esc(TOPICS[tid]["name"])}</a>'
-        gov_rows.append(lean_row(f"{name}: signed", s_k, tid, avg_t, f"{len(s_k)} bills"))
-        gov_rows.append(lean_row(f"{name}: vetoed", v_k, tid, avg_t, f"{len(v_k)} bills · {100 * len(v_k) / (len(v_k) + len(s_k)):.0f}% vetoed"))
+        name = f'<b>{esc(TOPICS[tid]["name"])}</b>'
+        pl = lambda n: f"{n} bill{'' if n == 1 else 's'}"
+        gov_rows.append(lean_row(f"{name}: signed", s_k, tid, avg_t, pl(len(s_k))))
+        gov_rows.append(lean_row(f'{name}: vetoed <span class="muted small">({100 * len(v_k) / (len(v_k) + len(s_k)):.0f}% of bills)</span>', v_k, tid, avg_t, pl(len(v_k))))
     gov_html = AXIS + "".join(gov_rows)
 
     prow = []
