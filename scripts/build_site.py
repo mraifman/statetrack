@@ -315,8 +315,8 @@ def main():
         digest = esc(b.get("digest", "")) or '<span class="muted">No digest on file for this bill.</span>'
         body = f"""<p class="small"><a href="../bills.html">← All bills</a></p><h1>{esc(k)} · {esc(b.get("title", ""))}</h1>
 <p class="lede">{esc(summary)}</p>
-<div class="tiles"><div class="tile"><b style="font-size:18px">{esc(SL(b["status"]))}</b><span>Status</span></div><div class="tile"><b style="font-size:18px">{esc(b.get("last_action_date", ""))}</b><span>Last action</span></div>
-<div class="tile"><b style="font-size:18px">{esc(b.get("chapter", "")) if b["status"] == "Chaptered" else esc(b["house"])}</b><span>{"Chapter number" if b["status"] == "Chaptered" else "Where it ended" if b["status"] in ("Vetoed", "Died", "Failed", "Failed Passage in Committee") else "Currently in"}</span></div></div>
+<div class="tiles"><div class="tile"><b style="font-size:18px">{esc(SL(b["status"]))}</b><span>Status</span></div><div class="tile"><b style="font-size:18px">{esc(b.get("last_action_date", ""))}</b><span>Last Action</span></div>
+<div class="tile"><b style="font-size:18px">{esc(b.get("chapter", "")) if b["status"] == "Chaptered" else esc(b["house"])}</b><span>{"Chapter Number" if b["status"] == "Chaptered" else "Where It Ended" if b["status"] in ("Vetoed", "Died", "Failed", "Failed Passage in Committee") else "Currently In"}</span></div></div>
 <p><b>Authors:</b> {author_line(b)}</p>
 <h2>Topic tags</h2><p class="small muted">Direction is measured against current California law as described in the digest.</p>{tag_table(k)}
 <h2>What the bill does (Legislative Counsel’s digest)</h2><div class="card small">{digest}</div>
@@ -440,7 +440,7 @@ def main():
             kk = [k for k in ks if not live or alive[k]]
             c = Counter(bills[k]["status"] for k in kk)
             m, mean = meter(issue_scores(iss, ks, live), iss["name"])
-            return (f'<div class="small">{len(kk)} bills · {c.get("Chaptered", 0)} Became Law · {c.get("Vetoed", 0)} Vetoed'
+            return (f'<div class="small">{len(kk)} Bills · {c.get("Chaptered", 0)} Became Law · {c.get("Vetoed", 0)} Vetoed'
                     f'{"" if live else " · " + str(sum(c.get(s, 0) for s in DEAD)) + " Died"}</div><div class="mini">{m}</div>')
         issue_cards.append(f'<div class="card"><h3><a href="issue/{iss["id"]}.html">{esc(iss["name"])}</a></h3><div class="small muted">{esc(iss["hook"])}</div>{vb(card_stats(False), card_stats(True))}</div>')
 
@@ -448,10 +448,10 @@ def main():
             kk = [k for k in ks if not live or alive[k]]
             c = Counter(bills[k]["status"] for k in kk)
             active = sum(c.get(s, 0) for s in ("In Committee Process", "In Floor Process", "Passed", "Pending Referral"))
-            tiles = (f'<div class="tiles"><div class="tile"><b>{len(kk)}</b><span>bills</span></div><div class="tile"><b>{c.get("Chaptered", 0)}</b><span>Became Law</span></div>'
+            tiles = (f'<div class="tiles"><div class="tile"><b>{len(kk)}</b><span>Bills</span></div><div class="tile"><b>{c.get("Chaptered", 0)}</b><span>Became Law</span></div>'
                      f'<div class="tile"><b>{c.get("Vetoed", 0)}</b><span>Vetoed</span></div>'
-                     f'{"" if live else "<div class=tile><b>" + str(sum(c.get(s, 0) for s in DEAD)) + "</b><span>died</span></div>"}'
-                     f'<div class="tile"><b>{active}</b><span>still listed as active</span></div></div>')
+                     f'{"" if live else "<div class=tile><b>" + str(sum(c.get(s, 0) for s in DEAD)) + "</b><span>Died</span></div>"}'
+                     f'<div class="tile"><b>{active}</b><span>Still Listed as Active</span></div></div>')
             sc = issue_scores(iss, ks, live)
             lean_html = ""
             if sc:
@@ -498,8 +498,8 @@ def main():
             v_k = {k: v for k, v in vt.items() if not live or alive[k]}
             aye = sum(1 for _, v in v_k.values() if v == "AYE")
             noe = sum(1 for _, v in v_k.values() if v == "NOE")
-            tiles = (f'<div class="tiles"><div class="tile"><b>{len(a_k)}</b><span>bills authored or co-authored</span></div><div class="tile"><b>{len(v_k)}</b><span>bills with a recorded floor vote</span></div>'
-                     f'<div class="tile"><b>{aye}</b><span>aye votes</span></div><div class="tile"><b>{noe}</b><span>no votes</span></div></div>')
+            tiles = (f'<div class="tiles"><div class="tile"><b>{len(a_k)}</b><span>Bills Authored or Co-authored</span></div><div class="tile"><b>{len(v_k)}</b><span>Bills With a Recorded Floor Vote</span></div>'
+                     f'<div class="tile"><b>{aye}</b><span>Aye Votes</span></div><div class="tile"><b>{noe}</b><span>No Votes</span></div></div>')
             # lean by issue (weighted authorship)
             per = defaultdict(list)
             for k, role in a_k:
@@ -826,7 +826,7 @@ const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}"
     vjs = """<script>const sel=document.getElementById('vt');sel.onchange=()=>{document.querySelectorAll('#vlist li').forEach(li=>{li.style.display=(!sel.value||li.dataset.t.split(' ').includes(sel.value))?'':'none'})}</script>"""
     (OUT / "vetoes.html").write_text(page("What is the Governor vetoing?", f"""<h1>What is the Governor vetoing?</h1>
 <p class="lede">Of {n_v + n_s:,} bills that reached the Governor in the 2025–26 session, {n_v} were vetoed ({100 * n_v / (n_v + n_s):.1f}%) and {n_s:,} were signed. This page shows which topics, directions and authors the vetoes fall on.</p>
-<div class="tiles"><div class="tile"><b>{n_v}</b><span>Vetoed</span></div><div class="tile"><b>{n_s:,}</b><span>Became Law</span></div><div class="tile"><b>{100 * n_v / (n_v + n_s):.1f}%</b><span>veto rate</span></div><div class="tile"><b>{n_proof}</b><span>vetoed after a two-thirds vote in both houses</span></div></div>
+<div class="tiles"><div class="tile"><b>{n_v}</b><span>Vetoed</span></div><div class="tile"><b>{n_s:,}</b><span>Became Law</span></div><div class="tile"><b>{100 * n_v / (n_v + n_s):.1f}%</b><span>Veto Rate</span></div><div class="tile"><b>{n_proof}</b><span>Vetoed After a Two-Thirds Vote in Both Houses</span></div></div>
 <div class="note small">Direction compares each bill with current California law, as everywhere else on this site. The Governor’s veto messages (the stated reasons) are not part of this data; each bill shows its own summary and votes.</div>
 <h2>Where the Governor lands</h2><p class="small muted">Each marker is the average direction of the bills the Governor signed or vetoed on that topic, measured against current law. The dark tick is the average of all bills on the topic that reached the Governor. Restrictive is −{CUT} or lower, Permissive is +{CUT} or higher, otherwise Balanced. Pick an action, then click a topic to see the bills behind it.</p>{gov_html}
 <h2>By lead author’s party</h2>{party_tbl}
@@ -858,7 +858,7 @@ const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}"
     issues_html = (f'<h2>Issues in the news</h2><p class="small muted">Chosen from California coverage as of {esc(ISSUES["as_of"])}. Each links to the bills, how they lean and who is authoring them.</p><div class="issues">{"".join(issue_cards)}</div>') if issue_cards else ""
     body = f"""<h1>California legislation by topic and direction</h1>
 <p class="lede">Every bill in California’s 2025–26 session, sorted into topics, with a read on which way each bill pushes against current law, Restrictive or Permissive, and where the money goes. Then what each legislator authored and how they voted.</p>
-<div class="tiles"><div class="tile"><b>{vv(f"{len(bills):,}", f"{len(bills) - n_dead:,}")}</b><span>bills</span></div><div class="tile"><b>{vv(f"{n_policy:,}", f"{sum(1 for k in bills if policy_tags[k] and alive[k]):,}")}</b><span>with policy topic tags</span></div><div class="tile"><b>{len(leg_rows)}</b><span>legislators</span></div>
+<div class="tiles"><div class="tile"><b>{vv(f"{len(bills):,}", f"{len(bills) - n_dead:,}")}</b><span>Bills</span></div><div class="tile"><b>{vv(f"{n_policy:,}", f"{sum(1 for k in bills if policy_tags[k] and alive[k]):,}")}</b><span>With Policy Topic Tags</span></div><div class="tile"><b>{len(leg_rows)}</b><span>Legislators</span></div>
 <div class="tile"><b>{status.get("Chaptered", 0):,}</b><span>Became Law</span></div></div>
 <form class="filters" action="find.html" method="get"><input name="zip" inputmode="numeric" maxlength="10" placeholder="Find my legislators: enter a California ZIP code" aria-label="ZIP code"><button type="submit" style="font:inherit;padding:7px 16px;border-radius:8px;border:1px solid var(--axis);background:var(--accent);color:#fff;cursor:pointer">Find</button></form>
 {issues_html}
