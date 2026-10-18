@@ -750,7 +750,7 @@ document.getElementById('f').addEventListener('submit',e=>{e.preventDefault();go
 const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}""".replace("__REPS__", json.dumps(reps, separators=(",", ":"), ensure_ascii=False)).replace("__LD__", json.dumps(CFG.get("lower_dist", ""))).replace("__UD__", json.dumps(CFG.get("upper_dist", ""))).replace("__LL__", json.dumps(CFG.get("lower_label", ""))).replace("__UL__", json.dumps(CFG.get("upper_label", ""))).replace("__OFFL__", json.dumps(CFG["lookup_label"])).replace("__OFF__", json.dumps(CFG["official_lookup"])).replace("__SNAME__", json.dumps(SN))
         ex = " or ".join(f'<a href="?zip={z}">{z}</a>' for z in CFG.get("zip_example", []))
         (OUT / "find.html").write_text(page("Find my legislators", f"""<h1>Find my legislators</h1>
-<p class="lede">Enter a {SN} ZIP code to see the state legislators for it, then what each of them has authored and how they have voted.</p>
+<p class="lede">Enter your {SN} ZIP code to see the state legislators for it, then what each of them has authored and how they have voted.</p>
 <form id="f" class="filters" autocomplete="off"><input id="zip" inputmode="numeric" maxlength="10" placeholder="ZIP code" aria-label="ZIP code" style="max-width:260px"><button type="submit" style="font:inherit;padding:7px 16px;border-radius:8px;border:0;background:var(--accent);color:#161d2e;cursor:pointer">Find</button></form>
 <p class="muted small">Try {ex}.</p>
 <div id="res"></div><script>{find_js}</script>"""))
@@ -967,7 +967,7 @@ const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}"
     status = Counter(b["status"] for b in bills.values())
     n_dead = sum(status[s] for s in DEAD)
     issues_html = (f'<h2>Issues in the news</h2><p class="small muted">Chosen from {SN} coverage as of {esc(ISSUES["as_of"])}. Each links to the bills, how they lean and who is authoring them.</p><div class="issues">{"".join(issue_cards)}</div>') if issue_cards else ""
-    find_form = f'''<form class="filters" action="find.html" method="get"><input name="zip" inputmode="numeric" maxlength="10" placeholder="Find my legislators: enter a {SN} ZIP code" aria-label="ZIP code"><button type="submit" style="font:inherit;padding:7px 16px;border-radius:8px;border:1px solid var(--axis);background:var(--accent);color:#fff;cursor:pointer">Find</button></form>''' if HAS_FIND else ""
+    find_form = f'''<form class="filters" action="find.html" method="get"><input name="zip" inputmode="numeric" maxlength="10" placeholder="Find my legislators: enter your {SN} ZIP code" aria-label="ZIP code"><button type="submit" style="font:inherit;padding:7px 16px;border-radius:8px;border:1px solid var(--axis);background:var(--accent);color:#fff;cursor:pointer">Find</button></form>''' if HAS_FIND else ""
     find_li = '<li><a href="find.html">Find my legislators</a> by ZIP code.</li>' if HAS_FIND else ""
     body = f"""<h1>{SN} legislation by topic and direction</h1>
 <p class="lede">Every bill in {SN}’s {SESS} session, sorted into topics, with a read on which way each bill pushes against current law, Restrictive or Permissive, and where the money goes. Then what each legislator authored and how they voted.</p>
