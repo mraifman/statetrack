@@ -13,14 +13,33 @@ from collections import Counter, defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+DOCS = ROOT / "docs"
+STATES = json.loads((ROOT / "scripts/states.json").read_text(encoding="utf-8"))
+ST, CFG = "CA", STATES["CA"]
 DATA = ROOT / "data/ca"
-OUT = ROOT / "docs"
+OUT = DOCS / "ca"
+SN = SX = SESS = SRC = DIG = ""
+STATE_LIST = []   # [(code, name)] of states with data, for the state selector
+HAS_FIND = HAS_VETOES = True
+
+
+def set_state(code):
+    global ST, CFG, DATA, OUT, SN, SX, SESS, SRC, DIG, BENCHMARK, ISSUES
+    ST, CFG = code, STATES[code]
+    f = ROOT / "scripts" / ("issues.json" if code == "CA" else f"issues_{code.lower()}.json")
+    ISSUES = json.loads(f.read_text(encoding="utf-8")) if f.exists() else {"issues": [], "as_of": ""}
+    DATA, OUT = ROOT / "data" / code.lower(), DOCS / code.lower()
+    SN, SX, SESS, SRC = CFG.get("name_short") or CFG["name"], CFG["exec"], CFG["session"], CFG["source"]
+    DIG = CFG["digest"][4:] if CFG["digest"].startswith("the ") else CFG["digest"]
+    BENCHMARK = (f"Every direction is measured against the <b>status quo</b>: current {SN} law, as {CFG['digest']} describes it. "
+                 "<b>Permissive</b> means the bill moves the law toward more permission, access or fewer rules. <b>Restrictive</b> means it moves toward less permission or more rules. "
+                 "A bill that continues, studies or clarifies current law is neutral and is left out of the averages.")
 TAX = json.loads((ROOT / "taxonomy/taxonomy.json").read_text())
 SUB = {s["id"]: dict(s, topic_id=t["id"], topic=t["name"]) for t in TAX["topics"] for s in t["subtopics"]}
 TOPICS = {t["id"]: t for t in TAX["topics"]}
 EXCLUDED = {tid for tid, t in TOPICS.items() if t.get("excluded")}
 POLICY_TOPICS = [tid for tid in TOPICS if tid not in EXCLUDED]
-ISSUES = json.loads((ROOT / "scripts/issues.json").read_text())
+ISSUES = {"issues": [], "as_of": ""}
 esc = html.escape
 
 SMALL = {"and", "or", "of", "the", "to", "in", "for", "a", "an", "on", "with", "by", "at", "vs.", "vs", "as", "from"}
@@ -76,6 +95,27 @@ def NOTE_DIV(n):
     return f'<div class="muted small">{esc(display_note(n))}</div>' if n else ""
 
 
+def bsort(b):
+    n = b.get("number")
+    return (b.get("type", ""), int(n) if str(n).isdigit() else 0, str(n))
+
+
+def disp_district(L):
+    d = str(L.get("district", ""))
+    m = re.match(r"^[A-Z]{2}0*(\d+)$", d)
+    return m.group(1) if m else d
+
+
+def official_link(b):
+    href = CFG["official_bill_url"].format(id=b.get("id", ""), url=b.get("url", ""))
+    return f'<p class="small"><a href="{esc(href)}">Official record on {esc(CFG["official_bill_label"])} ↗</a></p>' if href else ""
+
+
+def dist_label(L):
+    d = disp_district(L)
+    return f"District {d}" if d.isdigit() else d
+
+
 def SL(status):
     return {"Chaptered": "Became Law"}.get(status, status)
 
@@ -97,9 +137,7 @@ DIR_LABEL = {"strongly_restricts": "Strongly Restrictive", "strongly_tightens": 
              "strongly_loosens": "Strongly Permissive", "unclear": "Unclear", "not_applicable": "—"}
 DIR_WORD = lambda d: DIR_LABEL.get(d, T(d))
 AXIS = '<div class="axis"><span></span><div class="ends"><span>← Restrictive</span><span>Permissive →</span></div><span></span></div>'
-BENCHMARK = ("Every direction is measured against the <b>status quo</b>: current California law, as the Legislative Counsel’s digest describes it. "
-             "<b>Permissive</b> means the bill moves the law toward more permission, access or fewer rules. <b>Restrictive</b> means it moves toward less permission or more rules. "
-             "A bill that continues, studies or clarifies current law is neutral and is left out of the averages.")
+BENCHMARK = ""
 
 CSS_V = ""
 CSS = """
@@ -132,7 +170,7 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 blockquote{margin:6px 0;padding:8px 14px;border-left:3px solid var(--sun);color:var(--ink2);background:var(--alt);font-family:var(--serif)}
 input[type=text],input:not([type]),select{font:inherit;padding:8px 10px;border:1px solid var(--axis);border-radius:4px;background:var(--surface);color:var(--ink)}
 .filters{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.filters input{flex:1;min-width:200px}
-a[href*="bill/"]{white-space:nowrap}.bsum{margin:3px 0 2px;color:var(--ink2);font-size:15px;max-width:70ch}.bmeta{color:var(--muted);font-size:14px;margin-bottom:10px}details.subcat{margin:2px 0 2px 26px;padding-left:14px;border-left:3px solid var(--line)}details.subcat .mrow>span:first-child b{font-weight:600;font-size:15px}details.subcat .mrow>span:first-child b::before{content:"↳ ";color:var(--muted);font-weight:400}details.subcat table{font-size:15px}details.subcat>summary{display:block;list-style:none;cursor:pointer}details.subcat>summary::marker{content:""}details.subcat>summary:hover .mrow,details.subcat[open]>summary .mrow{background:var(--chip);border-radius:8px}details.cat>summary{display:block;list-style:none;cursor:pointer}details.cat>summary::marker{content:""}details.cat>summary::-webkit-details-marker{display:none}details.cat{border-bottom:1px solid var(--line);margin:0 0 4px;padding-bottom:6px}details.cat[open]>summary .mrow{background:var(--chip);border-radius:8px}details.cat>summary:hover .mrow{background:var(--chip);border-radius:8px}h3:target,h4:target{background:var(--chip);border-radius:6px;padding:2px 8px}details summary{cursor:pointer;color:var(--ink2)}footer{color:var(--muted);font-size:14px;padding:24px 0;border-top:1px solid var(--line)}
+a[href*="bill/"]{white-space:nowrap}.bsum{margin:3px 0 2px;color:var(--ink2);font-size:15px;max-width:70ch}.bmeta{color:var(--muted);font-size:14px;margin-bottom:10px}.statecards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin:18px 0}.statecard{display:block;text-decoration:none;color:var(--ink)}.statecard h3{font-family:var(--serif);font-size:22px;margin:0 0 4px;color:var(--navy)}.mini3{display:flex;gap:18px;margin-top:10px}.mini3 b{display:block;font-family:var(--serif);font-size:24px;color:var(--navy)}.mini3 span{font-size:13px;color:var(--ink2);text-transform:uppercase;letter-spacing:.05em}.stsel{font:inherit;font-size:14px;padding:4px 8px;border-radius:4px;border:1px solid #4a5b82;background:#1f3157;color:#fff}details.subcat{margin:2px 0 2px 26px;padding-left:14px;border-left:3px solid var(--line)}details.subcat .mrow>span:first-child b{font-weight:600;font-size:15px}details.subcat .mrow>span:first-child b::before{content:"↳ ";color:var(--muted);font-weight:400}details.subcat table{font-size:15px}details.subcat>summary{display:block;list-style:none;cursor:pointer}details.subcat>summary::marker{content:""}details.subcat>summary:hover .mrow,details.subcat[open]>summary .mrow{background:var(--chip);border-radius:8px}details.cat>summary{display:block;list-style:none;cursor:pointer}details.cat>summary::marker{content:""}details.cat>summary::-webkit-details-marker{display:none}details.cat{border-bottom:1px solid var(--line);margin:0 0 4px;padding-bottom:6px}details.cat[open]>summary .mrow{background:var(--chip);border-radius:8px}details.cat>summary:hover .mrow{background:var(--chip);border-radius:8px}h3:target,h4:target{background:var(--chip);border-radius:6px;padding:2px 8px}details summary{cursor:pointer;color:var(--ink2)}footer{color:var(--muted);font-size:14px;padding:24px 0;border-top:1px solid var(--line)}
 .axis{display:grid;grid-template-columns:minmax(120px,230px) 1fr 104px;gap:10px;font-size:13px;color:var(--ink2);margin-top:8px}.axis .ends{display:flex;justify-content:space-between}
 .mrow{display:grid;grid-template-columns:minmax(120px,230px) 1fr 104px;gap:10px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line)}.mrow a{color:var(--ink);text-decoration:none}.mrow a:hover{text-decoration:underline}
 .mrow .v{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink2);font-size:14px}.mrow.sub{padding-left:14px}
@@ -158,15 +196,23 @@ def slug(key):
     return re.sub(r"[^a-z0-9]+", "-", key.lower()).strip("-")
 
 
+def state_select(root):
+    if len(STATE_LIST) < 2:
+        return ""
+    opts = "".join(f'<option value="{root}{c.lower()}/index.html"{" selected" if c == ST else ""}>{esc(n)}</option>' for c, n in STATE_LIST)
+    return f'<select class="stsel" aria-label="State" onchange="location.href=this.value">{opts}</select>'
+
+
 def page(title, body, depth=0, desc=""):
     base = "../" * depth
+    root = "../" * (depth + 1)
     body = body.replace("<table", '<div class="scroll"><table').replace("</table>", "</table></div>")
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{esc(title)} · StateTrack</title><meta name="theme-color" content="#14213d"><meta name="description" content="{esc(desc or title)}"><link rel="stylesheet" href="{base}style.css?v={CSS_V}">{HEAD_JS}</head><body>
-<header class="site"><div class="wrap"><nav><a class="brand" href="{base}index.html"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="6.5" fill="#f2b705"/><g stroke="#f2b705" stroke-width="2.2" stroke-linecap="round"><path d="M16 2.5v4M16 25.5v4M2.5 16h4M25.5 16h4M6.4 6.4l2.8 2.8M22.8 22.8l2.8 2.8M25.6 6.4l-2.8 2.8M9.2 22.8l-2.8 2.8"/></g></svg>StateTrack</a><a href="{base}index.html">Overview</a><a href="{base}bills.html">All bills</a><a href="{base}vetoes.html">Vetoes</a>
-<a href="{base}find.html">Find my legislators</a><a href="{base}legislators.html">Legislators</a><a href="{base}method.html">How it works</a>
+<title>{esc(title)} · StateTrack</title><meta name="theme-color" content="#14213d"><meta name="description" content="{esc(desc or title)}"><link rel="stylesheet" href="{root}style.css?v={CSS_V}">{HEAD_JS}</head><body>
+<header class="site"><div class="wrap"><nav><a class="brand" href="{root}index.html"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="6.5" fill="#f2b705"/><g stroke="#f2b705" stroke-width="2.2" stroke-linecap="round"><path d="M16 2.5v4M16 25.5v4M2.5 16h4M25.5 16h4M6.4 6.4l2.8 2.8M22.8 22.8l2.8 2.8M25.6 6.4l-2.8 2.8M9.2 22.8l-2.8 2.8"/></g></svg>StateTrack</a>{state_select(root)}<a href="{base}index.html">Overview</a><a href="{base}bills.html">All bills</a>{f'<a href="{base}vetoes.html">Vetoes</a>' if HAS_VETOES else ""}
+{f'<a href="{base}find.html">Find my legislators</a>' if HAS_FIND else ""}<a href="{base}legislators.html">Legislators</a><a href="{base}method.html">How it works</a>
 <label class="toggle" title="Bills the official record marks as died, failed in committee or vetoed are hidden unless this is checked"><input type="checkbox" id="alive"> Show Bills that Died</label></nav></div></header>
-<main><div class="wrap">{body}</div></main><footer><div class="wrap">Demo for California’s 2025–26 session. Bill data: California Legislative Information (official bulk file). Topics and directions are labelled by an AI model from the bill’s title and the Legislative Counsel’s digest, and are approximate. <a href="{base}method.html">How it works</a></div></footer>{TOGGLE_JS}</body></html>"""
+<main><div class="wrap">{body}</div></main><footer><div class="wrap">Demo for {SN}’s {SESS} session. Bill data: {SRC}. Topics and directions are labelled by an AI model from the bill’s title and {CFG["digest"]}, and are approximate. <a href="{base}method.html">How it works</a></div></footer>{TOGGLE_JS}</body></html>"""
 
 
 def vv(a, b):
@@ -189,23 +235,36 @@ def meter(scores, label="", avg=None):
     restr, perm = sum(1 for x in scores if x < 0), sum(1 for x in scores if x > 0)
     tip = (f"{label}: average {mean:+.2f} against the status quo, from -2 (restrictive) to +2 (permissive), over {n} directional tags "
            f"({restr} restrictive, {perm} permissive, {n - restr - perm} mixed)" + ("; few tags, so treat as rough" if n < MIN_TAGS else ""))
-    tick = f'<i class="avg" style="left:{(avg + 2) / 4 * 100:.1f}%" title="all California bills on this topic: {avg:+.2f}"></i>' if avg is not None else ""
+    tick = f'<i class="avg" style="left:{(avg + 2) / 4 * 100:.1f}%" title="all {SN} bills on this topic: {avg:+.2f}"></i>' if avg is not None else ""
     return (f'<div class="meter" role="img" aria-label="{esc(tip)}" title="{esc(tip)}"><i class="mid"></i>{tick}'
             f'<b class="dot {side}{" few" if n < MIN_TAGS else ""}" style="left:{pos:.1f}%"></b></div>'), mean
 
 
-def main():
+def load_votes(path):
+    votes = json.load(gzip.open(path, "rt"))
+    for vs in votes.values():
+        for v in vs:
+            if "floor" not in v:   # California's bulk file: location code like "AFLOOR"/"SFLOOR"/"CX28"
+                v["floor"] = "FLOOR" in v.get("loc", "").upper()
+                v["chamber"] = "Assembly" if v.get("loc", "").upper().startswith("A") else "Senate"
+    return votes
+
+
+def build_state(code):
+    """Write docs/<code>/ for one state. Returns a summary used by the landing page."""
+    global HAS_FIND, HAS_VETOES
+    set_state(code)
     bills = json.loads((DATA / "bills.json").read_text())
     legislators = json.loads((DATA / "legislators.json").read_text())
-    votes = json.load(gzip.open(DATA / "votes.json.gz", "rt"))
+    votes = load_votes(DATA / "votes.json.gz")
     history = json.load(gzip.open(DATA / "history.json.gz", "rt"))
     tagged = json.loads((DATA / "tags.json").read_text())["bills"]
+    HAS_FIND = bool(CFG.get("zip")) and (DATA / "zip_lookup.json").exists()
+    HAS_VETOES = any(b["status"] == "Vetoed" for b in bills.values())
     if OUT.exists():
         shutil.rmtree(OUT)
     for d in ("bill", "topic", "legislator", "issue", "data"):
         (OUT / d).mkdir(parents=True)
-    (OUT / ".nojekyll").write_text("")
-    (OUT / "style.css").write_text(CSS)
 
     alive = {k: b["status"] not in DEAD for k, b in bills.items()}
     btags = {k: [t for t in v.get("tags", []) if t["subtopic"] in SUB] for k, v in tagged.items()}
@@ -238,7 +297,7 @@ def main():
     topic_avg = {tid: {lv: (lambda sc: sum(sc) / len(sc) if sc else None)(scores(lambda k, t, tid=tid: SUB[t["subtopic"]]["topic_id"] == tid, lv)) for lv in (False, True)} for tid in POLICY_TOPICS}
 
     # ---------------- legislators: authorship, votes
-    lid_slug = {lid: slug(lid.split(":")[0]) for lid in legislators}
+    lid_slug = {lid: slug(lid.split(":")[0] if ST == "CA" else lid) for lid in legislators}
     authored = defaultdict(list)
     for k, b in bills.items():
         for a in b.get("authors", []):
@@ -247,12 +306,12 @@ def main():
     cast = defaultdict(dict)
     for k, vs in votes.items():
         for v in vs:
-            if "FLOOR" not in v["loc"].upper():
+            if not v["floor"]:
                 continue
             for name, m in v["members"].items():
                 lid = m.get("legislator")
                 if isinstance(lid, str):
-                    cur, stamp = cast[lid].get(k), (v["date"], int(v["seq"] or 0))
+                    cur, stamp = cast[lid].get(k), (v["date"], int(v.get("seq") or 0))
                     if not cur or stamp >= cur[0]:
                         cast[lid][k] = (stamp, m["vote"])
 
@@ -296,25 +355,25 @@ def main():
             link = f'<a href="../topic/{s["topic_id"]}.html">{esc(s["topic"])}</a> → ' if s["topic_id"] not in EXCLUDED else ""
             rows.append(f'<tr><td>{link}{esc(s["name"])}</td><td>{dot}<b title="{esc(T(d))} (model wording)">{esc(DIR_WORD(d))}</b></td>'
                         f'<td>{esc(T(t["mechanism"]))}</td><td>{esc(T(t["funding"]))}</td><td>{esc(T(t["confidence"]))}</td>{evcell}</tr>')
-        return ('<table><thead><tr><th>Topic → sub-topic</th><th>Direction vs. current law</th><th>Mechanism</th><th>Funding</th><th>Confidence</th><th>Quoted from the digest</th></tr></thead><tbody>'
+        return ('<table><thead><tr><th>Topic → sub-topic</th><th>Direction vs. current law</th><th>Mechanism</th><th>Funding</th><th>Confidence</th><th>Quoted from the text</th></tr></thead><tbody>'
                 + "".join(rows) + "</tbody></table>")
 
     def vote_block(k):
-        vs = [v for v in votes.get(k, []) if "FLOOR" in v["loc"].upper()]
+        vs = [v for v in votes.get(k, []) if v["floor"]]
         if not vs:
             return '<p class="muted">No recorded floor votes.</p>'
         out = []
-        for v in sorted(vs, key=lambda v: (v["date"], int(v["seq"] or 0))):
+        for v in sorted(vs, key=lambda v: (v["date"], int(v.get("seq") or 0))):
             by = defaultdict(list)
             for name, m in v["members"].items():
                 by[m["vote"]].append(legislators[m["legislator"]]["name"].split(",")[0] if isinstance(m["legislator"], str) and m["legislator"] in legislators else name)
             lists = "".join(f'<p><b>{esc(c)}</b> ({len(n)}): {esc(", ".join(sorted(n)))}</p>' for c, n in sorted(by.items()))
-            out.append(f'<details><summary>{esc(v["date"])} · {"Assembly" if v["loc"].upper().startswith("A") else "Senate"} floor · {esc(v["motion"][:90])} · {v["ayes"]}–{v["noes"]}'
+            out.append(f'<details><summary>{esc(v["date"])} · {esc(v["chamber"])} floor · {esc(v["motion"][:90])} · {v["ayes"]}–{v["noes"]}'
                        f'{"–" + str(v["abstain"]) if v["abstain"] else ""} · {esc(v["result"])}</summary>{lists}</details>')
         return "".join(out)
 
     index = []
-    for k, b in sorted(bills.items(), key=lambda kv: (kv[1]["type"], kv[1]["number"])):
+    for k, b in sorted(bills.items(), key=lambda kv: bsort(kv[1])):
         summary = tagged.get(k, {}).get("summary", "")
         if not tagged.get(k, {}).get("has_digest", True) or "text was provided" in summary:
             summary = "Not tagged: the Legislature published no summary for this measure, so its policy effect is not classified."
@@ -325,11 +384,11 @@ def main():
 <div class="tiles"><div class="tile"><b style="font-size:18px">{esc(SL(b["status"]))}</b><span>Status</span></div><div class="tile"><b style="font-size:18px">{esc(b.get("last_action_date", ""))}</b><span>Last Action</span></div>
 <div class="tile"><b style="font-size:18px">{esc(b.get("chapter", "")) if b["status"] == "Chaptered" else esc(b["house"])}</b><span>{"Chapter Number" if b["status"] == "Chaptered" else "Where It Ended" if b["status"] in ("Vetoed", "Died", "Failed", "Failed Passage in Committee") else "Currently In"}</span></div></div>
 <p><b>Authors:</b> {author_line(b)}</p>
-<h2>Topic tags</h2><p class="small muted">Direction is measured against current California law as described in the digest.</p>{tag_table(k)}
-<h2>What the bill does (Legislative Counsel’s digest)</h2><div class="card small">{digest}</div>
+<h2>Topic tags</h2><p class="small muted">Direction is measured against current {SN} law as described in {CFG["digest_short"]}.</p>{tag_table(k)}
+<h2>What the bill does ({esc(b.get("digest_source") or DIG)})</h2><div class="card small">{digest}</div>
 <h2>Floor votes</h2>{vote_block(k)}
 <h2>Recent actions</h2><table><tbody>{hist_rows}</tbody></table>
-<p class="small"><a href="https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id={esc(b["id"])}">Official record on leginfo.legislature.ca.gov ↗</a></p>"""
+{official_link(b)}"""
         (OUT / "bill" / f"{slug(k)}.html").write_text(page(k, body, 1, summary or b.get("title", "")))
         index.append({"k": k, "s": slug(k), "t": b.get("title", ""), "st": b["status"],
                       "tp": sorted({SUB[t["subtopic"]]["topic_id"] for t in policy_tags[k]}),
@@ -388,7 +447,7 @@ def main():
 
         lists = []
         for s in t["subtopics"]:
-            ks = sorted(sub_bills.get(s["id"], ()), key=lambda k: (bills[k]["type"], bills[k]["number"]))
+            ks = sorted(sub_bills.get(s["id"], ()), key=lambda k: bsort(bills[k]))
             if not ks:
                 continue
             td = {k: next((x["direction"] for x in btags[k] if x["subtopic"] == s["id"]), "") for k in ks}
@@ -397,7 +456,7 @@ def main():
             lists.append(f'<h3 id="{slug(s["id"])}">{esc(s["name"])} <span class="muted small">({vv(len(ks), len([k for k in ks if alive[k]]))})</span></h3><ul>{lis}</ul>{more}')
         n_all, n_live = len(topic_bills[tid]), len([k for k in topic_bills[tid] if alive[k]])
         body = (f'<p class="small"><a href="../index.html">← Overview</a></p><h1>{esc(t["name"])}</h1>'
-                f'<p class="lede">{vv(n_all, n_live)} California bills carry at least one tag under this topic. A bill can appear under several sub-topics.</p>'
+                f'<p class="lede">{vv(n_all, n_live)} {SN} bills carry at least one tag under this topic. A bill can appear under several sub-topics.</p>'
                 f'<div class="note small">{BENCHMARK}</div>{vb(block(False), block(True))}'
                 f'<p class="small muted">Each marker is the average of its bills’ directions, from restrictive (−2) to permissive (+2). Neutral and unclear tags are left out; mixed counts as 0. A hollow marker means fewer than {MIN_TAGS} directional tags, so treat it as rough.</p>'
                 + "".join(lists))
@@ -420,7 +479,7 @@ def main():
 
     issue_cards, issue_data = [], []
     for iss in ISSUES["issues"]:
-        ks = sorted((k for k in bills if issue_match(iss, k)), key=lambda k: (bills[k]["type"], bills[k]["number"]))
+        ks = sorted((k for k in bills if issue_match(iss, k)), key=lambda k: bsort(bills[k]))
         if len(ks) < ISSUES.get("min_bills", 8):
             continue
         issue_data.append((iss, ks))
@@ -485,7 +544,7 @@ def main():
                     rows_ = "".join(
                         f'<tr><td><a href="../bill/{slug(k)}.html">{esc(k)}</a> · {esc(bills[k].get("title", ""))}</td><td>{esc(SL(bills[k]["status"]))}</td>'
                         f'<td>{au_link(k).replace(chr(34) + "legislator/", chr(34) + "../legislator/")}</td><td>{esc(DIR_WORD(t["direction"]))}</td></tr>'
-                        for k, t in sorted(its, key=lambda x: (bills[x[0]]["type"], bills[x[0]]["number"])))
+                        for k, t in sorted(its, key=lambda x: bsort(bills[x[0]])))
                     blocks.append(f'<details class="subcat"><summary><div class="mrow sub"><span><b>{esc(T(SUB[sid]["name"]))}</b> <span class="muted small">({nb} bill{"" if nb == 1 else "s"})</span>{NOTE_DIV(SUB[sid].get("note"))}</span>'
                                   f'{smeter}<div class="v"><span class="chip {sk}">{sv}</span><br><span class="muted small">{smean:+.2f}</span></div></div></summary>'
                                   f'<table><thead><tr><th>Bill</th><th>Status</th><th>Lead author</th><th>Direction vs. current law</th></tr></thead><tbody>{rows_}</tbody></table></details>')
@@ -514,7 +573,7 @@ def main():
         if iss.get("regex"):
             scope.append("whose title or digest mentions " + " or ".join(f"“{esc(x)}”" for x in iss["terms"]) + f" (in the title, or at least {iss.get('min_mentions', 2)} times in the digest)")
         order = {"Chaptered": 0, "Vetoed": 1, "Passed": 2, "In Floor Process": 3, "In Committee Process": 4, "Pending Referral": 5}
-        lis = "".join(bill_li(k) for k in sorted(ks, key=lambda k: (order.get(bills[k]["status"], 6), bills[k]["type"], bills[k]["number"]))[:400])
+        lis = "".join(bill_li(k) for k in sorted(ks, key=lambda k: (order.get(bills[k]["status"], 6), *bsort(bills[k])))[:400])
         body = (f'<p class="small"><a href="../index.html">← Overview</a></p><h1>{esc(iss["name"])}</h1><p class="lede">{esc(iss["hook"])}</p>'
                 f'<p class="small muted">In the news ({esc(ISSUES["as_of"])}). Press coverage as found by search; open the sources for the full story:</p><ul class="small">{src}</ul>'
                 f'<p class="small muted">Bills on this page: {"; ".join(scope)}.</p><div class="note small">{BENCHMARK}</div>{vb(issue_block(False), issue_block(True))}'
@@ -583,7 +642,7 @@ def main():
                     rows.append(row)
             lean_html = (f'<h2>Lean by issue</h2><p class="small muted">From the bills this legislator authored or co-authored. Each bill’s direction is measured against current law; lead authors count 3×, principal co-authors 2×, co-authors 1×. '
                          f'A tag needs at least {MIN_LEG} directional bills; <b>Restrictive</b> is a weighted average of −{CUT} or lower, <b>Permissive</b> is +{CUT} or higher, otherwise <b>Balanced</b>. '
-                         f'The dark tick is the average of all California bills on the topic. Click a topic to see the bills behind it.</p>{AXIS}{"".join(rows) if rows else "<p class=muted>No tagged bills with a direction.</p>"}')
+                         f'The dark tick is the average of all {SN} bills on the topic. Click a topic to see the bills behind it.</p>{AXIS}{"".join(rows) if rows else "<p class=muted>No tagged bills with a direction.</p>"}')
             # detail by sub-topic
             prof = defaultdict(lambda: defaultdict(int))
             for k, role in a_k:
@@ -618,7 +677,7 @@ def main():
             ks = by_topic.get(tid, [])
             if not ks:
                 continue
-            ks.sort(key=lambda k: (k not in role_of, role_of.get(k) != "LEAD_AUTHOR", bills[k]["type"], bills[k]["number"]))
+            ks.sort(key=lambda k: (k not in role_of, role_of.get(k) != "LEAD_AUTHOR", *bsort(bills[k])))
             shown = ks[:max(40, sum(1 for k in ks if k in role_of))]
             groups = []
             for sub in TOPICS[tid]["subtopics"]:
@@ -641,12 +700,12 @@ def main():
             more = f'<p class="muted small">Showing {min(len(ks), max(40, sum(1 for k in ks if k in role_of)))} of {len(ks)}: all authored bills plus the first votes.</p>' if len(ks) > max(40, sum(1 for k in ks if k in role_of)) else ""
             n_all, n_live = len(ks), len([k for k in ks if alive[k]])
             sections.append(f'<h3 id="t-{tid}">{esc(TOPICS[tid]["name"])} <span class="muted small">({vv(n_all, n_live)})</span></h3>'
-                            f'{"".join(items)}{more}<p class="small"><a href="../topic/{tid}.html">All California bills on {esc(TOPICS[tid]["name"])} →</a></p>')
+                            f'{"".join(items)}{more}<p class="small"><a href="../topic/{tid}.html">All {SN} bills on {esc(TOPICS[tid]["name"])} →</a></p>')
         record = f'<h2>Record by topic</h2><p class="small muted">Bills this legislator authored or co-authored first (with summaries), then bills they voted on. Direction chips are measured against current law.</p>{"".join(sections)}' if sections else ""
-        au_sorted = sorted(au, key=lambda x: (x[1] != "LEAD_AUTHOR", bills[x[0]]["type"], bills[x[0]]["number"]))
+        au_sorted = sorted(au, key=lambda x: (x[1] != "LEAD_AUTHOR", *bsort(bills[x[0]])))
         au_list = "".join(bill_li(k, f' <span class="chip">{esc(RL(role))}</span>', brief=True) for k, role in au_sorted[:400])
         body = f"""<p class="small"><a href="../legislators.html">← All legislators</a></p><h1>{esc(L["name"])}</h1>
-<p class="lede"><span class="party {L["party"]}">{esc({"DEM": "Democrat", "REP": "Republican"}.get(L["party"], L["party"]))}</span> · {esc(L["house"])} · District {esc(re.sub(r"^[A-Z]+0*", "", lid.split(":")[0]))}</p>
+<p class="lede"><span class="party {L["party"]}">{esc({"DEM": "Democrat", "REP": "Republican"}.get(L["party"], L["party"]))}</span> · {esc(L["house"])} · {esc(dist_label(L))}</p>
 {vb(leg_block(False), leg_block(True))}
 <p class="note small">These come from what this legislator authored and how they voted on tagged bills, with the bills linked below. A co-author may sign on to a bill they have reservations about, and a vote reflects one amendment stage. Most bills that reach a floor vote pass with large majorities and almost every member votes aye, so aye counts mostly mirror what reached the floor; authorship is the more distinctive signal. Treat the tags as a summary of the record, not a rating. Only floor votes are counted; committee votes are not matched to members yet.</p>
 {record}
@@ -654,55 +713,57 @@ def main():
         (OUT / "legislator" / f"{lid_slug[lid]}.html").write_text(page(L["name"], body, 1))
         leg_rows.append((L, lid, len(au), len([k for k, _ in au if alive[k]]), len(vt)))
     rows = "".join(f'<tr><td><a href="legislator/{lid_slug[lid]}.html">{esc(L["name"])}</a></td><td><span class="party {L["party"]}">{esc(L["party"])}</span></td><td>{esc(L["house"])}</td>'
-                   f'<td>{esc(re.sub(r"^[A-Z]+0*", "", lid.split(":")[0]))}</td><td class="n">{vv(na, nal)}</td><td class="n">{nv}</td></tr>' for L, lid, na, nal, nv in leg_rows)
-    (OUT / "legislators.html").write_text(page("Legislators", f'<h1>Legislators</h1><p class="lede">{len(leg_rows)} members of the 2025–26 California Legislature.</p>'
+                   f'<td>{esc(disp_district(L))}</td><td class="n">{vv(na, nal)}</td><td class="n">{nv}</td></tr>' for L, lid, na, nal, nv in leg_rows)
+    (OUT / "legislators.html").write_text(page("Legislators", f'<h1>Legislators</h1><p class="lede">{len(leg_rows)} members of the {SESS} {SN} Legislature.</p>'
         f'<table><thead><tr><th>Name</th><th>Party</th><th>House</th><th>District</th><th class="n">Bills authored</th><th class="n">Bills voted on (floor)</th></tr></thead><tbody>{rows}</tbody></table>'))
 
-    # ---------------- find my legislators
-    zips = json.loads((DATA / "zip_lookup.json").read_text())
-    (OUT / "data" / "zip-ca.json").write_text(json.dumps(zips, separators=(",", ":")))
-    reps = {"A": {}, "S": {}}
-    for L, lid, na, nal, nv in leg_rows:
-        code = lid.split(":")[0]
-        ch = "A" if code.startswith("AD") else "S" if code.startswith("SD") else None
-        if ch and code[2:].isdigit():
-            reps[ch][int(code[2:])] = {"n": L["name"], "s": lid_slug[lid], "p": L["party"], "a": na}
-    find_js = """const REPS=__REPS__;let Z=null;
+    # ---------------- find my legislators (ZIP lookup; only where the Census files give numbered districts)
+    if HAS_FIND:
+        zips = json.loads((DATA / "zip_lookup.json").read_text())
+        (OUT / "data" / "zip.json").write_text(json.dumps(zips, separators=(",", ":")))
+        reps = {"A": {}, "S": {}}
+        for L, lid, na, nal, nv in leg_rows:
+            ch = "A" if L["house"] == CFG["lower"] else "S" if L["house"] == CFG.get("upper") else None
+            d = disp_district(L)
+            if ch and d.isdigit() and L.get("active", True):
+                reps[ch].setdefault(int(d), []).append({"n": L["name"], "s": lid_slug[lid], "p": L["party"], "a": na})
+        find_js = """const REPS=__REPS__;let Z=null;const LD=__LD__,UD=__UD__,LL=__LL__,UL=__UL__,OFF=__OFF__,OFFL=__OFFL__,SNAME=__SNAME__;
 const box=document.getElementById('zip'),out=document.getElementById('res');
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 const PARTY={DEM:'Democrat',REP:'Republican'};
-function card(ch,d,share,only){const r=REPS[ch][d];const name=ch==='A'?'Assembly District ':'State Senate District ';
-if(!r)return '<li>'+name+d+' (no current member on file)</li>';
+function card(ch,d,share,only){const list=REPS[ch][d];const name=(ch==='A'?LD:UD)+' ';
+if(!list)return '<li>'+name+d+' (no current member on file)</li>';
 const pct=Math.round(share*100);
-return '<li class="card"><b><a href="legislator/'+r.s+'.html">'+esc(r.n.split(', ').reverse().join(' '))+'</a></b> <span class="party '+r.p+'">'+esc(PARTY[r.p]||r.p)+'</span><br><span class="muted small">'+name+d+
-(only?' · covers the whole ZIP code':' · covers about '+pct+'% of this ZIP code')+' · '+r.a+' bills authored or co-authored</span></li>'}
+return list.map(r=>'<li class="card"><b><a href="legislator/'+r.s+'.html">'+esc(r.n.split(', ').reverse().join(' '))+'</a></b> <span class="party '+r.p+'">'+esc(PARTY[r.p]||r.p)+'</span><br><span class="muted small">'+name+d+
+(only?' · covers the whole ZIP code':' · covers about '+pct+'% of this ZIP code')+' · '+r.a+' bills authored or co-authored</span></li>').join('')}
 function section(ch,label,list){if(!list||!list.length)return '';const sure=list.length===1;
 return '<h2>'+label+'</h2>'+(sure?'':'<p class="muted small">This ZIP code is split between districts. Percentages are the share of the ZIP code’s land area in each district, so they show which is likelier, not who lives where.</p>')+'<ul style="list-style:none;padding:0">'+list.map(x=>card(ch,x[0],x[1],sure)).join('')+'</ul>'}
 async function go(){const raw=box.value.trim();const m=raw.match(/^(\\d{5})(?:-\\d{4})?$/);
-if(!m){out.innerHTML='<p class="note">Enter a 5-digit ZIP code, for example 94110.</p>';return}
+if(!m){out.innerHTML='<p class="note">Enter a 5-digit ZIP code.</p>';return}
 const zip=m[1];history.replaceState(null,'','?zip='+zip);
-if(!Z){try{Z=await (await fetch('data/zip-ca.json')).json()}catch(e){out.innerHTML='<p class="note">The ZIP lookup could not be loaded. Please try again.</p>';return}}
+if(!Z){try{Z=await (await fetch('data/zip.json')).json()}catch(e){out.innerHTML='<p class="note">The ZIP lookup could not be loaded. Please try again.</p>';return}}
 const r=Z[zip];
-if(!r){out.innerHTML='<p class="note">No California legislators found for '+zip+'. This demo covers California only, and some ZIP codes (such as PO boxes) are not matched to districts. Try your street address on the <a href="https://findyourrep.legislature.ca.gov/">official lookup</a>.</p>';return}
-out.innerHTML='<h2 style="margin-top:20px">ZIP code '+zip+'</h2>'+section('A','Assembly member',r.A)+section('S','State senator',r.S)+
-'<p class="note small">ZIP codes and legislative districts do not line up exactly. For a definite answer, enter your street address on the <a href="https://findyourrep.legislature.ca.gov/">California Legislature’s official lookup</a>.</p>'}
+if(!r){out.innerHTML='<p class="note">No '+SNAME+' legislators found for '+zip+'. Some ZIP codes (such as PO boxes) are not matched to districts. Try your street address on the <a href="'+OFF+'">'+OFFL+'</a>.</p>';return}
+out.innerHTML='<h2 style="margin-top:20px">ZIP code '+zip+'</h2>'+section('A',LL,r.A)+(UD?section('S',UL,r.S):'')+
+'<p class="note small">ZIP codes and legislative districts do not line up exactly. For a definite answer, enter your street address on the <a href="'+OFF+'">'+OFFL+'</a>.</p>'}
 document.getElementById('f').addEventListener('submit',e=>{e.preventDefault();go()});
-const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}""".replace("__REPS__", json.dumps(reps, separators=(",", ":"), ensure_ascii=False))
-    (OUT / "find.html").write_text(page("Find my legislators", f"""<h1>Find my legislators</h1>
-<p class="lede">Enter a California ZIP code to see your state Assembly member and state senator, then what each of them has authored and how they have voted.</p>
-<form id="f" class="filters" autocomplete="off"><input id="zip" inputmode="numeric" maxlength="10" placeholder="ZIP code, for example 94110" aria-label="ZIP code" style="max-width:260px"><button type="submit" style="font:inherit;padding:7px 16px;border-radius:8px;border:1px solid var(--axis);background:var(--accent);color:#fff;cursor:pointer">Find</button></form>
-<p class="muted small">Try <a href="?zip=94110">94110</a> (one district), <a href="?zip=90210">90210</a> (split across districts) or <a href="?zip=95814">95814</a>.</p>
+const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}""".replace("__REPS__", json.dumps(reps, separators=(",", ":"), ensure_ascii=False)).replace("__LD__", json.dumps(CFG.get("lower_dist", ""))).replace("__UD__", json.dumps(CFG.get("upper_dist", ""))).replace("__LL__", json.dumps(CFG.get("lower_label", ""))).replace("__UL__", json.dumps(CFG.get("upper_label", ""))).replace("__OFFL__", json.dumps(CFG["lookup_label"])).replace("__OFF__", json.dumps(CFG["official_lookup"])).replace("__SNAME__", json.dumps(SN))
+        ex = " or ".join(f'<a href="?zip={z}">{z}</a>' for z in CFG.get("zip_example", []))
+        (OUT / "find.html").write_text(page("Find my legislators", f"""<h1>Find my legislators</h1>
+<p class="lede">Enter a {SN} ZIP code to see the state legislators for it, then what each of them has authored and how they have voted.</p>
+<form id="f" class="filters" autocomplete="off"><input id="zip" inputmode="numeric" maxlength="10" placeholder="ZIP code" aria-label="ZIP code" style="max-width:260px"><button type="submit" style="font:inherit;padding:7px 16px;border-radius:8px;border:0;background:var(--accent);color:#161d2e;cursor:pointer">Find</button></form>
+<p class="muted small">Try {ex}.</p>
 <div id="res"></div><script>{find_js}</script>"""))
 
     # ---------------- vetoes tracker
     def veto_date(k):
-        d = [x[0] for x in history.get(k, []) if "Vetoed by Governor" in x[2]]
-        return d[-1] if d else ""
+        d = [x[0] for x in history.get(k, []) if re.search(r"\bveto(ed)?\b", x[2], re.I) and not re.search(r"pending|stricken|override|consideration|sustain", x[2], re.I)]
+        return d[-1] if d else bills[k].get("last_action_date", "")
 
     def final_votes(k):
         out = {}
-        for v in sorted((v for v in votes.get(k, []) if "FLOOR" in v["loc"].upper()), key=lambda v: (v["date"], int(v["seq"] or 0))):
-            out["A" if v["loc"].upper().startswith("A") else "S"] = (v["ayes"], v["noes"])
+        for v in sorted((v for v in votes.get(k, []) if v["floor"]), key=lambda v: (v["date"], int(v.get("seq") or 0))):
+            out[v["chamber"]] = (v["ayes"], v["noes"])
         return out
 
     def lead_party(k):
@@ -715,9 +776,15 @@ const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}"
     signed = [k for k, b in bills.items() if b["status"] == "Chaptered"]
     n_v, n_s = len(vetoed), len(signed)
 
+    size = Counter(L["house"] for L in legislators.values() if L.get("active", True))
+    two_chambers = bool(CFG.get("upper"))
+
     def proof(k):
+        if not two_chambers:
+            return False
         fv = final_votes(k)
-        return fv.get("A") and fv.get("S") and fv["A"][0] >= 54 and fv["S"][0] >= 27
+        lo, up = CFG["lower"], CFG["upper"]
+        return bool(fv.get(lo) and fv.get(up) and size[lo] and size[up] and fv[lo][0] * 3 >= 2 * size[lo] and fv[up][0] * 3 >= 2 * size[up])
 
     n_proof = sum(1 for k in vetoed if proof(k))
 
@@ -774,10 +841,10 @@ const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}"
             vs = [lean(t) for _, t, st_ in its if st_ == "Vetoed"]
             rows_ = "".join(
                 f'<tr><td><a href="bill/{slug(k)}.html">{esc(k)}</a> · {esc(bills[k].get("title", ""))}</td><td>{st_}</td><td>{au_link(k)}</td><td>{esc(DIR_WORD(t["direction"]))}</td></tr>'
-                for k, t, st_ in sorted(its, key=lambda x: (x[2], bills[x[0]]["type"], bills[x[0]]["number"])))
+                for k, t, st_ in sorted(its, key=lambda x: (x[2], *bsort(bills[x[0]]))))
             out.append(f'<details class="subcat"><summary><div class="mrow sub"><span><b>{esc(T(SUB[sid]["name"]))}</b> <span class="muted small">({len({k for k, _, _ in its})} bill{"" if len({k for k, _, _ in its}) == 1 else "s"})</span>{NOTE_DIV(SUB[sid].get("note"))}</span>'
                        f'{two_meter(ss, vs, SUB[sid]["name"])}</div></summary>'
-                       f'<table><thead><tr><th>Bill</th><th>Governor</th><th>Lead author</th><th>Direction vs. current law</th></tr></thead><tbody>{rows_}</tbody></table></details>')
+                       f'<table><thead><tr><th>Bill</th><th>{SX}</th><th>Lead author</th><th>Direction vs. current law</th></tr></thead><tbody>{rows_}</tbody></table></details>')
         return "".join(out)
 
     def lean_row(label, ks, tid, avg, extra):
@@ -846,7 +913,7 @@ const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}"
     for k in vetoed:
         b = bills[k]
         fv = final_votes(k)
-        vt_txt = " · ".join(f'{"Assembly" if h == "A" else "Senate"} {fv[h][0]}–{fv[h][1]}' for h in ("A", "S") if h in fv)
+        vt_txt = " · ".join(f'{h} {fv[h][0]}–{fv[h][1]}' for h in (CFG["lower"], CFG.get("upper")) if h in fv)
         tg = {}
         for t in policy_tags[k]:
             tg.setdefault(SUB[t["subtopic"]]["topic_id"], []).append(t)
@@ -868,14 +935,14 @@ const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}"
                      f'{f"<div class=bsum>{esc(sm)}</div>" if sm else ""}<div>{topic_chips}</div></li>')
     opts = "".join(f'<option value="{tid}">{esc(TOPICS[tid]["name"])}</option>' for tid in POLICY_TOPICS)
     vjs = """<script>const sel=document.getElementById('vt');sel.onchange=()=>{document.querySelectorAll('#vlist li').forEach(li=>{li.style.display=(!sel.value||li.dataset.t.split(' ').includes(sel.value))?'':'none'})}</script>"""
-    (OUT / "vetoes.html").write_text(page("What is the Governor vetoing?", f"""<h1>What is the Governor vetoing?</h1>
-<p class="lede">Of {n_v + n_s:,} bills that reached the Governor in the 2025–26 session, {n_v} were vetoed ({100 * n_v / (n_v + n_s):.1f}%) and {n_s:,} were signed. This page shows which topics, directions and authors the vetoes fall on.</p>
-<div class="tiles"><div class="tile"><b>{n_v}</b><span>Vetoed</span></div><div class="tile"><b>{n_s:,}</b><span>Became Law</span></div><div class="tile"><b>{100 * n_v / (n_v + n_s):.1f}%</b><span>Veto Rate</span></div><div class="tile"><b>{n_proof}</b><span>Vetoed After a Two-Thirds Vote in Both Houses</span></div></div>
-<div class="note small">Direction compares each bill with current California law, as everywhere else on this site. The Governor’s veto messages (the stated reasons) are not part of this data; each bill shows its own summary and votes.</div>
-<h2>Where the Governor lands</h2><p class="small muted">On each topic, the hollow circle is the average direction of the bills the Governor signed and the filled circle is the average of the bills the Governor vetoed, measured against current law. Restrictive is −{CUT} or lower, Permissive is +{CUT} or higher, otherwise Balanced. Click a topic, then a sub-topic, to see the bills.</p>{gov_html}
+    (OUT / "vetoes.html").write_text(page(f"What is the {SX} vetoing?", f"""<h1>What is the {SX} vetoing?</h1>
+<p class="lede">Of {n_v + n_s:,} bills that reached the {SX} in the {SESS} session, {n_v} were vetoed ({100 * n_v / (n_v + n_s):.1f}%) and {n_s:,} were signed. This page shows which topics, directions and authors the vetoes fall on.</p>
+<div class="tiles"><div class="tile"><b>{n_v}</b><span>Vetoed</span></div><div class="tile"><b>{n_s:,}</b><span>Became Law</span></div><div class="tile"><b>{100 * n_v / (n_v + n_s):.1f}%</b><span>Veto Rate</span></div>{(f'<div class="tile"><b>{n_proof}</b><span>Vetoed After a Two-Thirds Vote in Both Houses</span></div>') if two_chambers else ""}</div>
+<div class="note small">Direction compares each bill with current {SN} law, as everywhere else on this site. The {SX}’s veto messages (the stated reasons) are not part of this data; each bill shows its own summary and votes.</div>
+<h2>Where the {SX} lands</h2><p class="small muted">On each topic, the hollow circle is the average direction of the bills the {SX} signed and the filled circle is the average of the bills the {SX} vetoed, measured against current law. Restrictive is −{CUT} or lower, Permissive is +{CUT} or higher, otherwise Balanced. Click a topic, then a sub-topic, to see the bills.</p>{gov_html}
 <h2>By lead author’s party</h2>{party_tbl}
 <h2>When</h2>{month_bars}
-<h2>All {n_v} vetoed bills</h2><p><label class="small">Topic <select id="vt" aria-label="Topic"><option value="">All topics</option>{opts}</select></label></p><ul id="vlist">{"".join(items)}</ul>{vjs}""", 0, "Bills vetoed by the Governor in California’s 2025–26 session"))
+<h2>All {n_v} vetoed bills</h2><p><label class="small">Topic <select id="vt" aria-label="Topic"><option value="">All topics</option>{opts}</select></label></p><ul id="vlist">{"".join(items)}</ul>{vjs}""", 0, f"Bills vetoed by the {SX} in {SN}’s {SESS} session"))
 
     # ---------------- overview
     def topic_meters(live):
@@ -899,18 +966,20 @@ const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}"
 
     status = Counter(b["status"] for b in bills.values())
     n_dead = sum(status[s] for s in DEAD)
-    issues_html = (f'<h2>Issues in the news</h2><p class="small muted">Chosen from California coverage as of {esc(ISSUES["as_of"])}. Each links to the bills, how they lean and who is authoring them.</p><div class="issues">{"".join(issue_cards)}</div>') if issue_cards else ""
-    body = f"""<h1>California legislation by topic and direction</h1>
-<p class="lede">Every bill in California’s 2025–26 session, sorted into topics, with a read on which way each bill pushes against current law, Restrictive or Permissive, and where the money goes. Then what each legislator authored and how they voted.</p>
+    issues_html = (f'<h2>Issues in the news</h2><p class="small muted">Chosen from {SN} coverage as of {esc(ISSUES["as_of"])}. Each links to the bills, how they lean and who is authoring them.</p><div class="issues">{"".join(issue_cards)}</div>') if issue_cards else ""
+    find_form = f'''<form class="filters" action="find.html" method="get"><input name="zip" inputmode="numeric" maxlength="10" placeholder="Find my legislators: enter a {SN} ZIP code" aria-label="ZIP code"><button type="submit" style="font:inherit;padding:7px 16px;border-radius:8px;border:1px solid var(--axis);background:var(--accent);color:#fff;cursor:pointer">Find</button></form>''' if HAS_FIND else ""
+    find_li = '<li><a href="find.html">Find my legislators</a> by ZIP code.</li>' if HAS_FIND else ""
+    body = f"""<h1>{SN} legislation by topic and direction</h1>
+<p class="lede">Every bill in {SN}’s {SESS} session, sorted into topics, with a read on which way each bill pushes against current law, Restrictive or Permissive, and where the money goes. Then what each legislator authored and how they voted.</p>
 <div class="tiles"><div class="tile"><b>{vv(f"{len(bills):,}", f"{len(bills) - n_dead:,}")}</b><span>Bills</span></div><div class="tile"><b>{vv(f"{n_policy:,}", f"{sum(1 for k in bills if policy_tags[k] and alive[k]):,}")}</b><span>With Policy Topic Tags</span></div><div class="tile"><b>{len(leg_rows)}</b><span>Legislators</span></div>
 <div class="tile"><b>{status.get("Chaptered", 0):,}</b><span>Became Law</span></div></div>
-<form class="filters" action="find.html" method="get"><input name="zip" inputmode="numeric" maxlength="10" placeholder="Find my legislators: enter a California ZIP code" aria-label="ZIP code"><button type="submit" style="font:inherit;padding:7px 16px;border-radius:8px;border:1px solid var(--axis);background:var(--accent);color:#fff;cursor:pointer">Find</button></form>
+{find_form}
 {issues_html}
 <h2>How to read the meter</h2><div class="note small">{BENCHMARK} By default the site leaves out the {n_dead} bills the official record marks as died, failed in committee or vetoed. Bills still listed as in committee cannot pass once the session has ended, but they are only hidden if the record says they died.</div>
 <h2>Where each topic leans</h2><p class="small muted">Each marker is the average direction of the bills tagged under that topic, from restrictive to permissive. Neutral and unclear tags are left out. A marker near the middle can hide a split: open the topic to see access and regulation separately.</p>{vb(topic_meters(False), topic_meters(True))}
 <h2>Bills by topic</h2><p class="small muted">A bill counts once under each topic it touches, so bars add up to more than the number of bills. {len(ceremonial)} ceremonial or commemorative measures (naming, honoring) are not counted here.</p>{vb(topic_bars(False), topic_bars(True))}
-<h2>Where to start</h2><ul><li><a href="bills.html">Search all bills</a> by words, topic, status or direction.</li><li><a href="find.html">Find my legislators</a> by ZIP code.</li><li><a href="legislators.html">Legislators</a>: a Restrictive / Permissive tag for each issue, plus authorship and floor votes.</li><li><a href="method.html">How it works</a>, and what the labels can and cannot tell you.</li></ul>"""
-    (OUT / "index.html").write_text(page("California by topic", body))
+<h2>Where to start</h2><ul><li><a href="bills.html">Search all bills</a> by words, topic, status or direction.</li>{find_li}<li><a href="legislators.html">Legislators</a>: a Restrictive / Permissive tag for each issue, plus authorship and floor votes.</li><li><a href="method.html">How it works</a>, and what the labels can and cannot tell you.</li></ul>"""
+    (OUT / "index.html").write_text(page(f"{SN} by topic", body))
 
     # ---------------- bills search
     opts_t = "".join(f'<option value="{tid}">{esc(TOPICS[tid]["name"])}</option>' for tid in POLICY_TOPICS)
@@ -925,31 +994,74 @@ const hay=(b.k+' '+b.t+' '+b.su).toLowerCase();if(w.some(x=>!hay.includes(x)))co
 if(n<=200)h+='<tr><td><a href="bill/'+b.s+'.html">'+esc(b.k)+'</a></td><td>'+esc(b.t)+'<div class="muted small">'+esc(b.su)+'</div></td><td>'+esc(({'Chaptered':'Became Law'})[b.st]||b.st)+'</td><td>'+b.tp.map(t=>'<span class="chip">'+esc(TN[t])+'</span>').join('')+'</td></tr>'}
 out.innerHTML=h;cnt.textContent=n+' bills'+(n>200?' (showing the first 200; narrow the search)':'')}
 [q,tp,st,dr].forEach(e=>e.addEventListener('input',run));window.addEventListener('alivechange',run);run();""".replace("__D__", json.dumps(index, separators=(",", ":"), ensure_ascii=False)).replace("__TN__", json.dumps({tid: TOPICS[tid]["name"] for tid in POLICY_TOPICS})).replace("__DEAD__", json.dumps(sorted(DEAD)))
-    (OUT / "bills.html").write_text(page("All bills", f"""<h1>All bills</h1><p class="lede">Search {len(bills):,} California bills.</p>
+    (OUT / "bills.html").write_text(page("All bills", f"""<h1>All bills</h1><p class="lede">Search {len(bills):,} {SN} bills.</p>
 <div class="filters"><input id="q" placeholder="Search bill number, title or summary" aria-label="Search"><select id="tp" aria-label="Topic"><option value="">Any topic</option>{opts_t}</select>
 <select id="st" aria-label="Status"><option value="">Any status</option>{opts_s}</select><select id="dr" aria-label="Direction"><option value="">Any direction</option>{opts_d}</select></div>
 <p class="muted small" id="cnt"></p><table><thead><tr><th>Bill</th><th>Title</th><th>Status</th><th>Topics</th></tr></thead><tbody id="out"></tbody></table><script>{js}</script>"""))
 
     # ---------------- method
     taxrows = "".join(f'<li><b>{esc(t["name"])}</b>: ' + ", ".join(esc(s["name"]) for s in t["subtopics"]) + "</li>" for t in TAX["topics"] if not t.get("excluded"))
+    vetoes_method = f'''<h2>Vetoes</h2><p>The <a href="vetoes.html">Vetoes page</a> counts every bill that reached the {SX} in the {SESS} session. For each topic it shows the average direction of the bills signed and of the bills vetoed, on the same Restrictive / Permissive scale and measured against current law, so you can see what kind of bills get vetoed. Click a topic, then a sub-topic, to see the bills. The {SX}’s veto messages (the stated reasons) are not part of this data.</p>''' if HAS_VETOES else ""
+    issues_method = f'''<h2>Issues in the news</h2><p>The issues on the overview were picked from news coverage as of {esc(ISSUES["as_of"])}. Each issue page lists its sources and states exactly which bills it includes (by tag and by wording in the title or digest). Keyword matching can include a bill that only mentions the subject in passing.</p>''' if issue_data else ""
     meta = json.loads((DATA / "tags.json").read_text())
     (OUT / "method.html").write_text(page("How it works", f"""<h1>How it works</h1>
 <h2>The benchmark: current law</h2><p>{BENCHMARK}</p>
-<h2>What is labelled</h2><p>Each California bill gets one or more tags. A tag has a <b>sub-topic</b> from a fixed two-level list ({len(POLICY_TOPICS)} topics, {sum(len(TOPICS[t]["subtopics"]) for t in POLICY_TOPICS)} sub-topics, version {esc(TAX["version"])}), a <b>direction</b> against the status quo, a <b>mechanism</b> (a ban, a licensing rule, a tax incentive, a study) and a <b>funding</b> note (increases, decreases, none). Ceremonial measures (naming, honoring) are tagged as “not a policy topic” and left out of the charts.</p>
+<h2>What is labelled</h2><p>Each {SN} bill gets one or more tags. A tag has a <b>sub-topic</b> from a fixed two-level list ({len(POLICY_TOPICS)} topics, {sum(len(TOPICS[t]["subtopics"]) for t in POLICY_TOPICS)} sub-topics, version {esc(TAX["version"])}), a <b>direction</b> against the status quo, a <b>mechanism</b> (a ban, a licensing rule, a tax incentive, a study) and a <b>funding</b> note (increases, decreases, none). Ceremonial measures (naming, honoring) are tagged as “not a policy topic” and left out of the charts.</p>
 <h2>Direction</h2><p>Every bill is labelled Restrictive, Permissive, Mixed or Neutral on each sub-topic it touches, with “Strongly” where the change is large. The AI model’s own wording differs by sub-topic (expands or restricts for access and rights, tightens or loosens for regulation); the site maps both to Permissive and Restrictive, and the original word appears as a tooltip. Funding-only sub-topics have no direction. Studies, assessments, voluntary programs and rules that only assign responsibility are Neutral. Direction describes what a bill does, not whether that is good or bad.</p>
 <h2>The restrictive-to-permissive meter</h2><p>Each directional tag is scored: Strongly Restrictive −2, Restrictive −1, Mixed 0, Permissive +1, Strongly Permissive +2. A marker sits at the average. Neutral, unclear and funding-only tags are left out, and a hollow marker means fewer than {MIN_TAGS} directional tags. The average hides disagreement inside a topic, so topic pages show access and regulation separately.</p>
 <h2>Show Bills that Died</h2><p>By default the site leaves out bills whose official status is “Died”, “Failed Passage in Committee” or “Vetoed” from every count, meter and list. Check <b>Show Bills that Died</b> in the header to include them. A bill still shown as “in committee” after the session ended cannot pass, but it is not hidden unless the record marks it as died.</p>
-<h2>Legislator tags</h2><p>On each legislator’s page, every issue gets a <b>Restrictive</b>, <b>Permissive</b> or <b>Balanced</b> tag from the bills they authored or co-authored. Lead authors count 3×, principal co-authors 2× and co-authors 1×. A tag needs at least {MIN_LEG} directional bills; a weighted average of −{CUT} or lower is Restrictive and +{CUT} or higher is Permissive. The tag describes the bills, not the person’s views, and co-authors sometimes sign on without strong support. The dark tick on each meter marks the average of all California bills on that topic.</p>
-<h2>Issues in the news</h2><p>The issues on the overview were picked from news coverage as of {esc(ISSUES["as_of"])}. Each issue page lists its sources and states exactly which bills it includes (by tag and by wording in the title or digest). Keyword matching can include a bill that only mentions the subject in passing.</p>
-<h2>Bill status</h2><p>Statuses come from the Legislature’s record. <b>Became Law</b> means the bill was chaptered: the Governor signed it, or it became law without a signature, and it has a chapter number. <b>Vetoed</b> bills were returned by the Governor. <b>Died</b> and <b>Failed Passage in Committee</b> bills did not advance.</p>
-<h2>Vetoes</h2><p>The <a href="vetoes.html">Vetoes page</a> counts every bill that reached the Governor in the 2025–26 session. For each topic it shows the average direction of the bills signed and of the bills vetoed, on the same Restrictive / Permissive scale and measured against current law, so you can see what kind of bills get vetoed. Click a topic, then a sub-topic, to see the bills. The Governor’s veto messages (the stated reasons) are not part of this data.</p>
+<h2>Legislator tags</h2><p>On each legislator’s page, every issue gets a <b>Restrictive</b>, <b>Permissive</b> or <b>Balanced</b> tag from the bills they authored or co-authored. Lead authors count 3×, principal co-authors 2× and co-authors 1×. A tag needs at least {MIN_LEG} directional bills; a weighted average of −{CUT} or lower is Restrictive and +{CUT} or higher is Permissive. The tag describes the bills, not the person’s views, and co-authors sometimes sign on without strong support. The dark tick on each meter marks the average of all {SN} bills on that topic.</p>
+{issues_method}
+<h2>Bill status</h2><p>Statuses come from the Legislature’s record. <b>Became Law</b> means the bill was chaptered: the {SX} signed it, or it became law without a signature, and it has a chapter number. <b>Vetoed</b> bills were returned by the {SX}. <b>Died</b> and <b>Failed Passage in Committee</b> bills did not advance.</p>
+{vetoes_method}
 <h2>Autonomous vehicles and driver assistance</h2><p>These are separate sub-topics. <b>Autonomous vehicles</b> covers driverless or automated driving systems that operate without a human driver continuously in control. <b>Driver-assistance systems (ADAS)</b> covers partially automated features where a human must stay in control, such as lane-keeping and adaptive cruise control. A drunk-driving or other traffic offense by a human using these features is filed under Traffic safety unless the bill regulates the feature itself.</p>
 <h2>Reading legislator pages</h2><p>Click a topic to see that legislator’s sub-topics, each with its own score, and click a sub-topic to see the bills behind it, with their role and direction. The label on a topic is a summary of those sub-topic scores.</p>
-<h2>Evidence</h2><p>Every direction call must quote a sentence from the Legislative Counsel’s digest of the bill. If the quoted sentence is not in the digest, the call is thrown away and shown as unclear.</p>
+<h2>Evidence</h2><p>Every direction call must quote a sentence from the bill’s title or {CFG["digest"]}. If the quoted sentence is not in the digest, the call is thrown away and shown as unclear.</p>
 <h2>Who does the labelling</h2><p>An AI model ({esc(meta.get("model", ""))}) reads each bill’s title and digest and applies the list above. It is fast and cheap but not perfect: in a 50-bill test it agreed with a larger model on about 86% of direction calls. Bills without a digest are tagged from the title alone and usually come out unclear on direction. The model declined to process one bill (a biosecurity bill) and it is shown untagged. Labels are a guide to read the bill, not a substitute.</p>
 <h2>Legislators</h2><p>Legislator pages count what each member authored or co-authored and how they voted on the floor, with every bill linked. Committee votes are not yet matched to members.</p>
 <h2>Topics</h2><ul>{taxrows}</ul>"""))
     print(f"built {len(bills)} bill pages, {len(POLICY_TOPICS)} topic pages, {len(issue_data)} issue pages, {len(leg_rows)} legislator pages; {n_policy} bills with policy tags; {len(ceremonial)} ceremonial")
+    if not HAS_VETOES and (OUT / "vetoes.html").exists():
+        (OUT / "vetoes.html").unlink()
+    return {"code": code, "name": CFG["name"], "short": SN, "bills": len(bills), "tagged": n_policy, "legislators": len(leg_rows),
+            "laws": status.get("Chaptered", 0), "vetoed": status.get("Vetoed", 0), "chambers": [CFG["lower"]] + ([CFG["upper"]] if CFG.get("upper") else []),
+            "session": SESS}
+
+
+def landing(summaries):
+    cards = "".join(
+        f'<a class="card statecard" href="{x["code"].lower()}/index.html"><h3>{esc(x["name"])}</h3>'
+        f'<div class="small muted">{esc(x["session"])} session · {esc(" and ".join(x["chambers"]))}</div>'
+        f'<div class="tiles mini3"><div><b>{x["bills"]:,}</b><span>Bills</span></div><div><b>{x["laws"]:,}</b><span>Became Law</span></div><div><b>{x["legislators"]}</b><span>Legislators</span></div></div></a>'
+        for x in summaries)
+    return f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>StateTrack</title><meta name="theme-color" content="#14213d"><meta name="description" content="State bills sorted by topic and by which way they push against current law."><link rel="stylesheet" href="style.css?v={CSS_V}"></head><body>
+<header class="site"><div class="wrap"><nav><a class="brand" href="index.html"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="6.5" fill="#f2b705"/><g stroke="#f2b705" stroke-width="2.2" stroke-linecap="round"><path d="M16 2.5v4M16 25.5v4M2.5 16h4M25.5 16h4M6.4 6.4l2.8 2.8M22.8 22.8l2.8 2.8M25.6 6.4l-2.8 2.8M9.2 22.8l-2.8 2.8"/></g></svg>StateTrack</a></nav></div></header>
+<main><div class="wrap"><h1>State legislation by topic and direction</h1>
+<p class="lede">Every bill in each state’s 2025–26 session, sorted into topics, with a read on which way it pushes against current law, Restrictive or Permissive, plus what each legislator authored and how they voted. Pick a state.</p>
+<div class="statecards">{cards}</div>
+<p class="small muted">Topics and directions are labelled by an AI model from each bill’s title and official summary, and are approximate. Each state’s <em>How it works</em> page explains the method.</p></div></main></body></html>"""
+
+
+def main():
+    codes = [c for c in STATES if (ROOT / "data" / c.lower() / "tags.json").exists() and (ROOT / "data" / c.lower() / "bills.json").exists()]
+    codes.sort(key=lambda c: (c != "CA", STATES[c]["name"]))
+    only = [a.upper() for a in sys.argv[1:]]
+    global STATE_LIST
+    STATE_LIST = [(c, STATES[c].get("name_short") or STATES[c]["name"]) for c in codes]
+    DOCS.mkdir(exist_ok=True)
+    (DOCS / ".nojekyll").write_text("")
+    (DOCS / "style.css").write_text(CSS)
+    summaries = []
+    for c in codes:
+        if only and c not in only:
+            summaries.append(json.loads((DOCS / c.lower() / "summary.json").read_text()))
+            continue
+        x = build_state(c)
+        (DOCS / c.lower() / "summary.json").write_text(json.dumps(x))
+        summaries.append(x)
+    (DOCS / "index.html").write_text(landing(summaries))
+    return 0
 
 
 if __name__ == "__main__":
