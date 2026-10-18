@@ -116,7 +116,7 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 blockquote{margin:6px 0;padding:6px 12px;border-left:3px solid var(--axis);color:var(--ink2);background:var(--surface)}
 input[type=text],input:not([type]),select{font:inherit;padding:7px 9px;border:1px solid var(--axis);border-radius:8px;background:var(--surface);color:var(--ink)}
 .filters{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.filters input{flex:1;min-width:200px}
-details summary{cursor:pointer;color:var(--ink2)}footer{color:var(--muted);font-size:13px;padding:24px 0;border-top:1px solid var(--line)}
+.bsum{margin:3px 0 2px;color:var(--ink2);font-size:14px;max-width:70ch}.bmeta{color:var(--muted);font-size:12.5px;margin-bottom:10px}details summary{cursor:pointer;color:var(--ink2)}footer{color:var(--muted);font-size:13px;padding:24px 0;border-top:1px solid var(--line)}
 .axis{display:grid;grid-template-columns:minmax(120px,230px) 1fr 92px;gap:10px;font-size:12px;color:var(--ink2);margin-top:8px}.axis .ends{display:flex;justify-content:space-between}
 .mrow{display:grid;grid-template-columns:minmax(120px,230px) 1fr 92px;gap:10px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line)}.mrow a{color:var(--ink);text-decoration:none}.mrow a:hover{text-decoration:underline}
 .mrow .v{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink2);font-size:13px}.mrow.sub{padding-left:14px}
@@ -306,9 +306,26 @@ def main():
                       "tp": sorted({SUB[t["subtopic"]]["topic_id"] for t in policy_tags[k]}),
                       "d": sorted({group(t["direction"]) for t in policy_tags[k] if group(t["direction"]) in ORDER}), "su": summary})
 
-    def bill_li(k, extra="", depth=1):
+    def bill_li(k, extra="", depth=1, sid=None):
         b = bills[k]
-        return f'<li class="{"" if alive[k] else "dead"}"><a href="{"../" * depth}bill/{slug(k)}.html">{esc(k)}</a> · {esc(b.get("title", ""))} <span class="chip">{esc(b["status"])}</span>{extra}</li>'
+        sm = tagged.get(k, {}).get("summary", "")
+        if not tagged.get(k, {}).get("has_digest", True) or "text was provided" in sm:
+            sm = ""
+        det = []
+        if sm:
+            det.append(f'<div class="bsum">{esc(sm)}</div>')
+        meta = []
+        lead = next((a for a in b.get("authors", []) if isinstance(a["legislator"], str) and a["legislator"] in legislators), None)
+        if lead:
+            meta.append(f'Author: <a href="{"../" * depth}legislator/{lid_slug[lead["legislator"]]}.html">{esc(legislators[lead["legislator"]]["name"])}</a>')
+        tg = next((x for x in btags.get(k, []) if sid and x["subtopic"] == sid), None)
+        if tg and tg.get("mechanism") and tg["mechanism"] not in ("none", "other"):
+            meta.append("Approach: " + esc(T(tg["mechanism"].replace("_", " "))))
+        if b.get("last_action_date"):
+            meta.append("Last action " + esc(b["last_action_date"]))
+        if meta:
+            det.append('<div class="bmeta">' + " · ".join(meta) + "</div>")
+        return f'<li class="{"" if alive[k] else "dead"}"><a href="{"../" * depth}bill/{slug(k)}.html">{esc(k)}</a> · {esc(b.get("title", ""))} <span class="chip">{esc(b["status"])}</span>{extra}{"".join(det)}</li>'
 
     # ---------------- topic pages
     def sub_scores(sid, live):
@@ -344,7 +361,7 @@ def main():
             if not ks:
                 continue
             td = {k: next((x["direction"] for x in btags[k] if x["subtopic"] == s["id"]), "") for k in ks}
-            lis = "".join(bill_li(k, f' <span class="chip">{esc(DIR_WORD(td[k]))}</span>' if td[k] and td[k] != "not_applicable" else "") for k in ks[:300])
+            lis = "".join(bill_li(k, f' <span class="chip">{esc(DIR_WORD(td[k]))}</span>' if td[k] and td[k] != "not_applicable" else "", sid=s["id"]) for k in ks[:300])
             more = f'<p class="muted small">Showing the first 300 of {len(ks)}; use <a href="../bills.html">All bills</a> to search.</p>' if len(ks) > 300 else ""
             lists.append(f'<h3 id="{slug(s["id"])}">{esc(s["name"])} <span class="muted small">({vv(len(ks), len([k for k in ks if alive[k]]))})</span></h3><ul>{lis}</ul>{more}')
         n_all, n_live = len(topic_bills[tid]), len([k for k in topic_bills[tid] if alive[k]])
