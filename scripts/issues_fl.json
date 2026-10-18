@@ -1,0 +1,39 @@
+{
+ "as_of": "October 2026",
+ "max_issues": 10,
+ "min_bills": 8,
+ "issues": [
+  {
+   "id": "property-taxes",
+   "name": "Property Taxes",
+   "hook": "Governor DeSantis’s property tax relief proposal passed in a special session and goes to voters in November as a constitutional amendment.",
+   "sources": [
+    [
+     "FY 26-27 budget done, vetoes are coming and property tax debate lies ahead (Florida Phoenix)",
+     "https://floridaphoenix.com/2026/05/29/fy-26-27-budget-done-vetoes-are-coming-and-property-tax-debate-lies-ahead/"
+    ],
+    [
+     "Florida’s 2026 legislative session ends: what passed, what failed (WUSF)",
+     "https://wusf.org/text/politics-issues/2026-03-13/florida-2026-legislative-session-ends-what-passed-what-failed-whats-next"
+    ]
+   ],
+   "subtopics": [
+    "taxes_and_budget.property_taxes"
+   ]
+  },
+  {
+   "id": "budget",
+   "name": "Budget",
+   "hook": "The regular session ended without a budget; lawmakers later approved a $114.5 billion budget and vetoes were expected.",
+   "sources": [
+    [
+     "FY 26-27 budget done, vetoes are coming and property tax debate lies ahead (Florida Phoenix)",
+     "https://floridaphoenix.com/2026/05/29/fy-26-27-budget-done-vetoes-are-coming-and-property-tax-debate-lies-ahead/"
+    ]
+   ],
+   "subtopics": [
+    "taxes_and_budget.state_budget_and_appropriations"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,61 @@
+{
+ "as_of": "October 2026",
+ "max_issues": 10,
+ "min_bills": 8,
+ "issues": [
+  {
+   "id": "housing-permitting",
+   "name": "Housing Supply",
+   "hook": "Governor Ferguson’s 2026 request bills included reforms to increase the supply of housing.",
+   "sources": [
+    [
+     "Governor Ferguson announces slate of 6 Governor Request Bills for 2026",
+     "https://content.govdelivery.com/accounts/WAGOV/bulletins/4039f02"
+    ]
+   ],
+   "subtopics": [],
+   "topic": "housing"
+  },
+  {
+   "id": "taxes",
+   "name": "Taxes and Revenue",
+   "hook": "After the 2026 session Governor Ferguson signed bills that repealed or rolled back taxes enacted a year earlier.",
+   "sources": [
+    [
+     "Gov. Ferguson signs series of bills passed during 2026 legislative session (KAFE)",
+     "https://kafe.com/news/297792-gov-ferguson-signs-series-of-bills-passed-during-2026-legislative-session"
+    ]
+   ],
+   "subtopics": [],
+   "topic": "taxes_and_budget"
+  },
+  {
+   "id": "climate-cap-invest",
+   "name": "Climate and Cap-and-Invest",
+   "hook": "One signed 2026 bill (HB 2367) exempts emissions from a coal facility before January 1, 2026 from the Cap-and-Invest Program.",
+   "sources": [
+    [
+     "Gov. Ferguson signs series of bills passed during 2026 legislative session (KAFE)",
+     "https://kafe.com/news/297792-gov-ferguson-signs-series-of-bills-passed-during-2026-legislative-session"
+    ]
+   ],
+   "subtopics": [
+    "environment_and_energy.climate_and_emissions"
+   ]
+  },
+  {
+   "id": "parental-rights",
+   "name": "Parents’ Rights",
+   "hook": "A rewrite of the parental “bill of rights” stemming from Initiative 2081 was among the bills signed in 2026.",
+   "sources": [
+    [
+     "Gov. Ferguson signs series of bills passed during 2026 legislative session (KAFE)",
+     "https://kafe.com/news/297792-gov-ferguson-signs-series-of-bills-passed-during-2026-legislative-session"
+    ]
+   ],
+   "subtopics": [
+    "children_and_families.parental_rights"
+   ]
+  }
+ ]
+}

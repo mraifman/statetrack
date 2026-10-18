@@ -1,0 +1,67 @@
+{
+ "as_of": "October 2026",
+ "max_issues": 10,
+ "min_bills": 8,
+ "issues": [
+  {
+   "id": "housing",
+   "name": "Housing",
+   "hook": "Housing affordability is a top priority in 2026, with ballot questions proposed on rent control and on starter homes.",
+   "sources": [
+    [
+     "Housing affordability in the news (Point32Health)",
+     "https://point32health.org/?p=6309"
+    ],
+    [
+     "Massachusetts 2026 State of the Commonwealth address (WBUR)",
+     "https://www.wbur.org/news/2026/01/22/massachusetts-2026-state-of-the-commonwealth-address"
+    ]
+   ],
+   "subtopics": [],
+   "topic": "housing"
+  },
+  {
+   "id": "health-oversight",
+   "name": "Health Care Oversight",
+   "hook": "Lawmakers worked on a bill to avoid a repeat of the Steward Health Care crisis and boost oversight of facility expansions and closures.",
+   "sources": [
+    [
+     "Massachusetts Senate: health and housing (Recorder)",
+     "https://recorder.com/2025/11/25/massachusetts-senate-health-housing/"
+    ]
+   ],
+   "subtopics": [
+    "health_care.hospitals_and_providers"
+   ]
+  },
+  {
+   "id": "cannabis",
+   "name": "Cannabis Regulation",
+   "hook": "A cannabis regulation reform bill that gives the Governor full authority over Cannabis Control Commission appointments awaited action in April 2026.",
+   "sources": [
+    [
+     "Advances: a look at the week of April 12, 2026 (State House News)",
+     "https://www.statehousenews.com/news/advances/advances---a-look-at-the-week-of-april-12-2026/article_804b4376-fe54-43b7-9e72-76ced7006b76.html"
+    ]
+   ],
+   "subtopics": [
+    "criminal_justice.drug_policy"
+   ]
+  },
+  {
+   "id": "phones-social-media",
+   "name": "Cellphones and Social Media",
+   "hook": "Cellphone and social media legislation headed to conference committee in April 2026.",
+   "sources": [
+    [
+     "Advances: a look at the week of April 12, 2026 (State House News)",
+     "https://www.statehousenews.com/news/advances/advances---a-look-at-the-week-of-april-12-2026/article_804b4376-fe54-43b7-9e72-76ced7006b76.html"
+    ]
+   ],
+   "subtopics": [
+    "ai_and_technology.social_media_and_online_platforms",
+    "education.school_safety_discipline_and_phones"
+   ]
+  }
+ ]
+}

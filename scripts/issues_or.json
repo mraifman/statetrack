@@ -1,0 +1,51 @@
+{
+ "as_of": "October 2026",
+ "max_issues": 10,
+ "min_bills": 8,
+ "issues": [
+  {
+   "id": "transportation-funding",
+   "name": "Transportation Funding",
+   "hook": "The 2026 short session moved the referendum on transportation tax increases and closed a nearly $300 million ODOT shortfall.",
+   "sources": [
+    [
+     "The 2026 legislative session is nearly over (KATU)",
+     "https://katu.com/news/politics/the-2026-legislative-session-is-nearly-over-whats-passed-and-what-bills-await-action-salem-oregon-portland-tina-kotek-republicans-democrats-local-community"
+    ],
+    [
+     "2026 Legislative Summary (ODOT)",
+     "https://www.oregon.gov/odot/About/GR/2026%20Legislative%20Summary.pdf"
+    ]
+   ],
+   "subtopics": [
+    "transportation.transit_and_infrastructure_funding"
+   ]
+  },
+  {
+   "id": "housing-land-use",
+   "name": "Housing and Land Use",
+   "hook": "Governor Kotek’s priority bills sped affordable housing for seniors and manufactured homes and eased urban growth boundary expansion.",
+   "sources": [
+    [
+     "Governor Kotek highlights major wins for Oregonians in 2026 legislative session",
+     "https://apps.oregon.gov/oregon-newsroom/OR/GOV/Posts/Post/governor-kotek-highlights-major-wins-for-oregonians-in-2026-legislative-session"
+    ]
+   ],
+   "subtopics": [],
+   "topic": "housing"
+  },
+  {
+   "id": "taxes",
+   "name": "Taxes and the Budget",
+   "hook": "The 2026 short session opened under a budget shortfall, and one passed bill raises the statewide lodging tax.",
+   "sources": [
+    [
+     "On eve of Oregon legislature’s short session, budget crisis and transportation funding top agenda (KTVZ)",
+     "https://ktvz.com/news/government-politics/2026/01/28/on-eve-of-oregon-legislatures-short-session-budget-crisis-and-transportation-funding-top-lawmakers-agenda/"
+    ]
+   ],
+   "subtopics": [],
+   "topic": "taxes_and_budget"
+  }
+ ]
+}

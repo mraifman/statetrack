@@ -1,0 +1,34 @@
+{
+ "as_of": "October 2026",
+ "max_issues": 10,
+ "min_bills": 8,
+ "issues": [
+  {
+   "id": "public-safety",
+   "name": "Public Safety",
+   "hook": "The Council has repeatedly taken up crime legislation, including the Secure DC omnibus and juvenile curfew authority.",
+   "sources": [
+    [
+     "DC Council votes to pass Secure DC crime bill (The Eagle)",
+     "https://www.theeagleonline.com/article/2024/03/dc-council-votes-to-pass-secure-dc-crime-bill"
+    ]
+   ],
+   "subtopics": [],
+   "topic": "criminal_justice"
+  },
+  {
+   "id": "budget",
+   "name": "Budget",
+   "hook": "The Council votes on the Mayor’s annual budget each summer; the fiscal 2026 budget was voted on in July 2025.",
+   "sources": [
+    [
+     "D.C. Council will conduct its first vote on the fiscal 2026 budget on July 14 (Washington Informer)",
+     "https://www.washingtoninformer.com/?p=1232623"
+    ]
+   ],
+   "subtopics": [
+    "taxes_and_budget.state_budget_and_appropriations"
+   ]
+  }
+ ]
+}
