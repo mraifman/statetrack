@@ -519,12 +519,14 @@ def main():
                         for sc, w, k, t, role in sorted(items, key=lambda it: (it[0], it[2])))
                     tw = sum(it[1] for it in items)
                     tot = sum(it[0] * it[1] for it in items)
+                    by_sub = Counter(SUB[it[3]["subtopic"]]["name"] for it in items)
+                    mix = "; ".join(f"{esc(nm)} ({c})" for nm, c in by_sub.most_common())
                     verdict = ("Restrictive" if wm <= -CUT else "Permissive" if wm >= CUT else "Balanced")
                     meaning = {"Restrictive": "On balance, the bills this legislator wrote or co-wrote on this topic would tighten rules or limit access compared with current California law.",
                                "Permissive": "On balance, the bills this legislator wrote or co-wrote on this topic would loosen rules or widen access compared with current California law.",
                                "Balanced": "The bills this legislator wrote or co-wrote on this topic split between tightening and loosening, or change little."}[verdict]
                     rows.append(f'<details class="why"><summary>Why {verdict}? See the {n} tagged bill{"" if n == 1 else "s"} behind this score</summary>'
-                                f'<p class="small">{meaning} It describes the bills, not necessarily the person’s views.</p>'
+                                f'<p class="small">{meaning} It describes the bills, not necessarily the person’s views.</p><p class="small"><b>What the tags are about:</b> {mix}.</p>'
                                 f'<table><thead><tr><th>Bill</th><th>Role (weight)</th><th>Sub-topic</th><th>Direction vs. current law</th><th class="n">Score</th></tr></thead><tbody>{lines}</tbody></table>'
                                 f'<p class="small muted">Score: Strongly Restrictive −2, Restrictive −1, Mixed 0, Permissive +1, Strongly Permissive +2. Weighted average = {tot:+d} ÷ {tw} = <b>{wm:+.2f}</b>. Restrictive is −{CUT} or lower, Permissive is +{CUT} or higher, otherwise Balanced.</p></details>')
             lean_html = (f'<h2>Lean by issue</h2><p class="small muted">From the bills this legislator authored or co-authored. Each bill’s direction is measured against current law; lead authors count 3×, principal co-authors 2×, co-authors 1×. '
