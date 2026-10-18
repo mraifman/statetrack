@@ -749,22 +749,29 @@ const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}"
         kind, word = ("rest", "Restrictive") if mean <= -CUT else ("perm", "Permissive") if mean >= CUT else ("mid", "Balanced")
         return f'<div class="mrow"><span>{label}</span>{m}<div class="v"><span class="chip {kind}">{word}</span><br><span class="muted small">{extra}</span></div></div>'
 
-    gov_rows = []
-    both = signed + vetoed
-    allavg, _ = mean_lean(both)
-    gov_rows.append(lean_row("<b>All topics: signed</b>", signed, None, allavg, f"{len(signed):,} bills"))
-    gov_rows.append(lean_row("<b>All topics: vetoed</b>", vetoed, None, allavg, f"{len(vetoed)} bills"))
-    for tid in POLICY_TOPICS:
-        v_k = [k for k in vetoed if tid in bill_topics(k)]
-        s_k = [k for k in signed if tid in bill_topics(k)]
-        if len(v_k) + len(s_k) < 10:
-            continue
-        avg_t, _ = mean_lean(v_k + s_k, tid)
-        name = f'<b>{esc(TOPICS[tid]["name"])}</b>'
-        pl = lambda n: f"{n} bill{'' if n == 1 else 's'}"
-        gov_rows.append(lean_row(f"{name}: signed", s_k, tid, avg_t, pl(len(s_k))))
-        gov_rows.append(lean_row(f"{name}: vetoed", v_k, tid, avg_t, pl(len(v_k))))
-    gov_html = AXIS + "".join(gov_rows)
+    def gov_block(ks, avg_by_topic):
+        per = {}
+        for tid in POLICY_TOPICS:
+            kk = [k for k in ks if tid in bill_topics(k)]
+            sc = [lean(t) for k in kk for t in policy_tags[k] if lean(t) is not None and SUB[t["subtopic"]]["topic_id"] == tid]
+            if kk and sc:
+                per[tid] = (kk, sc)
+        out = []
+        for tid, (kk, sc) in sorted(per.items(), key=lambda kv: -len(kv[1][1])):
+            nb = len({k for k in kk if any(lean(t) is not None and SUB[t["subtopic"]]["topic_id"] == tid for t in policy_tags[k])})
+            if len(sc) < MIN_LEG:
+                out.append(f'<div class="mrow"><span><b>{esc(TOPICS[tid]["name"])}</b></span><span class="muted small">fewer than {MIN_LEG} directional bills</span><div class="v"><span class="chip">Not enough bills</span><br><span class="muted small">{nb} bill{"" if nb == 1 else "s"}</span></div></div>')
+                continue
+            m, mean = meter(sc, TOPICS[tid]["name"], avg_by_topic.get(tid))
+            kind, word = ("rest", "Restrictive") if mean <= -CUT else ("perm", "Permissive") if mean >= CUT else ("mid", "Balanced")
+            row = f'<div class="mrow"><span><b>{esc(TOPICS[tid]["name"])}</b></span>{m}<div class="v"><span class="chip {kind}">{word}</span><br><span class="muted small">{nb} bill{"" if nb == 1 else "s"}</span></div></div>'
+            out.append(f'<details class="cat"><summary>{row}</summary>{gov_detail(kk, tid)}<p class="small muted">Average = {sum(sc):+d} ÷ {len(sc)} = <b>{sum(sc) / len(sc):+.2f}</b></p></details>')
+        return AXIS + "".join(out)
+
+    avg_t = {tid: mean_lean([k for k in signed + vetoed if tid in bill_topics(k)], tid)[0] for tid in POLICY_TOPICS}
+    gov_html = (f'<p><label class="small">Governor’s actions <select id="gv" aria-label="Governor’s actions"><option value="signed">Signed</option><option value="vetoed">Vetoed</option><option value="both">Signed and vetoed</option></select></label></p>'
+                f'<div class="gv gv-signed">{gov_block(signed, avg_t)}</div><div class="gv gv-vetoed" style="display:none">{gov_block(vetoed, avg_t)}</div><div class="gv gv-both" style="display:none">{gov_block(signed + vetoed, avg_t)}</div>'
+                "<script>const gv=document.getElementById('gv');gv.onchange=()=>{document.querySelectorAll('.gv').forEach(d=>d.style.display=d.classList.contains('gv-'+gv.value)?'':'none')}</script>")
 
     prow = []
     for code_, name in (("DEM", "Democratic"), ("REP", "Republican")):
@@ -821,7 +828,7 @@ const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}"
 <p class="lede">Of {n_v + n_s:,} bills that reached the Governor in the 2025–26 session, {n_v} were vetoed ({100 * n_v / (n_v + n_s):.1f}%) and {n_s:,} were signed. This page shows which topics, directions and authors the vetoes fall on.</p>
 <div class="tiles"><div class="tile"><b>{n_v}</b><span>vetoed</span></div><div class="tile"><b>{n_s:,}</b><span>signed into law</span></div><div class="tile"><b>{100 * n_v / (n_v + n_s):.1f}%</b><span>veto rate</span></div><div class="tile"><b>{n_proof}</b><span>vetoed after a two-thirds vote in both houses</span></div></div>
 <div class="note small">Direction compares each bill with current California law, as everywhere else on this site. The Governor’s veto messages (the stated reasons) are not part of this data; each bill shows its own summary and votes.</div>
-<h2>Where the Governor lands</h2><p class="small muted">The same scale as everywhere else: each marker is the average direction of the bills signed (or vetoed) on that topic, measured against current law. The grey tick is the average of all bills on that topic that reached the Governor, so a marker left of it means that group is more Restrictive than the typical bill. Restrictive is −{CUT} or lower, Permissive is +{CUT} or higher, otherwise Balanced. Topics with at least 10 bills.</p>{gov_html}
+<h2>Where the Governor lands</h2><p class="small muted">Each marker is the average direction of the bills the Governor signed or vetoed on that topic, measured against current law. The dark tick is the average of all bills on the topic that reached the Governor. Restrictive is −{CUT} or lower, Permissive is +{CUT} or higher, otherwise Balanced. Pick an action, then click a topic to see the bills behind it.</p>{gov_html}
 <h2>By lead author’s party</h2>{party_tbl}
 <h2>When</h2>{month_bars}
 <h2>All {n_v} vetoed bills</h2><p><label class="small">Topic <select id="vt" aria-label="Topic"><option value="">All topics</option>{opts}</select></label></p><ul id="vlist">{"".join(items)}</ul>{vjs}""", 0, "Bills vetoed by the Governor in California’s 2025–26 session"))
