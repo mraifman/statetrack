@@ -1,0 +1,758 @@
+state,name,party,chamber,district,active,bills_authored_or_coauthored
+CA,"Hadwick, Heather",REP,Assembly,AD01,yes,400
+CA,"Rogers, Chris",DEM,Assembly,AD02,yes,404
+CA,"Gallagher, James",REP,Assembly,AD03,yes,271
+CA,"Aguiar-Curry, Cecilia M.",DEM,Assembly,AD04,yes,412
+CA,"Patterson, Joe",REP,Assembly,AD05,yes,341
+CA,"Krell, Maggy",DEM,Assembly,AD06,yes,374
+CA,"Hoover, Josh",REP,Assembly,AD07,yes,374
+CA,"Tangipa, David J.",REP,Assembly,AD08,yes,354
+CA,"Flora, Heath",REP,Assembly,AD09,yes,256
+CA,"Nguyen, Stephanie",DEM,Assembly,AD10,yes,382
+CA,"Wilson, Lori D.",DEM,Assembly,AD11,yes,409
+CA,"Connolly, Damon",DEM,Assembly,AD12,yes,439
+CA,"Ransom, Rhodesia",DEM,Assembly,AD13,yes,410
+CA,"Wicks, Buffy",DEM,Assembly,AD14,yes,394
+CA,"Avila Farias, Anamarie",DEM,Assembly,AD15,yes,377
+CA,"Bauer-Kahan, Rebecca",DEM,Assembly,AD16,yes,360
+CA,"Haney, Matt",DEM,Assembly,AD17,yes,438
+CA,"Bonta, Mia",DEM,Assembly,AD18,yes,421
+CA,"Stefani, Catherine",DEM,Assembly,AD19,yes,428
+CA,"Ortega, Liz",DEM,Assembly,AD20,yes,428
+CA,"Papan, Diane",DEM,Assembly,AD21,yes,349
+CA,"Alanis, Juan",REP,Assembly,AD22,yes,506
+CA,"Berman, Marc",DEM,Assembly,AD23,yes,392
+CA,"Lee, Alex",DEM,Assembly,AD24,yes,320
+CA,"Kalra, Ash",DEM,Assembly,AD25,yes,497
+CA,"Ahrens, Patrick",DEM,Assembly,AD26,yes,417
+CA,"Soria, Esmeralda",DEM,Assembly,AD27,yes,350
+CA,"Pellerin, Gail",DEM,Assembly,AD28,yes,424
+CA,"Rivas, Robert",DEM,Assembly,AD29,yes,328
+CA,"Addis, Dawn",DEM,Assembly,AD30,yes,416
+CA,"Arambula, Joaquin",DEM,Assembly,AD31,yes,295
+CA,"Ellis, Stan",REP,Assembly,AD32,yes,241
+CA,"Macedo, Alexandra",REP,Assembly,AD33,yes,363
+CA,"Lackey, Tom",REP,Assembly,AD34,yes,359
+CA,"Bains, Jasmeet",DEM,Assembly,AD35,yes,300
+CA,"Gonzalez, Jeff",REP,Assembly,AD36,yes,376
+CA,"Hart, Gregg",DEM,Assembly,AD37,yes,359
+CA,"Bennett, Steve",DEM,Assembly,AD38,yes,367
+CA,"Carrillo, Juan",DEM,Assembly,AD39,yes,389
+CA,"Schiavo, Pilar",DEM,Assembly,AD40,yes,427
+CA,"Harabedian, John",DEM,Assembly,AD41,yes,452
+CA,"Irwin, Jacqui",DEM,Assembly,AD42,yes,371
+CA,"Rodriguez, Celeste",DEM,Assembly,AD43,yes,269
+CA,"Schultz, Nick",DEM,Assembly,AD44,yes,409
+CA,"Ramos, James C.",DEM,Assembly,AD45,yes,340
+CA,"Gabriel, Jesse",DEM,Assembly,AD46,yes,388
+CA,"Wallis, Greg",REP,Assembly,AD47,yes,403
+CA,"Rubio, Blanca E.",DEM,Assembly,AD48,yes,400
+CA,"Fong, Mike",DEM,Assembly,AD49,yes,394
+CA,"Garcia, Robert",DEM,Assembly,AD50,yes,420
+CA,"Zbur, Rick Chavez",DEM,Assembly,AD51,yes,459
+CA,"Caloza, Jessica",DEM,Assembly,AD52,yes,408
+CA,"Rodriguez, Michelle",DEM,Assembly,AD53,yes,406
+CA,"González, Mark",DEM,Assembly,AD54,yes,457
+CA,"Bryan, Isaac G.",DEM,Assembly,AD55,yes,417
+CA,"Calderon, Lisa",DEM,Assembly,AD56,yes,357
+CA,"Elhawary, Sade",DEM,Assembly,AD57,yes,425
+CA,"Castillo, Leticia",REP,Assembly,AD58,yes,350
+CA,"Chen, Phillip",REP,Assembly,AD59,yes,299
+CA,"Jackson, Corey A.",DEM,Assembly,AD60,yes,413
+CA,"McKinnor, Tina",DEM,Assembly,AD61,yes,395
+CA,"Solache, Jr., José Luis",DEM,Assembly,AD62,yes,415
+CA,"Johnson, Natasha",REP,Assembly,AD63,yes,222
+CA,"Pacheco, Blanca",DEM,Assembly,AD64,yes,418
+CA,"Gipson, Mike A.",DEM,Assembly,AD65,yes,420
+CA,"Muratsuchi, Al",DEM,Assembly,AD66,yes,353
+CA,"Quirk-Silva, Sharon",DEM,Assembly,AD67,yes,383
+CA,"Valencia, Avelino",DEM,Assembly,AD68,yes,330
+CA,"Lowenthal, Josh",DEM,Assembly,AD69,yes,395
+CA,"Ta, Tri",REP,Assembly,AD70,yes,347
+CA,"Sanchez, Kate",REP,Assembly,AD71,yes,320
+CA,"Dixon, Diane",REP,Assembly,AD72,yes,361
+CA,"Petrie-Norris, Cottie",DEM,Assembly,AD73,yes,369
+CA,"Davies, Laurie",REP,Assembly,AD74,yes,430
+CA,"DeMaio, Carl",REP,Assembly,AD75,yes,312
+CA,"Patel, Darshana R.",DEM,Assembly,AD76,yes,404
+CA,"Boerner, Tasha",DEM,Assembly,AD77,yes,369
+CA,"Ward, Christopher M.",DEM,Assembly,AD78,yes,390
+CA,"Sharp-Collins, LaShae",DEM,Assembly,AD79,yes,393
+CA,"Alvarez, David",DEM,Assembly,AD80,yes,328
+CA,"Dahle, Megan",REP,Senate,SD01,yes,127
+CA,"McGuire, Mike",DEM,Senate,SD02,yes,65
+CA,"Cabaldon, Christopher",DEM,Senate,SD03,yes,124
+CA,"Alvarado-Gil, Marie",REP,Senate,SD04,yes,164
+CA,"McNerney, Jerry",DEM,Senate,SD05,yes,139
+CA,"Niello, Roger W.",REP,Senate,SD06,yes,178
+CA,"Arreguín, Jesse",DEM,Senate,SD07,yes,200
+CA,"Ashby, Angelique V.",DEM,Senate,SD08,yes,122
+CA,"Grayson, Timothy S.",DEM,Senate,SD09,yes,157
+CA,"Wahab, Aisha",DEM,Senate,SD10,yes,192
+CA,"Wiener, Scott D.",DEM,Senate,SD11,yes,205
+CA,"Grove, Shannon",REP,Senate,SD12,yes,137
+CA,"Becker, Josh",DEM,Senate,SD13,yes,167
+CA,"Caballero, Anna M.",DEM,Senate,SD14,yes,167
+CA,"Cortese, Dave",DEM,Senate,SD15,yes,176
+CA,"Hurtado, Melissa",DEM,Senate,SD16,yes,150
+CA,"Laird, John",DEM,Senate,SD17,yes,136
+CA,"Padilla, Stephen C.",DEM,Senate,SD18,yes,135
+CA,"Ochoa Bogh, Rosilicie",REP,Senate,SD19,yes,235
+CA,"Menjivar, Caroline",DEM,Senate,SD20,yes,137
+CA,"Limón, Monique",DEM,Senate,SD21,yes,100
+CA,"Rubio, Susan",DEM,Senate,SD22,yes,247
+CA,"Valladares, Suzette Martinez",REP,Senate,SD23,yes,177
+CA,"Allen, Benjamin",DEM,Senate,SD24,yes,189
+CA,"Pérez, Sasha Renée",DEM,Senate,SD25,yes,201
+CA,"Durazo, Maria Elena",DEM,Senate,SD26,yes,150
+CA,"Stern, Henry I.",DEM,Senate,SD27,yes,176
+CA,"Smallwood-Cuevas, Lola",DEM,Senate,SD28,yes,138
+CA,"Reyes, Eloise Gómez",DEM,Senate,SD29,yes,121
+CA,"Archuleta, Bob",DEM,Senate,SD30,yes,159
+CA,"Cervantes, Sabrina",DEM,Senate,SD31,yes,179
+CA,"Seyarto, Kelly",REP,Senate,SD32,yes,163
+CA,"Gonzalez, Lena A.",DEM,Senate,SD33,yes,174
+CA,"Umberg, Thomas J.",DEM,Senate,SD34,yes,190
+CA,"Richardson, Laura",DEM,Senate,SD35,yes,181
+CA,"Strickland, Tony",REP,Senate,SD36,yes,95
+CA,"Choi, Steven S.",REP,Senate,SD37,yes,160
+CA,"Blakespear, Catherine S.",DEM,Senate,SD38,yes,152
+CA,"Weber Pierson, M.D., Akilah",DEM,Senate,SD39,yes,197
+CA,"Jones, Brian W.",REP,Senate,SD40,yes,125
+FL,"Salzman, Michelle",REP,House,1,yes,173
+FL,"Brannan III, Robert Charles ""Chuck""",REP,House,10,yes,13
+FL,"LaMarca, Chip",REP,House,100,yes,43
+FL,"Cassel, Hillary",REP,House,101,yes,33
+FL,"Gottlieb, Michael ""Mike""",DEM,House,102,yes,73
+FL,"Bartleman, Robin",DEM,House,103,yes,102
+FL,"Robinson, Felicia Simone",DEM,House,104,yes,47
+FL,"Woodson, Marie Paule",DEM,House,105,yes,74
+FL,"Basabe, Fabián",REP,House,106,yes,60
+FL,"Aristide, Wallace",DEM,House,107,yes,21
+FL,"Joseph, Dotie",DEM,House,108,yes,108
+FL,"Gantt, Ashley Viola",DEM,House,109,yes,39
+FL,"Garrison, Sam",REP,House,11,yes,8
+FL,"Fabricio, Tom",REP,House,110,yes,45
+FL,"Borrero, David",REP,House,111,yes,40
+FL,"Rizo, Alex",REP,House,112,yes,99
+FL,"Lopez, Vicki L.",REP,House,113,yes,15
+FL,"Busatta, Demi",REP,House,114,yes,30
+FL,"Blanco, Omar",REP,House,115,yes,52
+FL,"Perez, Daniel",REP,House,116,yes,1
+FL,"Chambliss, Kevin D.",DEM,House,117,yes,49
+FL,"Redondo, Mike",REP,House,118,yes,50
+FL,"Porras, Juan Carlos",REP,House,119,yes,48
+FL,"Duggan, Wyman",REP,House,12,yes,28
+FL,"Mooney Jr., James Vernon ""Jim""",REP,House,120,yes,99
+FL,"Nixon, Angela ""Angie""",DEM,House,13,yes,32
+FL,"Daniels, Kimberly",DEM,House,14,yes,84
+FL,"Black, Dean",REP,House,15,yes,58
+FL,"Michael, Kiyan",REP,House,16,yes,60
+FL,"Baker, Jessica",REP,House,17,yes,32
+FL,"Kendall, Kim",REP,House,18,yes,74
+FL,"Greco, Sam",REP,House,19,yes,28
+FL,"Andrade, Robert Alexander ""Alex""",REP,House,2,yes,25
+FL,"Sapp, Judson",REP,House,20,yes,44
+FL,"Hinson, Yvonne Hayes",DEM,House,21,yes,40
+FL,"Johnson, Chad",REP,House,22,yes,28
+FL,"Grow, J.J.",REP,House,23,yes,53
+FL,"Chamberlin, Ryan",REP,House,24,yes,53
+FL,"Yarkosky, Taylor Michael",REP,House,25,yes,60
+FL,"Cobb, Nan",REP,House,26,yes,46
+FL,"Gentry, Richard",REP,House,27,yes,32
+FL,"Partington, Bill",REP,House,28,yes,96
+FL,"Barnaby, Webster",REP,House,29,yes,137
+FL,"Rudman, Dr. Joel",REP,House,3,yes,5
+FL,Boyles,,House,3,no,0
+FL,"Tramont, Chase",REP,House,30,yes,44
+FL,"Sirois, Tyler I.",REP,House,31,yes,20
+FL,"Mayfield, Debbie",REP,House,32,yes,13
+FL,Hodgers,,House,32,no,0
+FL,"Miller, Monique",REP,House,33,yes,48
+FL,"Brackett, Robert A. ""Robbie""",REP,House,34,yes,36
+FL,"Booth, Erika",REP,House,35,yes,50
+FL,"Plakon, Rachel Saunders",REP,House,36,yes,67
+FL,"Plasencia, Susan",REP,House,37,yes,67
+FL,"Smith, David",REP,House,38,yes,22
+FL,"Bankson, Douglas Michael ""Doug""",REP,House,39,yes,68
+FL,"Maney, Patt",REP,House,4,yes,34
+FL,"Bracy Davis, LaVon",DEM,House,40,yes,19
+FL,Young,,House,40,no,0
+FL,"Antone, Bruce Hadley",DEM,House,41,yes,23
+FL,"Eskamani, Dr. Anna V.",DEM,House,42,yes,159
+FL,"López, Johanna",DEM,House,43,yes,223
+FL,"Harris, Jennifer ""Rita""",DEM,House,44,yes,142
+FL,"Spencer, Leonard",DEM,House,45,yes,52
+FL,"Alvarez, Jose",DEM,House,46,yes,54
+FL,"Stark, Paula A.",REP,House,47,yes,48
+FL,"Albert, Jon",REP,House,48,yes,28
+FL,"Kincart Jonsson, Jennifer",REP,House,49,yes,25
+FL,"Abbott, Shane G.",REP,House,5,yes,37
+FL,"Canady, Jennifer",REP,House,50,yes,8
+FL,"Tomkow, Josie",REP,House,51,yes,0
+FL,Holley,,House,51,no,0
+FL,"Temple, John Paul",REP,House,52,yes,13
+FL,Scott,,House,52,no,0
+FL,"Holcomb, Jeff",REP,House,53,yes,49
+FL,"Maggard, Randall Scott ""Randy""",REP,House,54,yes,46
+FL,"Steele, Kevin M.",REP,House,55,yes,39
+FL,"Yeager, Bradford Troy ""Brad""",REP,House,56,yes,32
+FL,"Anderson, Adam",REP,House,57,yes,55
+FL,"Berfield, Kimberly",REP,House,58,yes,45
+FL,"Jacques, Berny",REP,House,59,yes,44
+FL,"Griffitts Jr., Philip Wayne ""Griff""",REP,House,6,yes,20
+FL,"Cross, Lindsay",DEM,House,60,yes,61
+FL,"Chaney, Linda",REP,House,61,yes,71
+FL,"Rayner, Michele K.",DEM,House,62,yes,29
+FL,"Hart-Lowman, Dianne ""Ms Dee""",DEM,House,63,yes,48
+FL,"Valdés, Susan L.",REP,House,64,yes,167
+FL,"Gonzalez Pittman, Karen",REP,House,65,yes,27
+FL,"Koster, Traci",REP,House,66,yes,16
+FL,"Driskell, Fentrice",DEM,House,67,yes,77
+FL,"McClure, Lawrence",REP,House,68,yes,18
+FL,"Alvarez, Daniel Antonio ""Danny""",REP,House,69,yes,46
+FL,"Shoaf, Jason",REP,House,7,yes,29
+FL,"Owen, Michael",REP,House,70,yes,56
+FL,"Robinson Jr., William Cloud ""Will""",REP,House,71,yes,18
+FL,"Conerly, William ""Bill""",REP,House,72,yes,57
+FL,"McFarland, Fiona",REP,House,73,yes,28
+FL,"Buchanan, James",REP,House,74,yes,40
+FL,"Nix Jr., Danny",REP,House,75,yes,74
+FL,"Oliver, Vanessa",REP,House,76,yes,24
+FL,"Esposito, Tiffany",REP,House,77,yes,22
+FL,"Persons-Mulicka, Jenna",REP,House,78,yes,24
+FL,"Giallombardo, Mike",REP,House,79,yes,26
+FL,"Franklin II, Gallop",DEM,House,8,yes,45
+FL,"Botana, Adam",REP,House,80,yes,21
+FL,"Benarroch, Yvette",REP,House,81,yes,94
+FL,"Melo, Lauren",REP,House,82,yes,31
+FL,"Tuck, Kaylee",REP,House,83,yes,17
+FL,"Trabulsy, Dana",REP,House,84,yes,85
+FL,"Overdorf, Tobin Rogers ""Toby""",REP,House,85,yes,45
+FL,"Snyder, John",REP,House,86,yes,36
+FL,"Caruso, Michael A. ""Mike""",REP,House,87,yes,31
+FL,Gregory,,House,87,no,0
+FL,"Edmonds, Jervonte ""Tae""",DEM,House,88,yes,34
+FL,"Tendrich, Debra",DEM,House,89,yes,67
+FL,"Tant, Allison",DEM,House,9,yes,75
+FL,"* Casello, Joe",DEM,House,90,yes,34
+FL,Long,,House,90,no,0
+FL,"Gossett-Seidman, Peggy",REP,House,91,yes,67
+FL,"Skidmore, Kelly",DEM,House,92,yes,39
+FL,"Gerwig, Anne",REP,House,93,yes,50
+FL,"Weinberger, Meg",REP,House,94,yes,60
+FL,"Hunschofsky, Christine",DEM,House,95,yes,103
+FL,"Daley, Dan",DEM,House,96,yes,62
+FL,"Dunkley, Lisa",DEM,House,97,yes,27
+FL,"Rosenwald, Mitch",DEM,House,98,yes,111
+FL,"Campbell, Daryl",DEM,House,99,yes,170
+FL,"Gaetz, Don",REP,Senate,1,yes,69
+FL,"Brodeur, Jason",REP,Senate,10,yes,33
+FL,"Massullo, Ralph E., Jr.",REP,Senate,11,yes,31
+FL,Ingoglia,,Senate,11,no,0
+FL,"Burton, Colleen",REP,Senate,12,yes,37
+FL,"Truenow, Keith L.",REP,Senate,13,yes,83
+FL,"Nathan, Brian",DEM,Senate,14,yes,0
+FL,Collins,,Senate,14,no,0
+FL,"Bracy Davis, LaVon",DEM,Senate,15,yes,28
+FL,Thompson,,Senate,15,no,0
+FL,"Rouson, Darryl Ervin",DEM,Senate,16,yes,83
+FL,"Smith, Carlos Guillermo",DEM,Senate,17,yes,143
+FL,"DiCeglie, Nick",REP,Senate,18,yes,87
+FL,"Mayfield, Debbie",REP,Senate,19,yes,21
+FL,Fine,,Senate,19,no,0
+FL,"Trumbull, Jay",REP,Senate,2,yes,33
+FL,"Boyd, Jim",REP,Senate,20,yes,13
+FL,"Hooper, Ed",REP,Senate,21,yes,16
+FL,"Gruters, Joe",REP,Senate,22,yes,69
+FL,"Burgess, Danny",REP,Senate,23,yes,83
+FL,"Bernard, Mack",DEM,Senate,24,yes,76
+FL,"Arrington, Kristen Aston",DEM,Senate,25,yes,87
+FL,"Berman, Lori",DEM,Senate,26,yes,90
+FL,"Albritton, Ben",REP,Senate,27,yes,7
+FL,"Passidomo, Kathleen",REP,Senate,28,yes,20
+FL,"Grall, Erin",REP,Senate,29,yes,71
+FL,"Simon, Corey",REP,Senate,3,yes,62
+FL,"Polsky, Tina Scott",DEM,Senate,30,yes,71
+FL,"Harrell, Gayle",REP,Senate,31,yes,83
+FL,"Osgood, Rosalind",DEM,Senate,32,yes,74
+FL,"Martin, Jonathan",REP,Senate,33,yes,131
+FL,"Jones, Shevrin D. ""Shev""",DEM,Senate,34,yes,89
+FL,"Sharief, Barbara",DEM,Senate,35,yes,78
+FL,"Garcia, Ileana",REP,Senate,36,yes,75
+FL,"Pizzo, Jason W. B.",NO ,Senate,37,yes,50
+FL,"Calatayud, Alexis",REP,Senate,38,yes,89
+FL,Avila,,Senate,39,no,0
+FL,"Yarborough, Clay",REP,Senate,4,yes,77
+FL,"Rodriguez, Ana Maria",REP,Senate,40,yes,171
+FL,"Davis, Tracie",DEM,Senate,5,yes,99
+FL,"Bradley, Jennifer",REP,Senate,6,yes,54
+FL,"Leek, Thomas J. ""Tom""",REP,Senate,7,yes,65
+FL,"Wright, Tom A.",REP,Senate,8,yes,55
+FL,"McClain, Stan",REP,Senate,9,yes,78
+MA,"Madaro, Adrian C.",DEM,House,1st Suffolk,yes,185
+MA,"Cabral, Antonio F. D.",DEM,House,13th Bristol,yes,143
+MA,"Tarr, Andrew",DEM,House,5th Essex,yes,0
+MA,"Peisch, Alice Hanlon",DEM,House,14th Norfolk,yes,63
+MA,"Puppolo, Jr., Angelo J.",DEM,House,12th Hampden,yes,208
+MA,"Scanlon, Adam J.",DEM,House,14th Bristol,yes,286
+MA,"Saunders, Aaron L.",DEM,House,7th Hampden,yes,90
+MA,"Ferrante, Ann-Margaret",DEM,House,5th Essex,yes,22
+MA,"Michlewitz, Aaron",DEM,House,3rd Suffolk,yes,1
+MA,"Sullivan-Almeida, Alyson M.",REP,House,7th Plymouth,yes,100
+MA,"Sangiolo, Amy Mah",DEM,House,11th Middlesex,yes,186
+MA,"Ramos, Adrianne Pusateri",DEM,House,14th Essex,yes,174
+MA,"Vargas, Andres X.",DEM,House,3rd Essex,yes,116
+MA,"Gómez, Adam",DEM,Senate,Hampden,yes,197
+MA,"Silvia, Alan",DEM,House,7th Bristol,yes,35
+MA,"Tarr, Bruce E.",REP,Senate,First Essex and Middlesex,yes,681
+MA,"Fluker-Reid, Brandy",DEM,House,12th Suffolk,yes,62
+MA,"Jones, Jr., Bradley H.",REP,House,20th Middlesex,yes,336
+MA,"Ayers, Bruce J.",DEM,House,1st Norfolk,yes,124
+MA,"Williams, Bud L.",DEM,House,11th Hampden,yes,152
+MA,"Ashe, Brian M.",DEM,House,2nd Hampden,yes,96
+MA,"Plouffe, Bridget",DEM,House,9th Plymouth,yes,69
+MA,"Crighton, Brendan P.",DEM,Senate,Third Essex,yes,182
+MA,"Finegold, Barry R.",DEM,Senate,Second Essex and Middlesex,yes,111
+MA,"Murray, Brian W.",DEM,House,10th Worcester,yes,189
+MA,"Doherty, Carol A.",DEM,House,3rd Bristol,yes,20
+MA,"Fiola, Carole A.",DEM,House,6th Bristol,yes,75
+MA,"Friedman, Cindy F.",DEM,Senate,Fourth Middlesex,yes,92
+MA,"Worrell, Christopher J.",DEM,House,5th Suffolk,yes,157
+MA,"Gentile, Carmine Lawrence",DEM,House,13th Middlesex,yes,421
+MA,"Garry, Colleen M.",DEM,House,36th Middlesex,yes,241
+MA,"Markey, Christopher M.",DEM,House,9th Bristol,yes,79
+MA,"Barber, Christine P.",DEM,House,34th Middlesex,yes,214
+MA,"Flanagan, Christopher Richard",DEM,House,1st Barnstable,yes,129
+MA,"Creem, Cynthia Stone",DEM,Senate,Norfolk and Middlesex,yes,114
+MA,"González, Carlos",DEM,House,10th Hampden,yes,125
+MA,"Hendricks, Christopher",DEM,House,11th Bristol,yes,171
+MA,"Tyler, Chynah",DEM,House,7th Suffolk,yes,106
+MA,"Fernandes, Dylan A.",DEM,Senate,Plymouth and Barnstable,yes,216
+MA,"LeBoeuf, David Henry Argosky",DEM,House,17th Worcester,yes,289
+MA,"Sena, Danillo A.",DEM,House,37th Middlesex,yes,435
+MA,"Gallagher, Dennis C.",DEM,House,8th Plymouth,yes,144
+MA,"Cahill, Daniel",DEM,House,10th Essex,yes,127
+MA,"DeCoste, David F.",REP,House,5th Plymouth,yes,226
+MA,"Wong, Donald H.",REP,House,9th Essex,yes,38
+MA,"Muradian, Jr., David K.",REP,House,9th Worcester,yes,83
+MA,"Donahue, Daniel M.",DEM,House,16th Worcester,yes,58
+MA,"Rogers, David M.",DEM,House,24th Middlesex,yes,163
+MA,"Linsky, David Paul",DEM,House,5th Middlesex,yes,186
+MA,"Berthiaume, Jr., Donald R.",REP,House,5th Worcester,yes,113
+MA,"Vieira, David T.",REP,House,3rd Barnstable,yes,173
+MA,"Gregoire, Danielle W.",DEM,House,4th Middlesex,yes,35
+MA,"Biele, David",DEM,House,4th Suffolk,yes,41
+MA,"Robertson, David Allen",DEM,House,19th Middlesex,yes,85
+MA,"Shand, Dawne",DEM,House,1st Essex,yes,48
+MA,"Reyes, Estela A.",DEM,House,4th Essex,yes,219
+MA,"Kennedy, Edward J.",DEM,Senate,First Middlesex,yes,106
+MA,"Philips, Edward R.",DEM,House,8th Norfolk,yes,137
+MA,"Uyterhoeven, Erika",DEM,House,27th Middlesex,yes,384
+MA,"Moran, Frank A.",DEM,House,17th Essex,yes,81
+MA,"Paulino, Francisco E.",DEM,House,16th Essex,yes,65
+MA,"Schwartz, Greg",DEM,House,12th Middlesex,yes,121
+MA,"Kane, Hannah",REP,House,11th Worcester,yes,307
+MA,"Bowen, Hannah",DEM,House,6th Essex,yes,45
+MA,"Gómez, Homar",DEM,House,2nd Hampshire,yes,135
+MA,"Luddy, Hadley",DEM,House,4th Barnstable,yes,118
+MA,"Cyr, Julian",DEM,Senate,Cape and Islands,yes,250
+MA,"Giannino, Jessica Ann",DEM,House,16th Suffolk,yes,108
+MA,"Garcia, Judith A.",DEM,House,11th Suffolk,yes,52
+MA,"Parisella, Jerald A.",DEM,House,6th Essex,yes,0
+MA,"Armini, Jennifer Balinsky",DEM,House,8th Essex,yes,121
+MA,"Eldridge, James B.",DEM,Senate,Middlesex and Worcester,yes,1219
+MA,"Lovely, Joan B.",DEM,Senate,Second Essex,yes,301
+MA,"Arena-DeRosa, James C.",DEM,House,8th Middlesex,yes,487
+MA,"Velis, John C.",DEM,Senate,Hampden and Hampshire,yes,183
+MA,"McKenna, Joseph D.",REP,House,18th Worcester,yes,204
+MA,"Zlotnik, Jonathan D.",DEM,House,2nd Worcester,yes,95
+MA,"Keenan, John F.",DEM,Senate,Norfolk and Plymouth,yes,383
+MA,"Moran, John Francis",DEM,House,9th Suffolk,yes,179
+MA,"Rogers, John H.",DEM,House,12th Norfolk,yes,41
+MA,"Cronin, John J.",DEM,Senate,Worcester and Middlesex,yes,155
+MA,"Lawn, Jr., John J.",DEM,House,10th Middlesex,yes,107
+MA,"Marsi, John J.",REP,House,6th Worcester,yes,280
+MA,"Mahoney, John J.",DEM,House,13th Worcester,yes,18
+MA,"O'Day, James J.",DEM,House,14th Worcester,yes,90
+MA,"Hawkins, James K.",DEM,House,2nd Bristol,yes,413
+MA,"Comerford, Joanne M.",DEM,Senate,"Hampshire, Franklin and Worcester",yes,635
+MA,"Murphy, James M.",DEM,House,4th Norfolk,yes,21
+MA,"Roy, Jeffrey N.",DEM,House,10th Norfolk,yes,66
+MA,"Lewis, Jack Patrick",DEM,House,7th Middlesex,yes,133
+MA,"Gaskey, John R.",REP,House,2nd Plymouth,yes,106
+MA,"Oliveira, Jacob R.",DEM,Senate,"Hampden, Hampshire and Worcester",yes,395
+MA,"Turco, Jeffrey Rosario",DEM,House,19th Suffolk,yes,76
+MA,"Arciero, James",DEM,House,2nd Middlesex,yes,177
+MA,"Barrett, III, John",DEM,House,1st Berkshire,yes,117
+MA,"Livingstone, Jay D.",DEM,House,8th Suffolk,yes,93
+MA,"Meschino, Joan",DEM,House,3rd Plymouth,yes,76
+MA,"Tarsky, Joshua",DEM,House,13th Norfolk,yes,52
+MA,"Thurber, Justin",REP,House,5th Bristol,yes,59
+MA,"Dooner, Kelly A.",REP,Senate,Third Bristol and Plymouth,yes,82
+MA,"Diggs, Kip A.",DEM,House,2nd Barnstable,yes,56
+MA,"Spilka, Karen E.",DEM,Senate,Middlesex and Norfolk,yes,2
+MA,"Honan, Kevin G.",DEM,House,17th Suffolk,yes,127
+MA,"Gordon, Kenneth I.",DEM,House,21st Middlesex,yes,99
+MA,"Lipper-Garabedian, Kate",DEM,House,32nd Middlesex,yes,51
+MA,"Ferguson, Kimberly N.",REP,House,1st Worcester,yes,246
+MA,"LaNatra, Kathleen R.",DEM,House,12th Plymouth,yes,167
+MA,"Sweezey, Kenneth P.",REP,House,6th Plymouth,yes,88
+MA,"Pease, Kelly W.",REP,House,4th Hampden,yes,202
+MA,"Donaghue, Kate",DEM,House,19th Worcester,yes,73
+MA,"Hogan, Kate",DEM,House,3rd Middlesex,yes,27
+MA,"Kassner, Kristin E.",DEM,House,2nd Essex,yes,194
+MA,"Miranda, Liz",DEM,Senate,Second Suffolk,yes,182
+MA,"Edwards, Lydia",DEM,Senate,Third Suffolk,yes,148
+MA,"Field, Lisa",DEM,House,3rd Bristol,yes,111
+MA,"Davis, Leigh",DEM,House,3rd Berkshire,yes,157
+MA,"Sabadosa, Lindsay N.",DEM,House,1st Hampshire,yes,590
+MA,"Decker, Marjorie C.",DEM,House,25th Middlesex,yes,450
+MA,"Montigny, Mark C.",DEM,Senate,Second Bristol and Plymouth,yes,167
+MA,"Brady, Michael D.",DEM,Senate,Second Plymouth and Norfolk,yes,432
+MA,"Sylvia, Mark D.",DEM,House,10th Bristol,yes,132
+MA,"Rush, Michael F.",DEM,Senate,Norfolk and Suffolk,yes,108
+MA,"Barrett, Michael J.",DEM,Senate,Third Middlesex,yes,138
+MA,"Cusack, Mark J.",DEM,House,5th Norfolk,yes,82
+MA,"Finn, Michael J.",DEM,House,6th Hampden,yes,53
+MA,"Moran, Michael J.",DEM,House,18th Suffolk,yes,15
+MA,"Rodrigues, Michael J.",DEM,Senate,First Bristol and Plymouth,yes,17
+MA,"Soter, Michael J.",REP,House,8th Worcester,yes,79
+MA,"Badger, Michelle L.",DEM,House,1st Plymouth,yes,231
+MA,"DuBois, Michelle M.",DEM,House,10th Plymouth,yes,161
+MA,"Moore, Michael O.",DEM,Senate,Second Worcester,yes,489
+MA,"Kushmerek, Michael P.",DEM,House,3rd Worcester,yes,190
+MA,"Scarsdale, Margaret R.",DEM,House,1st Middlesex,yes,389
+MA,"Chaisson, Michael S.",REP,House,1st Bristol,yes,26
+MA,"Day, Michael S.",DEM,House,31st Middlesex,yes,84
+MA,"Keefe, Mary S.",DEM,House,15th Worcester,yes,138
+MA,"Vaughn, Marcus S.",REP,House,9th Norfolk,yes,257
+MA,"Lombardo, Marc T.",REP,House,22nd Middlesex,yes,73
+MA,"Connolly, Mike",DEM,House,26th Middlesex,yes,447
+MA,"Ciccolo, Michelle L.",DEM,House,15th Middlesex,yes,62
+MA,"Cruz, Manny",DEM,House,7th Essex,yes,369
+MA,"Domb, Mindy",DEM,House,3rd Hampshire,yes,292
+MA,"Kilcoyne, Meghan K.",DEM,House,12th Worcester,yes,129
+MA,"Boldyga, Nicholas A.",REP,House,3rd Hampden,yes,27
+MA,"Orrall, Norman J.",REP,House,12th Bristol,yes,76
+MA,"Blais, Natalie M.",DEM,House,1st Franklin,yes,243
+MA,"Collins, Nick",DEM,Senate,First Suffolk,yes,297
+MA,"Higgins, Natalie M.",DEM,House,4th Worcester,yes,643
+MA,"Ramos, Orlando",DEM,House,9th Hampden,yes,67
+MA,"Duffy, Patricia A.",DEM,House,5th Hampden,yes,170
+MA,"Jehlen, Patricia D.",DEM,Senate,Second Middlesex,yes,335
+MA,"Durant, Peter J.",REP,Senate,Worcester and Hampshire,yes,227
+MA,"Donato, Paul J.",DEM,House,35th Middlesex,yes,96
+MA,"Kearney, Patrick Joseph",DEM,House,4th Plymouth,yes,451
+MA,"Frost, Paul K.",REP,House,7th Worcester,yes,295
+MA,"O'Connor, Patrick M.",REP,Senate,First Plymouth and Norfolk,yes,427
+MA,"Payano, Pavel M.",DEM,Senate,First Essex,yes,339
+MA,"Feeney, Paul R.",DEM,Senate,Bristol and Norfolk,yes,311
+MA,"Sousa, Priscila S.",DEM,House,6th Middlesex,yes,156
+MA,"Mark, Paul W.",DEM,Senate,"Berkshire, Hampden, Franklin and Hampshire",yes,290
+MA,"McMurtry, Paul",DEM,House,11th Norfolk,yes,280
+MA,"Mendes, Rita A.",DEM,House,11th Plymouth,yes,54
+MA,"Fattman, Ryan C.",REP,Senate,Worcester and Hampden,yes,235
+MA,"Holmes, Russell E.",DEM,House,6th Suffolk,yes,216
+MA,"Wells, Jr., Richard G.",DEM,House,7th Norfolk,yes,116
+MA,"Kennedy, Robyn K.",DEM,Senate,First Worcester,yes,205
+MA,"Rausch, Rebecca L.",DEM,Senate,"Norfolk, Worcester and Middlesex",yes,348
+MA,"Elliott, Rodney M.",DEM,House,16th Middlesex,yes,309
+MA,"Haggerty, Richard M.",DEM,House,30th Middlesex,yes,73
+MA,"Hamilton, Ryan M.",DEM,House,15th Essex,yes,55
+MA,"Consalvo, Rob",DEM,House,14th Suffolk,yes,90
+MA,"Mariano, Ronald",DEM,House,3rd Norfolk,yes,1
+MA,"Arriaga, Shirley B.",DEM,House,8th Hampden,yes,100
+MA,"Owens, Steven",DEM,House,29th Middlesex,yes,243
+MA,"Xiarhos, Steven George",REP,House,5th Barnstable,yes,437
+MA,"Ouellette, Steven J.",DEM,House,8th Bristol,yes,77
+MA,"Whipps, Susannah M.",IND,House,2nd Franklin,yes,239
+MA,"DiDomenico, Sal N.",DEM,Senate,Middlesex and Suffolk,yes,381
+MA,"Kerans, Sally P.",DEM,House,13th Essex,yes,169
+MA,"Howitt, Steven S.",REP,House,4th Bristol,yes,201
+MA,"Cataldo, Simon",DEM,House,14th Middlesex,yes,107
+MA,"Garballey, Sean",DEM,House,23rd Middlesex,yes,310
+MA,"Ultrino, Steven",DEM,House,33rd Middlesex,yes,206
+MA,"Montaño, Samantha",DEM,House,15th Suffolk,yes,449
+MA,"Reid, Sean",DEM,House,11th Essex,yes,157
+MA,"Farley-Bouvier, Tricia",DEM,House,2nd Berkshire,yes,86
+MA,"Walsh, Thomas P.",DEM,House,12th Essex,yes,75
+MA,"Stanley, Thomas M.",DEM,House,9th Middlesex,yes,250
+MA,"Smola, Todd M.",REP,House,1st Hampden,yes,210
+MA,"Hong, Tara T.",DEM,House,18th Middlesex,yes,259
+MA,"Nguyen, Tram T.",DEM,House,18th Essex,yes,159
+MA,"Moakley, Thomas W.",DEM,House,"Barnstable, Dukes and Nantucket",yes,143
+MA,"Chan, Tackey",DEM,House,2nd Norfolk,yes,216
+MA,"Vitolo, Tommy",DEM,House,15th Norfolk,yes,131
+MA,"Howard, Vanna",DEM,Senate,First Middlesex,yes,14
+MA,"Howard, Vanna",DEM,House,17th Middlesex,yes,578
+MA,"Galvin, William C.",DEM,House,6th Norfolk,yes,113
+MA,"MacGregor, William F.",DEM,House,10th Suffolk,yes,119
+MA,"Driscoll, Jr., William J.",DEM,Senate,"Norfolk, Plymouth and Bristol",yes,155
+MA,"Brownsberger, William N.",DEM,Senate,Suffolk and Middlesex,yes,57
+MA,"Hunt, Daniel J.",DEM,House,13th Suffolk,yes,59
+MA,"Ryan, Daniel J.",DEM,House,2nd Suffolk,yes,28
+MA,"Lewis, Jason M.",DEM,Senate,Fifth Middlesex,yes,432
+MA,"McGonagle, Jr., Joseph W.",DEM,House,28th Middlesex,yes,47
+OR,"Andersen, Tom",DEM,House,19,yes,269
+OR,"Boice, Court",REP,House,1,yes,231
+OR,"Boshart Davis, Shelly",REP,House,15,yes,54
+OR,"Bowman, Ben",DEM,House,25,yes,108
+OR,"Breese-Iverson, Vikki",REP,House,59,yes,65
+OR,"Bunch, Matt",REP,House,51,yes,31
+OR,"Cate, Jami",REP,House,11,yes,45
+OR,"Chaichi, Farrah",DEM,House,35,yes,164
+OR,"Chotzen, Willy",DEM,House,46,yes,154
+OR,"Diehl, Ed",REP,House,17,yes,204
+OR,"Dobson, April",DEM,House,39,yes,88
+OR,"Drazan, Christine",REP,House,51,no,78
+OR,"Edwards, Darcey",REP,House,31,yes,88
+OR,"Elmer, Lucetta",REP,House,24,yes,104
+OR,"Evans, Paul",DEM,House,20,yes,421
+OR,"Fragala, Lisa",DEM,House,8,yes,161
+OR,"Gamba, Mark",DEM,House,41,yes,338
+OR,"Gomberg, David",DEM,House,10,yes,194
+OR,"Grayber, Dacia",DEM,House,28,yes,188
+OR,"Harbick, Darin",REP,House,12,yes,111
+OR,"Hartman, Annessa",DEM,House,40,yes,121
+OR,"Helfrich, Jeffrey",REP,House,52,yes,117
+OR,"Helm, Ken",DEM,House,27,yes,139
+OR,"Hudson, Zach",DEM,House,49,yes,187
+OR,"Isadore, Shannon",DEM,House,33,yes,81
+OR,"Javadi, Cyrus",DEM,House,32,yes,205
+OR,"Kropf, Jason",DEM,House,54,yes,70
+OR,"Levy, Bobby",REP,House,58,yes,347
+OR,"Levy, Emerson",DEM,House,53,yes,124
+OR,"Lewis, Rick",REP,House,18,yes,107
+OR,"Lively, John",DEM,House,7,yes,98
+OR,"Mannix, Kevin",REP,House,21,yes,196
+OR,"Marsh, Pam",DEM,House,5,yes,118
+OR,"McDonald , Sarah",DEM,House,16,yes,119
+OR,"McIntire, Emily",REP,House,56,yes,172
+OR,"McLain, Susan",DEM,House,29,yes,102
+OR,"Muñoz, Lesly",DEM,House,22,yes,167
+OR,"Nathanson, Nancy",DEM,House,13,yes,81
+OR,"Nelson, Travis",DEM,House,44,yes,260
+OR,"Nguyen, Daniel",DEM,House,38,yes,68
+OR,"Nguyen, Hoa",DEM,House,48,no,145
+OR,"Nosse, Rob",DEM,House,42,yes,198
+OR,"Osborne, Virgle",REP,House,2,yes,151
+OR,"Owens, Mark",REP,House,60,yes,217
+OR,"Pham, Hai",DEM,House,36,yes,197
+OR,"Reschke, E. Werner",REP,House,55,yes,231
+OR,"Rieke Smith, Sue",DEM,House,26,yes,78
+OR,"Ruiz, Ricki",DEM,House,50,yes,132
+OR,"Sanchez, Tawna",DEM,House,43,yes,26
+OR,"Scharf, Anna",REP,House,23,yes,151
+OR,"Skarlatos, Alek",REP,House,4,yes,81
+OR,"Smith, Gregory",REP,House,57,yes,100
+OR,"Sosa, Nathan",DEM,House,30,yes,86
+OR,"Fahey, Julie",DEM,House,14,yes,39
+OR,"Tran, Thuy",DEM,House,45,yes,119
+OR,"Valderrama, Andrea",DEM,House,47,yes,35
+OR,"Wallan, Kim",REP,House,6,yes,51
+OR,"Walters, Jules",DEM,House,37,yes,167
+OR,"Watanabe, Mari",DEM,House,34,yes,67
+OR,"Wise, Lamar",DEM,House,48,yes,61
+OR,"Wright, Boomer",REP,House,9,yes,241
+OR,"Yunker, Dwayne",REP,House,3,yes,116
+OR,"Anderson, Dick",REP,Senate,5,yes,140
+OR,"Bonham, Daniel",REP,Senate,26,no,159
+OR,"Broadman, Anthony",DEM,Senate,27,yes,98
+OR,"Campos, Wlnsvey",DEM,Senate,18,yes,143
+OR,"Drazan, Christine",REP,Senate,26,yes,17
+OR,"Frederick, Lew",DEM,Senate,22,yes,263
+OR,"Gelser Blouin, Sara",DEM,Senate,8,yes,192
+OR,"Girod, Fred",REP,Senate,9,yes,83
+OR,"Golden, Jeff",DEM,Senate,3,yes,149
+OR,"Gorsek, Chris",DEM,Senate,25,yes,139
+OR,"Hayden, Cedric",REP,Senate,6,yes,64
+OR,"Jama, Kayse",DEM,Senate,24,yes,100
+OR,"Lieber, Kate",DEM,Senate,14,yes,35
+OR,"Linthicum, Diane",REP,Senate,28,yes,36
+OR,"Manning Jr., James",DEM,Senate,7,yes,291
+OR,"McLane, Mike",REP,Senate,30,yes,57
+OR,"Meek, Mark",DEM,Senate,20,yes,203
+OR,"Nash, Todd",REP,Senate,29,yes,156
+OR,"Neron Misslin, Courtney",DEM,Senate,13,yes,79
+OR,"Patterson, Deb",DEM,Senate,10,yes,324
+OR,"Pham, Khanh",DEM,Senate,23,yes,164
+OR,"Wagner, Rob",DEM,Senate,19,yes,37
+OR,"Prozanski, Floyd",DEM,Senate,4,yes,144
+OR,"Reynolds, Lisa",DEM,Senate,17,yes,173
+OR,"Robinson, Noah",REP,Senate,2,yes,60
+OR,"Smith, David Brock",REP,Senate,1,yes,449
+OR,"Sollman, Janeen",DEM,Senate,15,yes,168
+OR,"Starr, Bruce",REP,Senate,12,yes,72
+OR,"Taylor, Kathleen",DEM,Senate,21,yes,93
+OR,"Thatcher, Kim",REP,Senate,11,yes,118
+OR,"Weber, Suzanne",REP,Senate,16,yes,209
+WA,"Hasegawa, Bob",DEM,Senate,11,yes,365
+WA,"Springer, Larry",DEM,House,45,yes,89
+WA,"Steele, Mike",REP,House,12,yes,41
+WA,"Entenman, Debra",DEM,House,47,yes,49
+WA,"Short, Shelly",REP,Senate,7,yes,123
+WA,"Goodman, Roger",DEM,House,45,yes,179
+WA,"Pedersen, Jamie",DEM,Senate,43,yes,117
+WA,"Kauffman, Claudia",DEM,Senate,47,yes,90
+WA,"Warnick, Judy",REP,Senate,13,yes,129
+WA,"Fitzgibbon, Joe",DEM,House,34,yes,124
+WA,"King, Curtis",REP,Senate,14,yes,85
+WA,"Schmick, Joe",REP,House,9,yes,78
+WA,"Liias, Marko",DEM,Senate,21,yes,228
+WA,,,House,,yes,137
+WA,"Thomas, Brianna",DEM,House,34,yes,125
+WA,"Riccelli, Marcus",DEM,Senate,3,yes,205
+WA,"Ryu, Cindy",DEM,House,32,yes,313
+WA,"Stanford, Derek",DEM,Senate,1,yes,175
+WA,"Harris, Paul",REP,Senate,17,yes,103
+WA,,,Senate,,yes,0
+WA,"Tharinger, Steve",DEM,House,24,yes,99
+WA,"Jinkins, Laurie",DEM,House,27,yes,26
+WA,"Wylie, Sharon",DEM,House,49,yes,157
+WA,"Hansen, Drew",DEM,Senate,23,yes,49
+WA,"Pollet, Gerry",DEM,House,46,yes,460
+WA,"Bateman, Jessica",DEM,Senate,22,yes,150
+WA,"MacEwen, Drew",REP,Senate,35,yes,56
+WA,"Holy, Jeff",REP,Senate,6,yes,105
+WA,"Bergquist, Steve",DEM,House,11,yes,98
+WA,"Fey, Jake",DEM,House,27,yes,74
+WA,"Stonier, Monica Jurado",DEM,House,49,yes,122
+WA,"Braun, John",REP,Senate,20,yes,99
+WA,"Cleveland, Annette",DEM,Senate,49,yes,107
+WA,"Senn, Tana",DEM,House,41,yes,2
+WA,"Gregerson, Mia",DEM,House,33,yes,225
+WA,"Robinson, June",DEM,Senate,38,yes,80
+WA,"Christian, Leonard",REP,Senate,4,yes,148
+WA,"Ortiz-Self, Lillian",DEM,House,21,yes,84
+WA,,,Senate,,yes,0
+WA,"Trudeau, Yasmin",DEM,Senate,27,yes,210
+WA,"Griffey, Dan",REP,House,35,yes,114
+WA,"Kilduff, Chris",DEM,House,28,yes,0
+WA,"Peterson, Strom",DEM,House,21,yes,203
+WA,"Stokesbary, Drew",REP,House,31,yes,19
+WA,"Valdez, Michelle",REP,House,26,yes,102
+WA,"Dent, Tom",REP,House,13,yes,103
+WA,"Rude, Skyler",REP,House,16,yes,83
+WA,"Richards, Adison",DEM,House,26,yes,105
+WA,"Dye, Mary",REP,House,9,yes,70
+WA,"Frame, Noel",DEM,Senate,36,yes,198
+WA,"Barkis, Andrew",REP,House,2,yes,149
+WA,"McCune, Jim",REP,Senate,2,yes,65
+WA,"Kloba, Shelley",DEM,House,1,yes,178
+WA,"Volz, Mike",REP,House,6,yes,65
+WA,"Doglio, Beth",DEM,House,22,yes,320
+WA,"Chapman, Mike",DEM,Senate,24,yes,219
+WA,"Macri, Nicole",DEM,House,43,yes,358
+WA,"Walsh, Jim",REP,House,19,yes,82
+WA,"Reeves, Kristine",DEM,House,30,yes,251
+WA,"Wellman, Lisa",DEM,Senate,41,yes,166
+WA,"Saldaña, Rebecca",DEM,Senate,37,yes,275
+WA,"Hall, Zach",DEM,House,5,yes,47
+WA,"Mena, Sharlett",DEM,House,29,yes,137
+WA,,,House,,yes,175
+WA,"Valdez, Javier",DEM,Senate,46,yes,294
+WA,"Eslick, Carolyn",REP,House,39,yes,168
+WA,"Dhingra, Manka",DEM,Senate,45,yes,170
+WA,"Wagoner, Keith",REP,Senate,39,yes,152
+WA,"Nguyen, Joe",DEM,Senate,34,yes,1
+WA,"Salomon, Jesse",DEM,Senate,32,yes,131
+WA,"Wilson, Claire",DEM,Senate,30,yes,263
+WA,"Ramos, Bill",DEM,Senate,5,yes,39
+WA,"Callan, Lisa",DEM,House,5,yes,168
+WA,"Graham, Jenny",REP,House,6,yes,115
+WA,"Boehnke, Matt",REP,Senate,8,yes,141
+WA,"Paul, Dave",DEM,House,10,yes,101
+WA,"Goehner, Keith",REP,Senate,12,yes,72
+WA,"Corry, Chris",REP,House,15,yes,93
+WA,"Dufault, Jeremie",REP,House,15,yes,147
+WA,"Gildon, Chris",REP,Senate,25,yes,111
+WA,"Leavitt, Mari",DEM,House,28,yes,261
+WA,"Morgan, Melanie",DEM,House,29,yes,62
+WA,"Davis, Lauren",DEM,House,32,yes,162
+WA,"Lekanoff, Debra",DEM,House,40,yes,119
+WA,"Thai, My-Linh",DEM,House,41,yes,176
+WA,"Shewmake, Sharon",DEM,Senate,42,yes,218
+WA,"Walen, Amy",DEM,House,48,yes,122
+WA,"Ybarra, Alex",REP,House,13,yes,59
+WA,"Lovelett, Liz",DEM,Senate,40,yes,167
+WA,"Duerr, Davina",DEM,House,1,yes,183
+WA,"Muzzall, Ron",REP,Senate,10,yes,75
+WA,"Ramel, Alex",DEM,House,40,yes,299
+WA,"Chase, Rob",REP,House,4,yes,99
+WA,"Hackney, David",DEM,House,11,yes,46
+WA,"Klicker, Mark",REP,House,16,yes,115
+WA,"McEntire, Joel",REP,House,19,yes,50
+WA,"Abbarno, Peter",REP,House,20,yes,67
+WA,"Simmons, Tarra",DEM,House,23,yes,318
+WA,"Jacobsen, Cyndy",REP,House,25,yes,171
+WA,"Bronoske, Dan",DEM,House,28,yes,115
+WA,"Taylor, Jamila",DEM,House,30,yes,162
+WA,"Berry, Liz",DEM,House,36,yes,259
+WA,"Rule, Alicia",DEM,House,42,yes,113
+WA,"Berg, April",DEM,House,44,yes,143
+WA,"Dozier, Perry",REP,Senate,16,yes,216
+WA,"Nobles, T'wina",DEM,Senate,28,yes,610
+WA,"Wilson, Jeff",REP,Senate,19,yes,190
+WA,"Fosse, Mary",DEM,House,38,yes,280
+WA,"Donaghy, Brandy",DEM,House,44,yes,112
+WA,"Stearns, Chris",DEM,House,47,yes,98
+WA,"Alvarado, Emily",DEM,House,34,yes,134
+WA,"Barnard, Stephanie",REP,House,8,yes,187
+WA,"Connors, April",REP,House,8,yes,115
+WA,"Cortes, Julio",DEM,House,38,yes,156
+WA,"Couture, Travis",REP,House,35,yes,172
+WA,"Farivar, Darya",DEM,House,46,yes,148
+WA,"Low, Sam",REP,House,39,yes,120
+WA,"McClintock, Stephanie",REP,House,18,yes,81
+WA,"Reed, Julia",DEM,House,36,yes,512
+WA,"Schmidt, Suzanne",REP,House,4,yes,165
+WA,"Street, Chipalo",DEM,House,37,yes,168
+WA,"Timmons, Joe",DEM,House,42,yes,129
+WA,"Waters, Kevin",REP,House,17,yes,83
+WA,"Torres, Nikki",REP,Senate,15,yes,98
+WA,"Shavers, Clyde",DEM,House,10,yes,129
+WA,"Bernbaum, Adam",DEM,House,24,yes,147
+WA,"Fortunato, Phil",REP,Senate,31,yes,139
+WA,"Lovick, John",DEM,Senate,44,yes,146
+WA,"Nance, Greg",DEM,House,23,yes,312
+WA,"Santos, Sharon Tomiko",DEM,House,37,yes,141
+WA,"Abell, Hunter",REP,House,7,yes,77
+WA,"Burnett, Brian",REP,House,12,yes,76
+WA,"Engell, Andrew",REP,House,7,yes,85
+WA,"Hunt, Victoria",DEM,House,5,yes,62
+WA,"Keaton, Michael",REP,House,25,yes,89
+WA,"Manjarrez, Deb",REP,House,14,yes,61
+WA,"Marshall, Matt",REP,House,2,yes,120
+WA,"Mendoza, Gloria",REP,House,14,yes,60
+WA,"Parshley, Lisa",DEM,House,22,yes,539
+WA,"Penner, Joshua",REP,House,31,yes,62
+WA,"Ley, John",REP,House,18,yes,111
+WA,"Hill, Natasha",DEM,House,3,yes,365
+WA,"Scott, Shaun",DEM,House,43,yes,308
+WA,"Stuebe, David",REP,House,17,yes,90
+WA,"Obras, Edwin",DEM,House,33,yes,211
+WA,"Krishnadasan, Deborah",DEM,Senate,26,yes,134
+WA,"Cortes, Adrian",DEM,Senate,18,yes,137
+WA,"Salahuddin, Osman",DEM,House,48,yes,255
+WA,"Zahn, Janice",DEM,House,41,yes,261
+WA,,,Senate,,yes,0
+WA,"Schoesler, Mark",REP,Senate,9,yes,67
+WA,"Orcutt, Ed",REP,House,20,yes,85
+WA,"Ormsby, Timm",DEM,House,3,yes,361
+WA,"Conway, Steve",DEM,Senate,29,yes,153
+DC,"Mendelson, Phil",DEM,Council,Chairman,yes,1026
+DC,"Allen, Charles",DEM,Council,Ward 6,yes,210
+DC,"Bonds, Anita",DEM,Council,At-Large,yes,127
+DC,"Nadeau, Brianne K.",DEM,Council,Ward 1,yes,200
+DC,"McDuffie, Kenyan R.",IND,Council,At-Large,no,78
+DC,"Frumin, Matthew",DEM,Council,Ward 3,yes,121
+DC,"Parker, Zachary",DEM,Council,Ward 5,yes,154
+DC,"Pinto, Brooke",DEM,Council,Ward 2,yes,273
+DC,"Henderson, Christina",IND,Council,At-Large,yes,128
+DC,"Lewis George, Janeese",DEM,Council,Ward 4,yes,171
+DC,"White, Robert C.",DEM,Council,At-Large,yes,181
+DC,"White, Trayon",DEM,Council,Ward 8,yes,62
+DC,"Felder, Wendell",DEM,Council,Ward 7,yes,64
+DC,"Crawford, Doni",,Council,,yes,10
+DC,"Silverman, Elissa",IND,Council,At-Large,no,6
