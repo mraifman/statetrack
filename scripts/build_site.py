@@ -701,6 +701,30 @@ const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}"
     trows.sort(reverse=True)
     topic_tbl = ('<table><thead><tr><th>Topic</th><th class="n">Signed</th><th class="n">Vetoed</th><th class="n">Veto rate</th><th class="n">Avg. lean of signed</th><th class="n">Avg. lean of vetoed</th></tr></thead><tbody>'
                  + "".join(r for _, r in trows) + "</tbody></table>")
+    def lean_row(label, ks, tid, avg, extra):
+        sc = [lean(t) for k in ks for t in policy_tags[k] if lean(t) is not None and (tid is None or SUB[t["subtopic"]]["topic_id"] == tid)]
+        if len(sc) < MIN_LEG:
+            return f'<div class="mrow"><span>{label}</span><span class="muted small">fewer than {MIN_LEG} directional bills</span><div class="v">{extra}</div></div>'
+        m, mean = meter(sc, re.sub('<[^>]+>', '', label), avg)
+        kind, word = ("rest", "Restrictive") if mean <= -CUT else ("perm", "Permissive") if mean >= CUT else ("mid", "Balanced")
+        return f'<div class="mrow"><span>{label}</span>{m}<div class="v"><span class="chip {kind}">{word}</span><br><span class="muted small">{extra}</span></div></div>'
+
+    gov_rows = []
+    both = signed + vetoed
+    allavg, _ = mean_lean(both)
+    gov_rows.append(lean_row("<b>All topics: signed</b>", signed, None, allavg, f"{len(signed):,} bills"))
+    gov_rows.append(lean_row("<b>All topics: vetoed</b>", vetoed, None, allavg, f"{len(vetoed)} bills"))
+    for tid in POLICY_TOPICS:
+        v_k = [k for k in vetoed if tid in bill_topics(k)]
+        s_k = [k for k in signed if tid in bill_topics(k)]
+        if len(v_k) + len(s_k) < 10:
+            continue
+        avg_t, _ = mean_lean(v_k + s_k, tid)
+        name = f'<a href="topic/{tid}.html">{esc(TOPICS[tid]["name"])}</a>'
+        gov_rows.append(lean_row(f"{name}: signed", s_k, tid, avg_t, f"{len(s_k)} bills"))
+        gov_rows.append(lean_row(f"{name}: vetoed", v_k, tid, avg_t, f"{len(v_k)} bills · {100 * len(v_k) / (len(v_k) + len(s_k)):.0f}% vetoed"))
+    gov_html = AXIS + "".join(gov_rows)
+
     prow = []
     for code_, name in (("DEM", "Democratic"), ("REP", "Republican")):
         v_k = [k for k in vetoed if lead_party(k) == code_]
@@ -756,8 +780,7 @@ const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}"
 <p class="lede">Of {n_v + n_s:,} bills that reached the Governor in the 2025–26 session, {n_v} were vetoed ({100 * n_v / (n_v + n_s):.1f}%) and {n_s:,} were signed. This page shows which topics, directions and authors the vetoes fall on.</p>
 <div class="tiles"><div class="tile"><b>{n_v}</b><span>vetoed</span></div><div class="tile"><b>{n_s:,}</b><span>signed into law</span></div><div class="tile"><b>{100 * n_v / (n_v + n_s):.1f}%</b><span>veto rate</span></div><div class="tile"><b>{n_proof}</b><span>vetoed after a two-thirds vote in both houses</span></div></div>
 <div class="note small">Direction compares each bill with current California law, as everywhere else on this site. The Governor’s veto messages (the stated reasons) are not part of this data; each bill shows its own summary and votes.</div>
-<h2>By topic</h2><p class="small muted">Topics with at least 10 signed or vetoed bills, highest veto rate first. “Lean” is the average direction of that topic’s tags, from −2 (Restrictive) to +2 (Permissive).</p>{topic_tbl}
-<h2>Restrictive or Permissive?</h2><p class="small muted">Share of directional tags on each group of bills.</p>{dir_tbl}
+<h2>Where the Governor lands</h2><p class="small muted">The same scale as everywhere else: each marker is the average direction of the bills signed (or vetoed) on that topic, measured against current law. The grey tick is the average of all bills on that topic that reached the Governor, so a marker left of it means that group is more Restrictive than the typical bill. Restrictive is −{CUT} or lower, Permissive is +{CUT} or higher, otherwise Balanced. Topics with at least 10 bills.</p>{gov_html}
 <h2>By lead author’s party</h2>{party_tbl}
 <h2>When</h2>{month_bars}
 <h2>All {n_v} vetoed bills</h2><p><label class="small">Topic <select id="vt" aria-label="Topic"><option value="">All topics</option>{opts}</select></label></p><ul id="vlist">{"".join(items)}</ul>{vjs}""", 0, "Bills vetoed by the Governor in California’s 2025–26 session"))
