@@ -1,0 +1,216 @@
+{
+ "as_of": "October 2026",
+ "max_issues": 10,
+ "min_bills": 8,
+ "issues": [
+  {
+   "id": "data-centers",
+   "name": "Data Centers",
+   "hook": "Governor Newsom signed a package of seven data center bills on September 21, 2026, covering electricity rates, water-use reporting and environmental review.",
+   "subtopics": [
+    "ai_and_technology.data_centers_and_compute"
+   ],
+   "regex": "data cent(er|re)",
+   "min_mentions": 2,
+   "sources": [
+    [
+     "Bloomberg Law: Newsom Signs Bills Regulating Data Centers’ Water, Energy Use",
+     "https://news.bloomberglaw.com/california-brief/newsom-signs-bills-regulating-data-centers-water-energy-use"
+    ],
+    [
+     "KQED: Newsom signs new restrictions on data center development",
+     "https://www.kqed.org/news/12100746/newsom-signs-new-restrictions-on-data-center-development"
+    ],
+    [
+     "Greenberg Traurig: California enacts comprehensive regulatory framework for data centers",
+     "https://www.gtlaw.com/ar/insights/2026/10/california-enacts-comprehensive-regulatory-framework-for-data-centers"
+    ]
+   ],
+   "terms": [
+    "data center"
+   ]
+  },
+  {
+   "id": "ai-regulation",
+   "name": "AI Regulation",
+   "hook": "Lawmakers passed 26 AI-related bills on the last day of the session, including child-safety rules for companion chatbots.",
+   "subtopics": [
+    "ai_and_technology.ai_safety_and_oversight",
+    "ai_and_technology.ai_development_and_adoption",
+    "ai_and_technology.government_use_of_ai",
+    "ai_and_technology.deepfakes_and_synthetic_media",
+    "ai_and_technology.ai_in_employment_and_consumer_decisions"
+   ],
+   "regex": "artificial intelligence|chatbot",
+   "min_mentions": 3,
+   "sources": [
+    [
+     "AI Weekly: California adjourns with 26 AI bills passed",
+     "https://aiweekly.co/node/11345"
+    ],
+    [
+     "Fenwick: California enacts comprehensive child safety laws targeting AI chatbots",
+     "https://www.fenwick.com/insights/publications/california-enacts-comprehensive-child-safety-laws-targeting-ai-chatbots"
+    ]
+   ],
+   "terms": [
+    "artificial intelligence",
+    "chatbot"
+   ]
+  },
+  {
+   "id": "kids-online-safety",
+   "name": "Kids’ Online Safety",
+   "hook": "New laws on companion chatbots and social media for minors were signed in September 2026.",
+   "subtopics": [
+    "children_and_families.kids_online_safety_and_age_verification",
+    "ai_and_technology.social_media_and_online_platforms"
+   ],
+   "regex": "companion chatbot|social media platform",
+   "min_mentions": 2,
+   "sources": [
+    [
+     "Benton Institute: Governor Newsom signs the strongest child safety chatbot and social media laws in the nation",
+     "https://www.benton.org/headlines/governor-newsom-signs-strongest-child-safety-chatbot-and-social-media-laws-nation"
+    ],
+    [
+     "Fenwick: California enacts comprehensive child safety laws targeting AI chatbots",
+     "https://www.fenwick.com/insights/publications/california-enacts-comprehensive-child-safety-laws-targeting-ai-chatbots"
+    ]
+   ],
+   "terms": [
+    "companion chatbot",
+    "social media platform"
+   ]
+  },
+  {
+   "id": "autonomous-vehicles",
+   "name": "Autonomous Vehicles",
+   "hook": "New DMV rules effective May 2026 let police issue notices to robotaxi companies for moving violations.",
+   "subtopics": [
+    "transportation.autonomous_vehicles"
+   ],
+   "regex": "autonomous vehicle",
+   "min_mentions": 2,
+   "sources": [
+    [
+     "NBC Palm Springs: Robotaxis can’t run from the law, new DMV rules allow police to ticket driverless cars",
+     "https://www.nbcpalmsprings.com/ca-us-and-world/2026/05/01/robotaxis-cant-run-from-the-law-new-california-dmv-rules-allow-police-to-ticket-driverless-cars"
+    ]
+   ],
+   "terms": [
+    "autonomous vehicle"
+   ]
+  },
+  {
+   "id": "guns",
+   "name": "Guns",
+   "hook": "Governor Newsom signed a package of 10 gun bills on September 26, 2026, including limits on 3D-printed guns and new safety training.",
+   "topic": "guns_and_weapons",
+   "subtopics": [],
+   "regex": "firearm|ammunition",
+   "min_mentions": 3,
+   "sources": [
+    [
+     "Governor’s office: Newsom signs new bills to further prevent gun violence",
+     "https://www.gov.ca.gov/2026/09/26/governor-newsom-signs-new-bills-to-further-prevent-gun-violence-and-strengthen-californias-gun-safety-leadership/"
+    ],
+    [
+     "NBC Palm Springs: Newsom signs 10 California gun safety bills into law",
+     "https://www.nbcpalmsprings.com/ca-us-and-world/2026/09/26/newsom-signs-10-california-gun-safety-bills-into-law"
+    ]
+   ],
+   "terms": [
+    "firearm",
+    "ammunition"
+   ]
+  },
+  {
+   "id": "energy-costs",
+   "name": "Energy Costs and Clean Energy",
+   "hook": "Electricity and gasoline prices remain among the highest in the nation, and lawmakers have sent packages meant to bring them down.",
+   "subtopics": [
+    "environment_and_energy.clean_energy",
+    "environment_and_energy.utility_regulation_and_rates",
+    "environment_and_energy.fossil_fuels_pipelines_and_mining"
+   ],
+   "regex": "ratepayer|gasoline|refiner",
+   "min_mentions": 2,
+   "sources": [
+    [
+     "TURN (ratepayer advocates): Energy equity coverage",
+     "https://www.turn.org/turn-newsroom/tag/Energy+Equity"
+    ]
+   ],
+   "terms": [
+    "ratepayer",
+    "gasoline",
+    "refiner"
+   ]
+  },
+  {
+   "id": "wildfire-insurance",
+   "name": "Wildfire, Insurance and Rebuilding",
+   "hook": "Newsom signed wildfire recovery bills in September 2026 on smoke-damage testing, insurance coverage and mortgage forbearance.",
+   "subtopics": [],
+   "regex": "wildfire|fire hazard|FAIR Plan",
+   "min_mentions": 2,
+   "sources": [
+    [
+     "Spectrum News: Newsom wildfire recovery system",
+     "https://spectrumlocalnews.com/ca/california/wildfires/2026/09/15/gavin-newsom-wildfire-recovery-system"
+    ],
+    [
+     "United Policyholders: Wildfire safety leads Commissioner Lara’s agenda as Newsom signs sponsored bills",
+     "https://uphelp.org/wildfire-safety-leads-commissioner-laras-agenda-as-governor-newsom-signs-sponsored-bills/"
+    ]
+   ],
+   "terms": [
+    "wildfire",
+    "fire hazard",
+    "FAIR Plan"
+   ]
+  },
+  {
+   "id": "immigration-enforcement",
+   "name": "Immigration Enforcement",
+   "hook": "California’s ban on masked law enforcement took effect in January 2026, alongside new limits on immigration agents at schools and hospitals.",
+   "topic": "immigration",
+   "subtopics": [],
+   "regex": "immigration enforcement|federal immigration",
+   "min_mentions": 2,
+   "sources": [
+    [
+     "Arise News: California bans police and ICE agents from wearing masks on duty",
+     "https://www.arise.tv/california-bans-police-and-ice-agents-from-wearing-masks-on-duty-in-pushback-against-federal-raids"
+    ]
+   ],
+   "terms": [
+    "immigration enforcement",
+    "federal immigration"
+   ]
+  },
+  {
+   "id": "housing-permitting",
+   "name": "Housing and Permitting",
+   "hook": "Governor Newsom signed a round of housing and permitting bills on September 29 and 30, 2026, reported as taking effect in January 2027.",
+   "subtopics": [
+    "housing.zoning_land_use_and_short_term_rentals",
+    "housing.rent_regulation_and_tenant_protections",
+    "housing.building_codes_and_construction"
+   ],
+   "regex": "California Environmental Quality Act|CEQA",
+   "min_mentions": 3,
+   "sources": [
+    [
+     "JD Supra: California building permits and CEQA updates",
+     "https://www.jdsupra.com/topics/building-permits/ceqa/california"
+    ]
+   ],
+   "terms": [
+    "California Environmental Quality Act",
+    "CEQA"
+   ]
+  }
+ ]
+}
