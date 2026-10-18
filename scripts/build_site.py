@@ -57,7 +57,7 @@ def display_note(n):
     return re.sub(r"\b(expands|loosens)\s*=\s*", "Permissive: ", n)
 
 
-DEAD = {"Died", "Failed Passage in Committee"}
+DEAD = {"Died", "Failed Passage in Committee", "Vetoed"}
 SCORE = {"strongly_restricts": -2, "strongly_tightens": -2, "restricts": -1, "tightens": -1, "mixed": 0,
          "expands": 1, "loosens": 1, "strongly_expands": 2, "strongly_loosens": 2}  # neutral, unclear, not_applicable are left out
 ROLE_WEIGHT = {"LEAD_AUTHOR": 3, "PRINCIPAL_COAUTHOR": 2, "COAUTHOR": 1}
@@ -146,7 +146,7 @@ def page(title, body, depth=0, desc=""):
 <title>{esc(title)} · StateTrack</title><meta name="description" content="{esc(desc or title)}"><link rel="stylesheet" href="{base}style.css">{HEAD_JS}</head><body>
 <header class="site"><div class="wrap"><nav><a class="brand" href="{base}index.html">StateTrack</a><a href="{base}index.html">Overview</a><a href="{base}bills.html">All bills</a>
 <a href="{base}find.html">Find my legislators</a><a href="{base}legislators.html">Legislators</a><a href="{base}method.html">How it works</a>
-<label class="toggle" title="Hides bills the official record marks as died or failed in committee"><input type="checkbox" id="alive"> Hide bills that died</label></nav></div></header>
+<label class="toggle" title="Hides bills the official record marks as died, failed in committee or vetoed"><input type="checkbox" id="alive"> Hide bills that died</label></nav></div></header>
 <main><div class="wrap">{body}</div></main><footer><div class="wrap">Demo for California’s 2025–26 session. Bill data: California Legislative Information (official bulk file). Topics and directions are labelled by an AI model from the bill’s title and the Legislative Counsel’s digest, and are approximate. <a href="{base}method.html">How it works</a></div></footer>{TOGGLE_JS}</body></html>"""
 
 
@@ -346,7 +346,7 @@ def main():
             td = {k: next((x["direction"] for x in btags[k] if x["subtopic"] == s["id"]), "") for k in ks}
             lis = "".join(bill_li(k, f' <span class="chip">{esc(DIR_WORD(td[k]))}</span>' if td[k] and td[k] != "not_applicable" else "") for k in ks[:300])
             more = f'<p class="muted small">Showing the first 300 of {len(ks)}; use <a href="../bills.html">All bills</a> to search.</p>' if len(ks) > 300 else ""
-            lists.append(f'<h3 id="{slug(s["id"])}">{esc(s["name"])} <span class="muted small">({len(ks)})</span></h3><ul>{lis}</ul>{more}')
+            lists.append(f'<h3 id="{slug(s["id"])}">{esc(s["name"])} <span class="muted small">({vv(len(ks), len([k for k in ks if alive[k]]))})</span></h3><ul>{lis}</ul>{more}')
         n_all, n_live = len(topic_bills[tid]), len([k for k in topic_bills[tid] if alive[k]])
         body = (f'<p class="small"><a href="../index.html">← Overview</a></p><h1>{esc(t["name"])}</h1>'
                 f'<p class="lede">{vv(n_all, n_live)} California bills carry at least one tag under this topic. A bill can appear under several sub-topics.</p>'
@@ -585,7 +585,7 @@ const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}"
 <div class="tile"><b>{status.get("Chaptered", 0):,}</b><span>signed into law (chaptered)</span></div></div>
 <form class="filters" action="find.html" method="get"><input name="zip" inputmode="numeric" maxlength="10" placeholder="Find my legislators: enter a California ZIP code" aria-label="ZIP code"><button type="submit" style="font:inherit;padding:7px 16px;border-radius:8px;border:1px solid var(--axis);background:var(--accent);color:#fff;cursor:pointer">Find</button></form>
 {issues_html}
-<h2>How to read the meter</h2><div class="note small">{BENCHMARK} The <b>Hide bills that died</b> switch in the header drops the {n_dead} bills the official record marks as died or failed in committee. Bills still listed as in committee cannot pass once the session has ended, but they are only hidden if the record says they died.</div>
+<h2>How to read the meter</h2><div class="note small">{BENCHMARK} The <b>Hide bills that died</b> switch in the header drops the {n_dead} bills the official record marks as died, failed in committee or vetoed. Bills still listed as in committee cannot pass once the session has ended, but they are only hidden if the record says they died.</div>
 <h2>Where each topic leans</h2><p class="small muted">Each marker is the average direction of the bills tagged under that topic, from restrictive to permissive. Neutral and unclear tags are left out. A marker near the middle can hide a split: open the topic to see access and regulation separately.</p>{vb(topic_meters(False), topic_meters(True))}
 <h2>Bills by topic</h2><p class="small muted">A bill counts once under each topic it touches, so bars add up to more than the number of bills. {len(ceremonial)} ceremonial or commemorative measures (naming, honoring) are not counted here.</p>{vb(topic_bars(False), topic_bars(True))}
 <h2>Where to start</h2><ul><li><a href="bills.html">Search all bills</a> by words, topic, status or direction.</li><li><a href="find.html">Find my legislators</a> by ZIP code.</li><li><a href="legislators.html">Legislators</a>: a Restrictive / Permissive tag for each issue, plus authorship and floor votes.</li><li><a href="method.html">How it works</a>, and what the labels can and cannot tell you.</li></ul>"""
@@ -617,7 +617,7 @@ out.innerHTML=h;cnt.textContent=n+' bills'+(n>200?' (showing the first 200; narr
 <h2>What is labelled</h2><p>Each California bill gets one or more tags. A tag has a <b>sub-topic</b> from a fixed two-level list ({len(POLICY_TOPICS)} topics, {sum(len(TOPICS[t]["subtopics"]) for t in POLICY_TOPICS)} sub-topics, version {esc(TAX["version"])}), a <b>direction</b> against the status quo, a <b>mechanism</b> (a ban, a licensing rule, a tax incentive, a study) and a <b>funding</b> note (increases, decreases, none). Ceremonial measures (naming, honoring) are tagged as “not a policy topic” and left out of the charts.</p>
 <h2>Direction</h2><p>Every bill is labelled Restrictive, Permissive, Mixed or Neutral on each sub-topic it touches, with “Strongly” where the change is large. The AI model’s own wording differs by sub-topic (expands or restricts for access and rights, tightens or loosens for regulation); the site maps both to Permissive and Restrictive, and the original word appears as a tooltip. Funding-only sub-topics have no direction. Studies, assessments, voluntary programs and rules that only assign responsibility are Neutral. Direction describes what a bill does, not whether that is good or bad.</p>
 <h2>The restrictive-to-permissive meter</h2><p>Each directional tag is scored: Strongly Restrictive −2, Restrictive −1, Mixed 0, Permissive +1, Strongly Permissive +2. A marker sits at the average. Neutral, unclear and funding-only tags are left out, and a hollow marker means fewer than {MIN_TAGS} directional tags. The average hides disagreement inside a topic, so topic pages show access and regulation separately.</p>
-<h2>Hide bills that died</h2><p>The switch in the header removes bills whose official status is “Died” or “Failed Passage in Committee” from every count, meter and list. Vetoed bills stay. A bill still shown as “in committee” after the session ended cannot pass, but it is not hidden unless the record marks it as died.</p>
+<h2>Hide bills that died</h2><p>The switch in the header removes bills whose official status is “Died”, “Failed Passage in Committee” or “Vetoed” from every count, meter and list. A bill still shown as “in committee” after the session ended cannot pass, but it is not hidden unless the record marks it as died.</p>
 <h2>Legislator tags</h2><p>On each legislator’s page, every issue gets a <b>Restrictive</b>, <b>Permissive</b> or <b>Balanced</b> tag from the bills they authored or co-authored. Lead authors count 3×, principal co-authors 2× and co-authors 1×. A tag needs at least {MIN_LEG} directional bills; a weighted average of −{CUT} or lower is Restrictive and +{CUT} or higher is Permissive. The tag describes the bills, not the person’s views, and co-authors sometimes sign on without strong support. The dark tick on each meter marks the average of all California bills on that topic.</p>
 <h2>Issues in the news</h2><p>The issues on the overview were picked from news coverage as of {esc(ISSUES["as_of"])}. Each issue page lists its sources and states exactly which bills it includes (by tag and by wording in the title or digest). Keyword matching can include a bill that only mentions the subject in passing.</p>
 <h2>Evidence</h2><p>Every direction call must quote a sentence from the Legislative Counsel’s digest of the bill. If the quoted sentence is not in the digest, the call is thrown away and shown as unclear.</p>
