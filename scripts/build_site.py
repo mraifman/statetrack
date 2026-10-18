@@ -591,8 +591,6 @@ def build_state(code):
     # ---------------- legislator pages
     leg_rows = []
     for lid, L in sorted(legislators.items(), key=lambda kv: kv[1]["name"]):
-        if not L["active"]:
-            continue
         au = authored.get(lid, [])
         vt = cast.get(lid, {})
 
@@ -713,14 +711,14 @@ def build_state(code):
         au_sorted = sorted(au, key=lambda x: (x[1] != "LEAD_AUTHOR", *bsort(bills[x[0]])))
         au_list = "".join(bill_li(k, f' <span class="chip">{esc(RL(role))}</span>', brief=True) for k, role in au_sorted[:400])
         body = f"""<p class="small"><a href="../legislators.html">← All legislators</a></p><h1>{esc(L["name"])}</h1>
-<p class="lede"><span class="party {L["party"]}">{esc({"DEM": "Democrat", "REP": "Republican"}.get(L["party"], L["party"]))}</span> · {esc(L["house"])} · {esc(dist_label(L))}</p>
+<p class="lede"><span class="party {L["party"]}">{esc({"DEM": "Democrat", "REP": "Republican"}.get(L["party"], L["party"]))}</span> · {esc(L["house"])} · {esc(dist_label(L))}{" · Former member" if not L.get("active", True) else ""}</p>
 {vb(leg_block(False), leg_block(True))}
 <p class="note small">These come from what this legislator authored and how they voted on tagged bills, with the bills linked below. A co-author may sign on to a bill they have reservations about, and a vote reflects one amendment stage. Most bills that reach a floor vote pass with large majorities and almost every member votes aye, so aye counts mostly mirror what reached the floor; authorship is the more distinctive signal. Treat the tags as a summary of the record, not a rating. Only floor votes are counted; committee votes are not matched to members yet.</p>
 {record}
 <h2>Bills authored ({len(au)})</h2><ul>{au_list}</ul>"""
         (OUT / "legislator" / f"{lid_slug[lid]}.html").write_text(page(L["name"], body, 1))
         leg_rows.append((L, lid, len(au), len([k for k, _ in au if alive[k]]), len(vt)))
-    rows = "".join(f'<tr><td><a href="legislator/{lid_slug[lid]}.html">{esc(L["name"])}</a></td><td><span class="party {L["party"]}">{esc(L["party"])}</span></td><td>{esc(L["house"])}</td>'
+    rows = "".join(f'<tr><td><a href="legislator/{lid_slug[lid]}.html">{esc(L["name"])}</a>{"" if L.get("active", True) else " <span class=muted>(former)</span>"}</td><td><span class="party {L["party"]}">{esc(L["party"])}</span></td><td>{esc(L["house"])}</td>'
                    f'<td>{esc(disp_district(L))}</td><td class="n">{vv(na, nal)}</td><td class="n">{nv}</td></tr>' for L, lid, na, nal, nv in leg_rows)
     lookup_note = "" if HAS_FIND else f' To find who represents you, use the <a href="{CFG["official_lookup"]}">{CFG["lookup_label"]}</a>.'
     (OUT / "legislators.html").write_text(page("Legislators", f'<h1>Legislators</h1><p class="lede">{len(leg_rows)} members of the {SESS} {SN} Legislature.{lookup_note}</p>'
