@@ -17,6 +17,19 @@ DEAD = {"Died", "Failed Passage in Committee", "Vetoed"}
 OPEN_SESSIONS = {"MA", "DC"}     # sessions still running: nothing there has really "died" yet
 
 
+FEATURED = ["housing.zoning_land_use_and_short_term_rentals", "housing.rent_regulation_and_tenant_protections",
+            "environment_and_energy.clean_energy", "environment_and_energy.utility_regulation_and_rates",
+            "health_care.reproductive_health_and_abortion", "health_care.public_health_vaccines_and_emergency_measures",
+            "health_care.gender_affirming_and_transgender_health_care",
+            "criminal_justice.drug_policy", "criminal_justice.policing_and_accountability",
+            "labor_and_employment.minimum_wage_and_wage_rules", "labor_and_employment.unions_and_collective_bargaining",
+            "ai_and_technology.data_privacy_and_security", "children_and_families.kids_online_safety_and_age_verification",
+            "guns_and_weapons.purchase_licensing_and_dealers", "immigration.state_cooperation_with_federal_enforcement_including_employment_verification",
+            "elections_and_voting.voter_registration_and_access", "consumer_protection_and_business.alcohol_tobacco_and_vaping",
+            "consumer_protection_and_business.gambling_and_sports_betting", "government_and_administration.local_control_and_preemption",
+            "education.curriculum_and_classroom_content"]
+
+
 def slug(key):
     return re.sub(r"[^a-z0-9]+", "-", key.lower()).strip("-")
 
@@ -39,12 +52,18 @@ def load_state(code):
             b["status"] = "Adopted"
     tagged = json.loads((d / "tags.json").read_text())["bills"]
     hist = json.load(gzip.open(d / "history.json.gz", "rt"))
+    nf = d / "tags_neutral.json"
+    neutral = json.loads(nf.read_text())["bills"] if nf.exists() else {}
     out, authored = {}, defaultdict(int)
     for k, b in bills.items():
         tv = tagged.get(k, {})
         tags = [t for t in tv.get("tags", []) if t["subtopic"] in SUB and SUB[t["subtopic"]]["topic_id"] not in EXCLUDED]
         for t in tags:
             t["lean"] = lean(t)
+            if neutral and t["subtopic"] in FEATURED:   # state-neutral score: the bill's own content, not its change to the state's law
+                sc = neutral.get(k, {}).get("scores", {}).get(t["subtopic"])
+                t["ndirection"] = sc["direction"] if sc else None
+                t["nlean"] = SCORE.get(sc["direction"]) if sc else None
         parties, lead = set(), ""
         for a in b.get("authors", []):
             lid = a.get("legislator")

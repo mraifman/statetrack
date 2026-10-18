@@ -124,28 +124,19 @@ def collect(A):
             for t in b["tags"]:
                 tid = SUB[t["subtopic"]]["topic_id"]
                 for bucket in (sub[(c, t["subtopic"])], top[(c, tid)]):
+                    ln = t["nlean"] if (bucket is sub[(c, t["subtopic"])] and "nlean" in t) else t["lean"]
                     bucket["bills"].add(k)
-                    if t["lean"] is not None:
-                        bucket["dir"].append(t["lean"])
+                    if ln is not None:
+                        bucket["dir"].append(ln)
                     if b["status"] == "Chaptered":
                         bucket["law"].add(k)
-                        if t["lean"] is not None:
-                            bucket["law_dir"].append(t["lean"])
+                        if ln is not None:
+                            bucket["law_dir"].append(ln)
     return sub, top
 
 
 # ------------------------------------------------------------------ 1. by topic / sub-topic
-FEATURED = ["housing.zoning_land_use_and_short_term_rentals", "housing.rent_regulation_and_tenant_protections",
-            "environment_and_energy.clean_energy", "environment_and_energy.utility_regulation_and_rates",
-            "health_care.reproductive_health_and_abortion", "health_care.public_health_vaccines_and_emergency_measures",
-            "health_care.gender_affirming_and_transgender_health_care",
-            "criminal_justice.drug_policy", "criminal_justice.policing_and_accountability",
-            "labor_and_employment.minimum_wage_and_wage_rules", "labor_and_employment.unions_and_collective_bargaining",
-            "ai_and_technology.data_privacy_and_security", "children_and_families.kids_online_safety_and_age_verification",
-            "guns_and_weapons.purchase_licensing_and_dealers", "immigration.state_cooperation_with_federal_enforcement_including_employment_verification",
-            "elections_and_voting.voter_registration_and_access", "consumer_protection_and_business.alcohol_tobacco_and_vaping",
-            "consumer_protection_and_business.gambling_and_sports_betting", "government_and_administration.local_control_and_preemption",
-            "education.curriculum_and_classroom_content"]
+FEATURED = cd.FEATURED
 
 
 def matrix_cells(d_by_state, bills_by_state):
@@ -180,7 +171,7 @@ def page_hub(A, top):
     browse = "".join(f'<details class="cat"><summary><div class="srow" style="grid-template-columns:1fr"><a href="topic/{tid}.html"><b>{esc(TOPICS[tid]["name"])}</b></a></div></summary><ul>' +
                      "".join(f'<li><a href="sub/{bs.slug(sb["id"])}.html">{esc(bs.T(sb["name"]))}</a></li>' for sb in TOPICS[tid]["subtopics"]) + "</ul></details>" for tid in POLICY_TOPICS)
     body = f"""<h1>Compare states</h1>
-<p class="lede">The same issues, side by side. Each number is the average direction of a state’s bills on a sub-topic, from −2 (Restrictive) to +2 (Permissive), measured against that state’s current law. Click a sub-topic to see every state’s bills on it.</p>
+<p class="lede">The same issues, side by side. Each number is the average direction of a state’s bills on a sub-topic, from −2 (Restrictive) to +2 (Permissive), scored on what each bill itself says, with no reference to any state’s current law. Click a sub-topic to see every state’s bills on it.</p>
 <div class="note small">A lean describes what legislators <em>proposed</em>, not the state’s politics, and it includes bills that died, so it reflects the whole session’s agenda. Faint cells rest on fewer than {MIN_FIRM} directional tags; “n/a” means fewer than {MIN_DIR}.</div>
 <h2>Twenty issues compared</h2>
 <p class="small muted">Chosen because most states have enough bills to compare and because together they span the major policy areas. The other 80 sub-topics are one click away below. Autonomous vehicles, a smaller category, has too few bills in any one state to show here; see its <a href="sub/{bs.slug("transportation.autonomous_vehicles")}.html">page</a>.</p>
@@ -238,9 +229,13 @@ def bills_table(A, c, bills, depth, cap=150):
     for b, t in sorted(bills, key=lambda x: (order.get(x[0]["status"], 7), x[0]["type"], str(x[0]["number"])))[:cap]:
         sm = f'<div class="muted small">{esc(b["summary"])}</div>' if b["summary"] else ""
         rows.append(f'<tr><td><a href="{bill_href(c, b, depth)}">{esc(b["key"])}</a></td><td>{esc(b["title"])}{sm}</td><td>{esc(bs.SL(b["status"]))}</td>'
-                    f'<td>{esc(bs.DIR_WORD(t["direction"])) if t and t["lean"] is not None else ""}</td><td>{esc(b["intro"])}</td></tr>')
+                    f'<td>{esc(bs.DIR_WORD(t["ndirection"] if "ndirection" in t else t["direction"])) if t and (t.get("nlean", t["lean"]) is not None) else ""}</td><td>{esc(b["intro"])}</td></tr>')
     more = f'<p class="muted small">Showing {cap} of {len(bills)}. Use the state’s <a href="{"../" * depth}{c.lower()}/bills.html">bill search</a> for the rest.</p>' if len(bills) > cap else ""
     return f'<table><thead><tr><th>Bill</th><th>Title</th><th>Status</th><th>Direction</th><th>Introduced</th></tr></thead><tbody>{"".join(rows)}</tbody></table>{more}'
+
+
+NEUTRAL_NOTE = '<div class="note small">Directions on this page score what each bill’s own provisions say, with no reference to any state’s current law, so the same content scores the same in every state.</div>'
+STATE_NOTE = '<div class="note small">Directions on this page are measured against each state’s current law, so they show how far a bill moves its own state, not how the bills compare in content.</div>'
 
 
 def page_sub(A, sub, sid):
@@ -270,7 +265,7 @@ def page_sub(A, sub, sid):
         blocks.append(f'<details class="cat"><summary>{row}</summary>{bills_table(A, c, its, 2)}</details>')
     note = f'<p class="small muted">{esc(bs.display_note(s["note"]))}</p>' if s.get("note") else ""
     body = f"""<p class="small"><a href="../topic/{s["topic_id"]}.html">← {esc(s["topic"])}</a></p><h1>{esc(bs.T(s["name"]))}</h1>{note}
-<p class="small muted">Click a state to read its bills.</p>{AXIS_C if s["axis"] in ("A", "R") else ""}{"".join(blocks)}"""
+<p class="small muted">Click a state to read its bills.</p>{NEUTRAL_NOTE if sid in FEATURED else STATE_NOTE}{AXIS_C if s["axis"] in ("A", "R") else ""}{"".join(blocks)}"""
     (OUT / "sub" / f"{bs.slug(sid)}.html").write_text(cpage(s["name"], body, 2, "index.html"))
 
 
