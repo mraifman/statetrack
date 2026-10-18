@@ -71,7 +71,7 @@ def NOTE_DIV(n):
 
 
 def SL(status):
-    return {"Chaptered": "Became law"}.get(status, status)
+    return {"Chaptered": "Became Law"}.get(status, status)
 
 
 def RL(role):
@@ -97,36 +97,32 @@ BENCHMARK = ("Every direction is measured against the <b>status quo</b>: current
 
 CSS_V = ""
 CSS = """
-:root{color-scheme:light;--bg:#f9f9f7;--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;--line:#e1e0d9;--axis:#c3c2b7;--accent:#2a78d6;
---rest2:#a82b2a;--rest1:#e34948;--mixed:#898781;--neutral:#c3c2b7;--perm1:#5598e7;--perm2:#1c5cab;--chip:#efeee9;--link:#1c5cab}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0d0d0d;--surface:#1a1a19;--ink:#f0efec;--ink2:#c3c2b7;--muted:#898781;--line:#2c2c2a;--axis:#383835;--accent:#3987e5;
---rest2:#b84040;--rest1:#e66767;--mixed:#898781;--neutral:#55544f;--perm1:#5598e7;--perm2:#3987e5;--chip:#262624;--link:#6da7ec}}
-:root[data-theme="dark"]{color-scheme:dark;--bg:#0d0d0d;--surface:#1a1a19;--ink:#f0efec;--ink2:#c3c2b7;--muted:#898781;--line:#2c2c2a;--axis:#383835;--accent:#3987e5;
---rest2:#b84040;--rest1:#e66767;--mixed:#898781;--neutral:#55544f;--perm1:#5598e7;--perm2:#3987e5;--chip:#262624;--link:#6da7ec}
+:root{color-scheme:light;--bg:#fffdf6;--surface:#ffffff;--ink:#2a2418;--ink2:#5b5242;--muted:#8a8070;--line:#f0e8d2;--axis:#d9cfb4;--accent:#ffb703;--sun:#ffb703;--sun2:#ffe08a;
+--rest2:#c4361f;--rest1:#e4572e;--mixed:#a39a86;--neutral:#cfc6ae;--perm1:#2f86e0;--perm2:#1a5fb4;--chip:#fff3cf;--link:#1a5fb4}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
-a{color:var(--link)}header.site{background:var(--surface);border-bottom:1px solid var(--line)}
+a{color:var(--link)}header.site{background:linear-gradient(180deg,#fff0b8 0%,#fffdf6 100%);border-bottom:1px solid var(--line);box-shadow:0 1px 0 var(--sun2)}
 .wrap{max-width:1040px;margin:0 auto;padding:0 16px}nav{display:flex;gap:18px;align-items:center;flex-wrap:wrap;padding:12px 0}
-nav .brand{font-weight:700;color:var(--ink);text-decoration:none;margin-right:8px}nav a{color:var(--ink2);text-decoration:none}nav a:hover{color:var(--ink);text-decoration:underline}
+nav .brand{font-weight:800;font-size:19px;color:var(--ink);text-decoration:none;margin-right:2px}nav .brand .sun{color:var(--sun);text-shadow:0 0 10px #ffd34d;margin-right:4px}nav .tag{color:var(--muted);font-size:13px;margin-right:10px;border-left:1px solid var(--axis);padding-left:10px}nav a{color:var(--ink2);text-decoration:none}nav a:hover{color:var(--ink);text-decoration:underline}
 nav .toggle{margin-left:auto;font-size:14px;color:var(--ink2);display:flex;align-items:center;gap:6px;cursor:pointer}nav .toggle input{width:16px;height:16px}
 .v-live{display:none}html.alive .v-live{display:revert}html.alive .v-all{display:none}html.alive .dead{display:none}
 main{padding:24px 0 64px}h1{font-size:30px;line-height:1.2;margin:8px 0 6px}h2{font-size:20px;margin:32px 0 8px}h3{font-size:16px;margin:20px 0 6px}
 .lede{color:var(--ink2);max-width:70ch;margin:0 0 16px}.muted{color:var(--muted)}.small{font-size:13px}
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:16px 0}
-.tile{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px}.tile b{display:block;font-size:28px;line-height:1.1}.tile>span{color:var(--ink2);font-size:13px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:12px 0}
+.tile{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--sun);border-radius:12px;padding:12px 14px;box-shadow:0 2px 8px rgba(190,150,30,.08)}.tile b{display:block;font-size:28px;line-height:1.1}.tile>span{color:var(--ink2);font-size:13px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:12px 0;box-shadow:0 2px 8px rgba(190,150,30,.08)}
 .issues{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin:12px 0}
 .issues .card{margin:0;display:flex;flex-direction:column;gap:6px}.issues h3{margin:0;font-size:17px}.issues h3 a{color:var(--ink);text-decoration:none}.issues h3 a:hover{text-decoration:underline}
 table{border-collapse:collapse;width:100%;font-size:14px}th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--ink2);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.03em}
 td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 .bars .row{display:grid;grid-template-columns:minmax(120px,230px) 1fr 56px;gap:10px;align-items:center;padding:3px 0}
-.bars .track{height:16px}.bars .fill{height:100%;background:var(--accent);border-radius:0 4px 4px 0;min-width:2px}
+.bars .track{height:16px}.bars .fill{height:100%;background:linear-gradient(90deg,#ffd34d,var(--sun));border-radius:0 6px 6px 0;min-width:2px}
 .bars a{color:var(--ink);text-decoration:none}.bars a:hover{text-decoration:underline}.bars .v{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink2)}
 .legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin:8px 0;font-size:13px;color:var(--ink2)}.legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px;background:var(--c)}
 .chip{display:inline-block;background:var(--chip);border-radius:999px;padding:1px 9px;font-size:12px;color:var(--ink2);margin:1px 4px 1px 0;white-space:nowrap}
 .chip.rest{background:var(--rest1);color:#fff}.chip.perm{background:var(--perm1);color:#fff}.chip.mid{background:var(--neutral);color:var(--ink)}
 .dot{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:0}
 .party{font-weight:600}.DEM{color:#2a78d6}.REP{color:#d03b3b}
-blockquote{margin:6px 0;padding:6px 12px;border-left:3px solid var(--axis);color:var(--ink2);background:var(--surface)}
+blockquote{margin:6px 0;padding:6px 12px;border-left:3px solid var(--sun);color:var(--ink2);background:#fffaf0;border-radius:0 8px 8px 0}
 input[type=text],input:not([type]),select{font:inherit;padding:7px 9px;border:1px solid var(--axis);border-radius:8px;background:var(--surface);color:var(--ink)}
 .filters{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.filters input{flex:1;min-width:200px}
 .bsum{margin:3px 0 2px;color:var(--ink2);font-size:14px;max-width:70ch}.bmeta{color:var(--muted);font-size:12.5px;margin-bottom:10px}details.subcat{margin:2px 0 2px 26px;padding-left:14px;border-left:3px solid var(--line)}details.subcat .mrow>span:first-child b{font-weight:600;font-size:15px}details.subcat .mrow>span:first-child b::before{content:"↳ ";color:var(--muted);font-weight:400}details.subcat table{font-size:14px}details.subcat>summary{display:block;list-style:none;cursor:pointer}details.subcat>summary::marker{content:""}details.subcat>summary:hover .mrow,details.subcat[open]>summary .mrow{background:var(--chip);border-radius:8px}details.cat>summary{display:block;list-style:none;cursor:pointer}details.cat>summary::marker{content:""}details.cat>summary::-webkit-details-marker{display:none}details.cat{border-bottom:1px solid var(--line);margin:0 0 4px;padding-bottom:6px}details.cat[open]>summary .mrow{background:var(--chip);border-radius:8px}details.cat>summary:hover .mrow{background:var(--chip);border-radius:8px}h3:target,h4:target{background:var(--chip);border-radius:6px;padding:2px 8px}details summary{cursor:pointer;color:var(--ink2)}footer{color:var(--muted);font-size:13px;padding:24px 0;border-top:1px solid var(--line)}
@@ -159,8 +155,8 @@ def page(title, body, depth=0, desc=""):
     base = "../" * depth
     body = body.replace("<table", '<div class="scroll"><table').replace("</table>", "</table></div>")
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{esc(title)} · StateTrack</title><meta name="description" content="{esc(desc or title)}"><link rel="stylesheet" href="{base}style.css?v={CSS_V}">{HEAD_JS}</head><body>
-<header class="site"><div class="wrap"><nav><a class="brand" href="{base}index.html">StateTrack</a><a href="{base}index.html">Overview</a><a href="{base}bills.html">All bills</a><a href="{base}vetoes.html">Vetoes</a>
+<title>{esc(title)} · StateTrack</title><meta name="theme-color" content="#fff0b8"><meta name="description" content="{esc(desc or title)}"><link rel="stylesheet" href="{base}style.css?v={CSS_V}">{HEAD_JS}</head><body>
+<header class="site"><div class="wrap"><nav><a class="brand" href="{base}index.html"><span class="sun">☀</span>StateTrack</a><span class="tag">Sunshine on laws</span><a href="{base}index.html">Overview</a><a href="{base}bills.html">All bills</a><a href="{base}vetoes.html">Vetoes</a>
 <a href="{base}find.html">Find my legislators</a><a href="{base}legislators.html">Legislators</a><a href="{base}method.html">How it works</a>
 <label class="toggle" title="Hides bills the official record marks as died, failed in committee or vetoed"><input type="checkbox" id="alive"> Hide bills that died</label></nav></div></header>
 <main><div class="wrap">{body}</div></main><footer><div class="wrap">Demo for California’s 2025–26 session. Bill data: California Legislative Information (official bulk file). Topics and directions are labelled by an AI model from the bill’s title and the Legislative Counsel’s digest, and are approximate. <a href="{base}method.html">How it works</a></div></footer>{TOGGLE_JS}</body></html>"""
@@ -444,16 +440,16 @@ def main():
             kk = [k for k in ks if not live or alive[k]]
             c = Counter(bills[k]["status"] for k in kk)
             m, mean = meter(issue_scores(iss, ks, live), iss["name"])
-            return (f'<div class="small">{len(kk)} bills · {c.get("Chaptered", 0)} became law · {c.get("Vetoed", 0)} vetoed'
-                    f'{"" if live else " · " + str(sum(c.get(s, 0) for s in DEAD)) + " died"}</div><div class="mini">{m}</div>')
+            return (f'<div class="small">{len(kk)} bills · {c.get("Chaptered", 0)} Became Law · {c.get("Vetoed", 0)} Vetoed'
+                    f'{"" if live else " · " + str(sum(c.get(s, 0) for s in DEAD)) + " Died"}</div><div class="mini">{m}</div>')
         issue_cards.append(f'<div class="card"><h3><a href="issue/{iss["id"]}.html">{esc(iss["name"])}</a></h3><div class="small muted">{esc(iss["hook"])}</div>{vb(card_stats(False), card_stats(True))}</div>')
 
         def issue_block(live, iss=iss, ks=ks):
             kk = [k for k in ks if not live or alive[k]]
             c = Counter(bills[k]["status"] for k in kk)
             active = sum(c.get(s, 0) for s in ("In Committee Process", "In Floor Process", "Passed", "Pending Referral"))
-            tiles = (f'<div class="tiles"><div class="tile"><b>{len(kk)}</b><span>bills</span></div><div class="tile"><b>{c.get("Chaptered", 0)}</b><span>became law</span></div>'
-                     f'<div class="tile"><b>{c.get("Vetoed", 0)}</b><span>vetoed</span></div>'
+            tiles = (f'<div class="tiles"><div class="tile"><b>{len(kk)}</b><span>bills</span></div><div class="tile"><b>{c.get("Chaptered", 0)}</b><span>Became Law</span></div>'
+                     f'<div class="tile"><b>{c.get("Vetoed", 0)}</b><span>Vetoed</span></div>'
                      f'{"" if live else "<div class=tile><b>" + str(sum(c.get(s, 0) for s in DEAD)) + "</b><span>died</span></div>"}'
                      f'<div class="tile"><b>{active}</b><span>still listed as active</span></div></div>')
             sc = issue_scores(iss, ks, live)
@@ -830,7 +826,7 @@ const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}"
     vjs = """<script>const sel=document.getElementById('vt');sel.onchange=()=>{document.querySelectorAll('#vlist li').forEach(li=>{li.style.display=(!sel.value||li.dataset.t.split(' ').includes(sel.value))?'':'none'})}</script>"""
     (OUT / "vetoes.html").write_text(page("What is the Governor vetoing?", f"""<h1>What is the Governor vetoing?</h1>
 <p class="lede">Of {n_v + n_s:,} bills that reached the Governor in the 2025–26 session, {n_v} were vetoed ({100 * n_v / (n_v + n_s):.1f}%) and {n_s:,} were signed. This page shows which topics, directions and authors the vetoes fall on.</p>
-<div class="tiles"><div class="tile"><b>{n_v}</b><span>vetoed</span></div><div class="tile"><b>{n_s:,}</b><span>became law</span></div><div class="tile"><b>{100 * n_v / (n_v + n_s):.1f}%</b><span>veto rate</span></div><div class="tile"><b>{n_proof}</b><span>vetoed after a two-thirds vote in both houses</span></div></div>
+<div class="tiles"><div class="tile"><b>{n_v}</b><span>Vetoed</span></div><div class="tile"><b>{n_s:,}</b><span>Became Law</span></div><div class="tile"><b>{100 * n_v / (n_v + n_s):.1f}%</b><span>veto rate</span></div><div class="tile"><b>{n_proof}</b><span>vetoed after a two-thirds vote in both houses</span></div></div>
 <div class="note small">Direction compares each bill with current California law, as everywhere else on this site. The Governor’s veto messages (the stated reasons) are not part of this data; each bill shows its own summary and votes.</div>
 <h2>Where the Governor lands</h2><p class="small muted">Each marker is the average direction of the bills the Governor signed or vetoed on that topic, measured against current law. The dark tick is the average of all bills on the topic that reached the Governor. Restrictive is −{CUT} or lower, Permissive is +{CUT} or higher, otherwise Balanced. Pick an action, then click a topic to see the bills behind it.</p>{gov_html}
 <h2>By lead author’s party</h2>{party_tbl}
@@ -863,7 +859,7 @@ const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}"
     body = f"""<h1>California legislation by topic and direction</h1>
 <p class="lede">Every bill in California’s 2025–26 session, sorted into topics, with a read on which way each bill pushes against current law, Restrictive or Permissive, and where the money goes. Then what each legislator authored and how they voted.</p>
 <div class="tiles"><div class="tile"><b>{vv(f"{len(bills):,}", f"{len(bills) - n_dead:,}")}</b><span>bills</span></div><div class="tile"><b>{vv(f"{n_policy:,}", f"{sum(1 for k in bills if policy_tags[k] and alive[k]):,}")}</b><span>with policy topic tags</span></div><div class="tile"><b>{len(leg_rows)}</b><span>legislators</span></div>
-<div class="tile"><b>{status.get("Chaptered", 0):,}</b><span>became law</span></div></div>
+<div class="tile"><b>{status.get("Chaptered", 0):,}</b><span>Became Law</span></div></div>
 <form class="filters" action="find.html" method="get"><input name="zip" inputmode="numeric" maxlength="10" placeholder="Find my legislators: enter a California ZIP code" aria-label="ZIP code"><button type="submit" style="font:inherit;padding:7px 16px;border-radius:8px;border:1px solid var(--axis);background:var(--accent);color:#fff;cursor:pointer">Find</button></form>
 {issues_html}
 <h2>How to read the meter</h2><div class="note small">{BENCHMARK} The <b>Hide bills that died</b> switch in the header drops the {n_dead} bills the official record marks as died, failed in committee or vetoed. Bills still listed as in committee cannot pass once the session has ended, but they are only hidden if the record says they died.</div>
@@ -882,7 +878,7 @@ function esc(s){return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;
 function run(){const hide=document.documentElement.classList.contains('alive');const w=q.value.toLowerCase().trim().split(/\\s+/).filter(Boolean);let n=0,h='';
 for(const b of D){if(hide&&DEAD.includes(b.st))continue;if(tp.value&&!b.tp.includes(tp.value))continue;if(st.value&&b.st!==st.value)continue;if(dr.value&&!b.d.includes(dr.value))continue;
 const hay=(b.k+' '+b.t+' '+b.su).toLowerCase();if(w.some(x=>!hay.includes(x)))continue;n++;
-if(n<=200)h+='<tr><td><a href="bill/'+b.s+'.html">'+esc(b.k)+'</a></td><td>'+esc(b.t)+'<div class="muted small">'+esc(b.su)+'</div></td><td>'+esc(({'Chaptered':'Became law'})[b.st]||b.st)+'</td><td>'+b.tp.map(t=>'<span class="chip">'+esc(TN[t])+'</span>').join('')+'</td></tr>'}
+if(n<=200)h+='<tr><td><a href="bill/'+b.s+'.html">'+esc(b.k)+'</a></td><td>'+esc(b.t)+'<div class="muted small">'+esc(b.su)+'</div></td><td>'+esc(({'Chaptered':'Became Law'})[b.st]||b.st)+'</td><td>'+b.tp.map(t=>'<span class="chip">'+esc(TN[t])+'</span>').join('')+'</td></tr>'}
 out.innerHTML=h;cnt.textContent=n+' bills'+(n>200?' (showing the first 200; narrow the search)':'')}
 [q,tp,st,dr].forEach(e=>e.addEventListener('input',run));window.addEventListener('alivechange',run);run();""".replace("__D__", json.dumps(index, separators=(",", ":"), ensure_ascii=False)).replace("__TN__", json.dumps({tid: TOPICS[tid]["name"] for tid in POLICY_TOPICS})).replace("__DEAD__", json.dumps(sorted(DEAD)))
     (OUT / "bills.html").write_text(page("All bills", f"""<h1>All bills</h1><p class="lede">Search {len(bills):,} California bills.</p>
