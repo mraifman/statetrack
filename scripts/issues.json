@@ -85,12 +85,13 @@
   },
   {
    "id": "autonomous-vehicles",
-   "name": "Autonomous Vehicles",
+   "name": "Autonomous and Driver-Assist Vehicles",
    "hook": "New DMV rules effective May 2026 let police issue notices to robotaxi companies for moving violations.",
    "subtopics": [
-    "transportation.autonomous_vehicles"
+    "transportation.autonomous_vehicles",
+    "transportation.driver_assistance_systems"
    ],
-   "regex": "autonomous vehicle",
+   "regex": "autonomous vehicle|driver.assist",
    "min_mentions": 2,
    "sources": [
     [
@@ -99,7 +100,8 @@
     ]
    ],
    "terms": [
-    "autonomous vehicle"
+    "autonomous vehicle",
+    "driver assistance"
    ]
   },
   {

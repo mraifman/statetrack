@@ -320,7 +320,7 @@ def main():
         body = f"""<p class="small"><a href="../bills.html">← All bills</a></p><h1>{esc(k)} · {esc(b.get("title", ""))}</h1>
 <p class="lede">{esc(summary)}</p>
 <div class="tiles"><div class="tile"><b style="font-size:18px">{esc(SL(b["status"]))}</b><span>Status</span></div><div class="tile"><b style="font-size:18px">{esc(b.get("last_action_date", ""))}</b><span>Last action</span></div>
-<div class="tile"><b style="font-size:18px">{esc(b["house"])}</b><span>Currently in</span></div></div>
+<div class="tile"><b style="font-size:18px">{esc(b.get("chapter", "")) if b["status"] == "Chaptered" else esc(b["house"])}</b><span>{"Chapter number" if b["status"] == "Chaptered" else "Where it ended" if b["status"] in ("Vetoed", "Died", "Failed", "Failed Passage in Committee") else "Currently in"}</span></div></div>
 <p><b>Authors:</b> {author_line(b)}</p>
 <h2>Topic tags</h2><p class="small muted">Direction is measured against current California law as described in the digest.</p>{tag_table(k)}
 <h2>What the bill does (Legislative Counsel’s digest)</h2><div class="card small">{digest}</div>
