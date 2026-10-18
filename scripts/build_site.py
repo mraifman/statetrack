@@ -158,7 +158,7 @@ CSS = """
 --serif:Charter,"Iowan Old Style","Palatino Linotype",Georgia,serif}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
 a{color:var(--link)}header.site{background:linear-gradient(180deg,var(--navy2),var(--navy));border-bottom:3px solid var(--sun);box-shadow:0 2px 14px rgba(20,33,61,.18)}
-.wrap{max-width:1040px;margin:0 auto;padding:0 16px}nav{display:flex;gap:16px;align-items:center;flex-wrap:nowrap;padding:12px 0;font-size:15px;white-space:nowrap}@media(max-width:1180px){nav .tag{display:none}}@media(max-width:900px){nav{flex-wrap:wrap}}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}header.site .wrap{max-width:1120px}nav{display:flex;gap:11px;align-items:center;flex-wrap:wrap;padding:12px 0;font-size:14.5px;white-space:nowrap}@media(max-width:1180px){nav .tag{display:none}}
 nav .brand{font-family:var(--serif);font-weight:700;font-size:21px;letter-spacing:.2px;color:#fff;text-decoration:none;margin-right:4px;display:flex;align-items:center;gap:8px}nav .brand svg{width:24px;height:24px}nav .tag{color:var(--sun2);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;margin-right:12px;border-left:1px solid #4a5b82;padding-left:12px}nav a{color:#d6ddee;text-decoration:none}nav a:hover{color:#fff;text-decoration:none;box-shadow:0 2px 0 var(--sun)}
 nav .toggle{margin-left:auto;font-size:14px;color:#d6ddee;display:flex;align-items:center;gap:6px;cursor:pointer}nav .toggle input{width:16px;height:16px}
 .v-live{display:none}html.alive .v-live{display:revert}html.alive .v-all{display:none}html.alive .dead{display:none}
@@ -196,7 +196,7 @@ a[href*="bill/"]{white-space:nowrap}.bsum{margin:3px 0 2px;color:var(--ink2);fon
 @media (max-width:640px){.bars .row{grid-template-columns:1fr 60px}.bars .track{grid-column:1/-1;order:3}.mrow,.axis{grid-template-columns:1fr 70px}.mrow .meter,.axis .ends{grid-column:1/-1;order:3}nav .toggle{margin-left:0}}
 """
 import hashlib
-CSS_V = hashlib.md5(CSS.encode()).hexdigest()[:8]
+CSS_V = "32b0faa0"   # frozen: changing it rewrites every page; bump only for a visible CSS change that must bypass caches
 
 
 HEAD_JS = """<script>var d=document.documentElement;d.classList.add('alive');try{if(/[?&]dead=1/.test(location.search)||localStorage.getItem('st_show_dead')==='1')d.classList.remove('alive')}catch(e){}</script>"""
@@ -215,13 +215,15 @@ def state_select(root):
     return f'<select class="stsel" aria-label="State" onchange="location.href=this.value">{opts}</select>'
 
 
-def page(title, body, depth=0, desc=""):
+def page(title, body, depth=0, desc="", nav_compare=None):
     base = "../" * depth
+    if nav_compare is None:
+        nav_compare = depth == 0
     root = "../" * (depth + 1)
     body = body.replace("<table", '<div class="scroll"><table').replace("</table>", "</table></div>")
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(title)} · StateTrack</title><meta name="theme-color" content="#14213d"><meta name="description" content="{esc(desc or title)}"><link rel="stylesheet" href="{root}style.css?v={CSS_V}">{HEAD_JS}</head><body>
-<header class="site"><div class="wrap"><nav><a class="brand" href="{root}index.html"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="6.5" fill="#f2b705"/><g stroke="#f2b705" stroke-width="2.2" stroke-linecap="round"><path d="M16 2.5v4M16 25.5v4M2.5 16h4M25.5 16h4M6.4 6.4l2.8 2.8M22.8 22.8l2.8 2.8M25.6 6.4l-2.8 2.8M9.2 22.8l-2.8 2.8"/></g></svg>StateTrack</a>{state_select(root)}<a href="{base}index.html">Overview</a><a href="{base}bills.html">All bills</a>{f'<a href="{base}vetoes.html">Vetoes</a>' if HAS_VETOES else ""}
+<header class="site"><div class="wrap"><nav><a class="brand" href="{root}index.html"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="6.5" fill="#f2b705"/><g stroke="#f2b705" stroke-width="2.2" stroke-linecap="round"><path d="M16 2.5v4M16 25.5v4M2.5 16h4M25.5 16h4M6.4 6.4l2.8 2.8M22.8 22.8l2.8 2.8M25.6 6.4l-2.8 2.8M9.2 22.8l-2.8 2.8"/></g></svg>StateTrack</a>{state_select(root)}<a href="{base}index.html">Overview</a>{f'<a href="{root}compare/index.html">Compare</a>' if nav_compare else ""}<a href="{base}bills.html">All bills</a>{f'<a href="{base}vetoes.html">Vetoes</a>' if HAS_VETOES else ""}
 {f'<a href="{base}find.html">Find my legislators</a>' if HAS_FIND else ""}<a href="{base}legislators.html">Legislators</a><a href="{base}method.html">How it works</a>
 <label class="toggle" title="Bills the official record marks as died, failed in committee or vetoed are hidden unless this is checked"><input type="checkbox" id="alive"> Show Bills that Died</label></nav></div></header>
 <main><div class="wrap">{body}</div></main><footer><div class="wrap">Demo for {SN}’s {SESS} session. Bill data: {SRC}. Topics and directions are labelled by an AI model from the bill’s title and {CFG["digest"]}, and are approximate. <a href="{base}method.html">How it works</a></div></footer>{TOGGLE_JS}</body></html>"""
@@ -480,7 +482,7 @@ def build_state(code):
                 f'<div class="note small">{BENCHMARK}</div>{vb(block(False), block(True))}'
                 f'<p class="small muted">Each marker is the average of its bills’ directions, from restrictive (−2) to permissive (+2). Neutral and unclear tags are left out; mixed counts as 0. A hollow marker means fewer than {MIN_TAGS} directional tags, so treat it as rough.</p>'
                 + "".join(lists))
-        (OUT / "topic" / f"{tid}.html").write_text(page(t["name"], body, 1))
+        (OUT / "topic" / f"{tid}.html").write_text(page(t["name"], body, 1, nav_compare=True))
 
     # ---------------- key issues
     def issue_match(iss, k):
@@ -598,7 +600,7 @@ def build_state(code):
                 f'<p class="small muted">In the news ({esc(ISSUES["as_of"])}). Press coverage as found by search; open the sources for the full story:</p><ul class="small">{src}</ul>'
                 f'<p class="small muted">Bills on this page: {"; ".join(scope)}.</p><div class="note small">{BENCHMARK}</div>{vb(issue_block(False), issue_block(True))}'
                 f'<h2>Bills</h2><ul>{lis}</ul>')
-        (OUT / "issue" / f"{iss['id']}.html").write_text(page(iss["name"], body, 1, iss["hook"]))
+        (OUT / "issue" / f"{iss['id']}.html").write_text(page(iss["name"], body, 1, iss["hook"], nav_compare=True))
 
     # ---------------- legislator pages
     leg_rows = []
@@ -1064,7 +1066,7 @@ out.innerHTML=h;cnt.textContent=n+' bills'+(n>200?' (showing the first 200; narr
 
 def landing(summaries):
     cards = "".join(
-        f'<a class="card statecard" href="{x["code"].lower()}/index.html"><h3>{esc(x["name"])}</h3>'
+        f'<a class="card statecard" href="{x["code"].lower()}/index.html"><h3>{esc(x["short"] if x["short"] == "DC" else x["name"])}</h3>'
         f'<div class="small muted">{esc(x["session"])} session · {esc(" and ".join(x["chambers"]))}</div>'
         f'<div class="tiles mini3"><div><b>{x["bills"]:,}</b><span>Bills</span></div><div><b>{x["laws"]:,}</b><span>Became Law</span></div><div><b>{x["legislators"]}</b><span>Legislators</span></div></div></a>'
         for x in summaries)
@@ -1073,6 +1075,7 @@ def landing(summaries):
 <header class="site"><div class="wrap"><nav><a class="brand" href="index.html"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="6.5" fill="#f2b705"/><g stroke="#f2b705" stroke-width="2.2" stroke-linecap="round"><path d="M16 2.5v4M16 25.5v4M2.5 16h4M25.5 16h4M6.4 6.4l2.8 2.8M22.8 22.8l2.8 2.8M25.6 6.4l-2.8 2.8M9.2 22.8l-2.8 2.8"/></g></svg>StateTrack</a></nav></div></header>
 <main><div class="wrap"><h1>State legislation by topic and direction</h1>
 <p class="lede">Every bill in each state’s 2025–26 session, sorted into topics, with a read on which way it pushes against current law, Restrictive or Permissive, plus what each legislator authored and how they voted. Pick a state.</p>
+<a class="card" href="compare/index.html" style="display:block;text-decoration:none;color:inherit;margin:14px 0"><h3 style="font-family:var(--serif);font-size:22px;margin:0 0 4px;color:var(--navy)">Compare states →</h3><div class="small">The same topics side by side with sub-topic detail, matching bills across states, a timeline, enactment gaps, bipartisan sponsorship, governors, pending bills and CSV downloads.</div></a>
 <div class="statecards">{cards}</div>
 <p class="small muted">Topics and directions are labelled by an AI model from each bill’s title and official summary, and are approximate. Each state’s <em>How it works</em> page explains the method.</p></div></main></body></html>"""
 
