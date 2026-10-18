@@ -393,7 +393,14 @@
     {
      "id": "transportation.autonomous_vehicles",
      "name": "Autonomous vehicles",
-     "axis": "A"
+     "axis": "A",
+     "note": "driverless or automated driving systems that operate without a human driver continuously in control (SAE levels 3 to 5): expands = allows, facilitates or incentivizes; restricts = bans, limits or adds conditions. Driver-assistance features that need a human to supervise belong under Driver-assistance systems, not here"
+    },
+    {
+     "id": "transportation.driver_assistance_systems",
+     "name": "Driver-assistance systems (ADAS)",
+     "axis": "R",
+     "note": "partially automated features where a human driver must stay in control and supervise (SAE level 2: lane-keeping, adaptive cruise control, 'driver support'): tightens = adds requirements, limits, reporting or liability; loosens = reduces them. A drunk-driving or other traffic offense by a human using these features is Traffic safety, not ADAS, unless the bill regulates the feature itself"
     },
     {
      "id": "transportation.traffic_safety_and_enforcement",
