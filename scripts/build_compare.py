@@ -135,28 +135,61 @@ def collect(A):
 
 
 # ------------------------------------------------------------------ 1. by topic / sub-topic
+FEATURED = ["housing.zoning_land_use_and_short_term_rentals", "housing.rent_regulation_and_tenant_protections",
+            "environment_and_energy.clean_energy", "environment_and_energy.utility_regulation_and_rates",
+            "health_care.reproductive_health_and_abortion", "health_care.public_health_vaccines_and_emergency_measures",
+            "health_care.gender_affirming_and_transgender_health_care",
+            "criminal_justice.drug_policy", "criminal_justice.policing_and_accountability",
+            "labor_and_employment.minimum_wage_and_wage_rules", "labor_and_employment.unions_and_collective_bargaining",
+            "ai_and_technology.data_privacy_and_security", "children_and_families.kids_online_safety_and_age_verification",
+            "guns_and_weapons.purchase_licensing_and_dealers", "immigration.state_cooperation_with_federal_enforcement_including_employment_verification",
+            "elections_and_voting.voter_registration_and_access", "consumer_protection_and_business.alcohol_tobacco_and_vaping",
+            "consumer_protection_and_business.gambling_and_sports_betting", "government_and_administration.local_control_and_preemption",
+            "education.curriculum_and_classroom_content"]
+
+
+def matrix_cells(d_by_state, bills_by_state):
+    cells = []
+    for c in STATE_ORDER:
+        d, nb = d_by_state[c], bills_by_state[c]
+        if len(d) < MIN_DIR:
+            cells.append(f'<td class="na">n/a<span class="n">{nb:,} {"bill" if nb==1 else "bills"}</span></td>')
+        else:
+            m = mean(d)
+            cells.append(f'<td class="{"faint" if len(d) < MIN_FIRM else ""}" style="{lean_style(m)}"><b>{fmt(m)}</b><span class="n">{nb:,} {"bill" if nb==1 else "bills"}</span></td>')
+    return "".join(cells)
+
+
 def page_hub(A, top):
     head = "".join(f'<th>{sdot(c)}<br>{esc(state_name(c))}</th>' for c in STATE_ORDER)
+    sub = HUB_SUB
+    srows = []
+    for sid in FEATURED:
+        s_ = SUB[sid]
+        cells = matrix_cells({c: sub[(c, sid)]["dir"] for c in STATE_ORDER}, {c: len(sub[(c, sid)]["bills"]) for c in STATE_ORDER})
+        srows.append(f'<tr><td class="rowh"><a href="sub/{bs.slug(sid)}.html"><b style="display:inline;font-family:inherit;font-size:16px">{esc(bs.T(s_["name"]))}</b></a>'
+                     f'<br><a class="muted small" href="topic/{s_["topic_id"]}.html">{esc(s_["topic"])}</a></td>{cells}</tr>')
     rows = []
     for tid in POLICY_TOPICS:
-        cells = []
         has_dir = any(sb["axis"] in ("A", "R") for sb in TOPICS[tid]["subtopics"])
-        for c in STATE_ORDER:
-            d = top[(c, tid)]["dir"]
-            if not has_dir:
-                cells.append(f'<td class="na">no scale<span class="n">{len(top[(c, tid)]["bills"]):,} bills</span></td>')
-                continue
-            m = mean(d)
-            if len(d) < MIN_DIR:
-                cells.append(f'<td class="na">n/a<span class="n">{len(top[(c, tid)]["bills"]):,} bills</span></td>')
-            else:
-                cells.append(f'<td class="{"faint" if len(d) < MIN_FIRM else ""}" style="{lean_style(m)}"><b>{fmt(m)}</b><span class="n">{len(top[(c, tid)]["bills"]):,} bills</span></td>')
-        rows.append(f'<tr><td class="rowh"><a href="topic/{tid}.html"><b style="display:inline;font-family:inherit;font-size:16px">{esc(TOPICS[tid]["name"])}</b></a></td>{"".join(cells)}</tr>')
+        if has_dir:
+            cells = matrix_cells({c: top[(c, tid)]["dir"] for c in STATE_ORDER}, {c: len(top[(c, tid)]["bills"]) for c in STATE_ORDER})
+        else:
+            cells = "".join(f'<td class="na">no scale<span class="n">{len(top[(c, tid)]["bills"]):,} bills</span></td>' for c in STATE_ORDER)
+        rows.append(f'<tr><td class="rowh"><a href="topic/{tid}.html"><b style="display:inline;font-family:inherit;font-size:16px">{esc(TOPICS[tid]["name"])}</b></a></td>{cells}</tr>')
+    browse = "".join(f'<details class="cat"><summary><div class="srow" style="grid-template-columns:1fr"><a href="topic/{tid}.html"><b>{esc(TOPICS[tid]["name"])}</b></a></div></summary><ul>' +
+                     "".join(f'<li><a href="sub/{bs.slug(sb["id"])}.html">{esc(bs.T(sb["name"]))}</a></li>' for sb in TOPICS[tid]["subtopics"]) + "</ul></details>" for tid in POLICY_TOPICS)
     body = f"""<h1>Compare states</h1>
-<p class="lede">The same topics, side by side. Each number is the average direction of a state’s bills on the topic, from −2 (Restrictive) to +2 (Permissive), measured against that state’s current law. Open a topic to compare sub-topics, and a sub-topic to read the bills.</p>
-<div class="note small">A lean describes what legislators <em>proposed</em>, not the state’s politics. It includes bills that died, so it reflects the whole session’s agenda. Faint cells rest on fewer than {MIN_FIRM} directional tags.</div>
-<h2>Where each topic leans, by state</h2>
-<div class="scroll"><table class="heat"><thead><tr><th>Topic</th>{head}</tr></thead><tbody>{"".join(rows)}</tbody></table></div>
+<p class="lede">The same issues, side by side. Each number is the average direction of a state’s bills on a sub-topic, from −2 (Restrictive) to +2 (Permissive), measured against that state’s current law. Click a sub-topic to see every state’s bills on it.</p>
+<div class="note small">A lean describes what legislators <em>proposed</em>, not the state’s politics, and it includes bills that died, so it reflects the whole session’s agenda. Faint cells rest on fewer than {MIN_FIRM} directional tags; “n/a” means fewer than {MIN_DIR}.</div>
+<h2>Twenty issues compared</h2>
+<p class="small muted">Chosen because most states have enough bills to compare and because together they span the major policy areas. The other 80 sub-topics are one click away below. Autonomous vehicles, a smaller category, has too few bills in any one state to show here; see its <a href="sub/{bs.slug("transportation.autonomous_vehicles")}.html">page</a>.</p>
+<div class="scroll"><table class="heat"><thead><tr><th>Sub-topic</th>{head}</tr></thead><tbody>{"".join(srows)}</tbody></table></div>
+<h2>Browse every sub-topic</h2>
+{browse}
+<details class="cat"><summary><div class="srow" style="grid-template-columns:1fr"><b>Broader view: the 16 parent topics</b></div></summary>
+<p class="small muted">These averages pool many different sub-topics, so they hide a lot. Use them for orientation.</p>
+<div class="scroll"><table class="heat"><thead><tr><th>Topic</th>{head}</tr></thead><tbody>{"".join(rows)}</tbody></table></div></details>
 <h2>More ways to compare</h2>
 <ul>
 <li><a href="matches.html"><b>Matching bills</b></a>: near-identical bills filed in different states.</li>
@@ -569,6 +602,7 @@ def page_data(A, sub, top):
 
 
 STATE_ORDER = []
+HUB_SUB = {}
 
 
 def main():
@@ -580,6 +614,8 @@ def main():
     DATA_OUT.mkdir(parents=True, exist_ok=True)
     (ROOT / "docs" / "compare.css").write_text(CCSS)
     sub, top = collect(A)
+    global HUB_SUB
+    HUB_SUB = sub
     page_hub(A, top)
     for tid in POLICY_TOPICS:
         page_topic(A, sub, top, tid)
