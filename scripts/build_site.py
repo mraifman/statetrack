@@ -258,15 +258,25 @@ def main():
                 return '<p class="muted">Not tagged: the AI model declined to process this bill’s text (its safety filter flagged the subject). Read the digest below.</p>'
             return '<p class="muted">No sub-topic fits this bill, or its digest is too thin to tag.</p>'
         rows = []
+        ev_first = {}
+        for t in ts:
+            ev_first.setdefault(t.get("evidence", ""), []).append(t)
         for t in ts:
             s = SUB[t["subtopic"]]
             d = t["direction"]
             g = group(d)
             dot = f'<span class="dot" style="background:var(--{g})"></span>' if g in ORDER else ""
-            ev = f'<blockquote>“{esc(t["evidence"])}”</blockquote>' if t.get("evidence") else '<span class="muted small">no quoted support</span>'
+            grp = ev_first[t.get("evidence", "")]
+            if grp[0] is not t:
+                ev = None
+            else:
+                ev = f'<blockquote>“{esc(t["evidence"])}”</blockquote>' if t.get("evidence") else '<span class="muted small">no quoted support</span>'
+                if len(grp) > 1:
+                    ev = ev.replace("</blockquote>", '<div class="muted small">Supports all ' + str(len(grp)) + ' tags in this group.</div></blockquote>', 1) if t.get("evidence") else ev
+            evcell = "" if ev is None else f'<td rowspan="{len(grp)}">{ev}</td>'
             link = f'<a href="../topic/{s["topic_id"]}.html">{esc(s["topic"])}</a> → ' if s["topic_id"] not in EXCLUDED else ""
             rows.append(f'<tr><td>{link}{esc(s["name"])}</td><td>{dot}<b title="{esc(T(d))} (model wording)">{esc(DIR_WORD(d))}</b></td>'
-                        f'<td>{esc(T(t["mechanism"]))}</td><td>{esc(T(t["funding"]))}</td><td>{esc(T(t["confidence"]))}</td><td>{ev}</td></tr>')
+                        f'<td>{esc(T(t["mechanism"]))}</td><td>{esc(T(t["funding"]))}</td><td>{esc(T(t["confidence"]))}</td>{evcell}</tr>')
         return ('<table><thead><tr><th>Topic → sub-topic</th><th>Direction vs. current law</th><th>Mechanism</th><th>Funding</th><th>Confidence</th><th>Quoted from the digest</th></tr></thead><tbody>'
                 + "".join(rows) + "</tbody></table>")
 
