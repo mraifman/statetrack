@@ -32,7 +32,7 @@ TREE = [
   ("Voter registration and access (mail voting, early voting)", "A"), ("Voter ID and election security", "R"), ("Redistricting", "N"),
   ("Campaign finance", "R"), ("Election administration and officials", "N")]),
  ("Transportation", [
-  ("Autonomous vehicles", "A"), ("Traffic safety and enforcement (speed cameras, DUI)", "R"), ("Electric vehicles and charging", "A"),
+  ("Autonomous vehicles", "A"), ("Driver-assistance systems (ADAS)", "R"), ("Traffic safety and enforcement (speed cameras, DUI)", "R"), ("Electric vehicles and charging", "A"),
   ("Rideshare, scooters and micromobility", "R"), ("Drones and aviation", "R"), ("Transit and infrastructure funding", "F"), ("Vehicle registration, licensing and fees", "N")]),
  ("Environment and energy", [
   ("Climate and emissions", "R"), ("Clean energy (renewables, storage, nuclear)", "A"), ("Fossil fuels, pipelines and mining", "A"),
@@ -64,6 +64,8 @@ NOTES = {
  "Data centers and compute": "expands = facilitates or incentivizes; restricts = limits or adds conditions",
  "Homelessness (services vs. encampment rules)": "expands = more services or protections; restricts = more enforcement against people who are homeless",
  "Zoning, land use and short-term rentals": "loosens = allows more building or more rentals; tightens = limits it",
+ "Autonomous vehicles": "driverless or automated driving systems that operate without a human driver continuously in control (SAE levels 3 to 5): expands = allows, facilitates or incentivizes; restricts = bans, limits or adds conditions. Driver-assistance features that need a human to supervise belong under Driver-assistance systems, not here",
+ "Driver-assistance systems (ADAS)": "partially automated features where a human driver must stay in control and supervise (SAE level 2: lane-keeping, adaptive cruise control, 'driver support'): tightens = adds requirements, limits, reporting or liability; loosens = reduces them. A drunk-driving or other traffic offense by a human using these features is Traffic safety, not ADAS, unless the bill regulates the feature itself",
  "Ceremonial and commemorative measures": "naming, honoring, commemorating or resolutions with no policy effect; tag these and nothing else",
 }
 

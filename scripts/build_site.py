@@ -70,6 +70,10 @@ def NOTE_DIV(n):
     return f'<div class="muted small">{esc(display_note(n))}</div>' if n else ""
 
 
+def SL(status):
+    return {"Chaptered": "Became law"}.get(status, status)
+
+
 def RL(role):
     return {"LEAD_AUTHOR": "Lead author", "PRINCIPAL_COAUTHOR": "Principal co-author", "COAUTHOR": "Co-author"}.get(role, T(role))
 
@@ -315,7 +319,7 @@ def main():
         digest = esc(b.get("digest", "")) or '<span class="muted">No digest on file for this bill.</span>'
         body = f"""<p class="small"><a href="../bills.html">← All bills</a></p><h1>{esc(k)} · {esc(b.get("title", ""))}</h1>
 <p class="lede">{esc(summary)}</p>
-<div class="tiles"><div class="tile"><b style="font-size:18px">{esc(b["status"])}</b><span>Status</span></div><div class="tile"><b style="font-size:18px">{esc(b.get("last_action_date", ""))}</b><span>Last action</span></div>
+<div class="tiles"><div class="tile"><b style="font-size:18px">{esc(SL(b["status"]))}</b><span>Status</span></div><div class="tile"><b style="font-size:18px">{esc(b.get("last_action_date", ""))}</b><span>Last action</span></div>
 <div class="tile"><b style="font-size:18px">{esc(b["house"])}</b><span>Currently in</span></div></div>
 <p><b>Authors:</b> {author_line(b)}</p>
 <h2>Topic tags</h2><p class="small muted">Direction is measured against current California law as described in the digest.</p>{tag_table(k)}
@@ -335,7 +339,7 @@ def main():
             sm = ""
         det = []
         if brief:
-            return f'<li class="{"" if alive[k] else "dead"}"><a href="{"../" * depth}bill/{slug(k)}.html">{esc(k)}</a> · {esc(b.get("title", ""))} <span class="chip">{esc(b["status"])}</span>{extra}</li>'
+            return f'<li class="{"" if alive[k] else "dead"}"><a href="{"../" * depth}bill/{slug(k)}.html">{esc(k)}</a> · {esc(b.get("title", ""))} <span class="chip">{esc(SL(b["status"]))}</span>{extra}</li>'
         if sm:
             det.append(f'<div class="bsum">{esc(sm)}</div>')
         meta = []
@@ -349,7 +353,7 @@ def main():
             meta.append("Last action " + esc(b["last_action_date"]))
         if meta:
             det.append('<div class="bmeta">' + " · ".join(meta) + "</div>")
-        return f'<li class="{"" if alive[k] else "dead"}"><a href="{"../" * depth}bill/{slug(k)}.html">{esc(k)}</a> · {esc(b.get("title", ""))} <span class="chip">{esc(b["status"])}</span>{extra}{"".join(det)}</li>'
+        return f'<li class="{"" if alive[k] else "dead"}"><a href="{"../" * depth}bill/{slug(k)}.html">{esc(k)}</a> · {esc(b.get("title", ""))} <span class="chip">{esc(SL(b["status"]))}</span>{extra}{"".join(det)}</li>'
 
     # ---------------- topic pages
     def sub_scores(sid, live):
@@ -440,7 +444,7 @@ def main():
             kk = [k for k in ks if not live or alive[k]]
             c = Counter(bills[k]["status"] for k in kk)
             m, mean = meter(issue_scores(iss, ks, live), iss["name"])
-            return (f'<div class="small">{len(kk)} bills · {c.get("Chaptered", 0)} signed into law · {c.get("Vetoed", 0)} vetoed'
+            return (f'<div class="small">{len(kk)} bills · {c.get("Chaptered", 0)} became law · {c.get("Vetoed", 0)} vetoed'
                     f'{"" if live else " · " + str(sum(c.get(s, 0) for s in DEAD)) + " died"}</div><div class="mini">{m}</div>')
         issue_cards.append(f'<div class="card"><h3><a href="issue/{iss["id"]}.html">{esc(iss["name"])}</a></h3><div class="small muted">{esc(iss["hook"])}</div>{vb(card_stats(False), card_stats(True))}</div>')
 
@@ -448,7 +452,7 @@ def main():
             kk = [k for k in ks if not live or alive[k]]
             c = Counter(bills[k]["status"] for k in kk)
             active = sum(c.get(s, 0) for s in ("In Committee Process", "In Floor Process", "Passed", "Pending Referral"))
-            tiles = (f'<div class="tiles"><div class="tile"><b>{len(kk)}</b><span>bills</span></div><div class="tile"><b>{c.get("Chaptered", 0)}</b><span>signed into law</span></div>'
+            tiles = (f'<div class="tiles"><div class="tile"><b>{len(kk)}</b><span>bills</span></div><div class="tile"><b>{c.get("Chaptered", 0)}</b><span>became law</span></div>'
                      f'<div class="tile"><b>{c.get("Vetoed", 0)}</b><span>vetoed</span></div>'
                      f'{"" if live else "<div class=tile><b>" + str(sum(c.get(s, 0) for s in DEAD)) + "</b><span>died</span></div>"}'
                      f'<div class="tile"><b>{active}</b><span>still listed as active</span></div></div>')
@@ -826,7 +830,7 @@ const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}"
     vjs = """<script>const sel=document.getElementById('vt');sel.onchange=()=>{document.querySelectorAll('#vlist li').forEach(li=>{li.style.display=(!sel.value||li.dataset.t.split(' ').includes(sel.value))?'':'none'})}</script>"""
     (OUT / "vetoes.html").write_text(page("What is the Governor vetoing?", f"""<h1>What is the Governor vetoing?</h1>
 <p class="lede">Of {n_v + n_s:,} bills that reached the Governor in the 2025–26 session, {n_v} were vetoed ({100 * n_v / (n_v + n_s):.1f}%) and {n_s:,} were signed. This page shows which topics, directions and authors the vetoes fall on.</p>
-<div class="tiles"><div class="tile"><b>{n_v}</b><span>vetoed</span></div><div class="tile"><b>{n_s:,}</b><span>signed into law</span></div><div class="tile"><b>{100 * n_v / (n_v + n_s):.1f}%</b><span>veto rate</span></div><div class="tile"><b>{n_proof}</b><span>vetoed after a two-thirds vote in both houses</span></div></div>
+<div class="tiles"><div class="tile"><b>{n_v}</b><span>vetoed</span></div><div class="tile"><b>{n_s:,}</b><span>became law</span></div><div class="tile"><b>{100 * n_v / (n_v + n_s):.1f}%</b><span>veto rate</span></div><div class="tile"><b>{n_proof}</b><span>vetoed after a two-thirds vote in both houses</span></div></div>
 <div class="note small">Direction compares each bill with current California law, as everywhere else on this site. The Governor’s veto messages (the stated reasons) are not part of this data; each bill shows its own summary and votes.</div>
 <h2>Where the Governor lands</h2><p class="small muted">Each marker is the average direction of the bills the Governor signed or vetoed on that topic, measured against current law. The dark tick is the average of all bills on the topic that reached the Governor. Restrictive is −{CUT} or lower, Permissive is +{CUT} or higher, otherwise Balanced. Pick an action, then click a topic to see the bills behind it.</p>{gov_html}
 <h2>By lead author’s party</h2>{party_tbl}
@@ -859,7 +863,7 @@ const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}"
     body = f"""<h1>California legislation by topic and direction</h1>
 <p class="lede">Every bill in California’s 2025–26 session, sorted into topics, with a read on which way each bill pushes against current law, Restrictive or Permissive, and where the money goes. Then what each legislator authored and how they voted.</p>
 <div class="tiles"><div class="tile"><b>{vv(f"{len(bills):,}", f"{len(bills) - n_dead:,}")}</b><span>bills</span></div><div class="tile"><b>{vv(f"{n_policy:,}", f"{sum(1 for k in bills if policy_tags[k] and alive[k]):,}")}</b><span>with policy topic tags</span></div><div class="tile"><b>{len(leg_rows)}</b><span>legislators</span></div>
-<div class="tile"><b>{status.get("Chaptered", 0):,}</b><span>signed into law (chaptered)</span></div></div>
+<div class="tile"><b>{status.get("Chaptered", 0):,}</b><span>became law</span></div></div>
 <form class="filters" action="find.html" method="get"><input name="zip" inputmode="numeric" maxlength="10" placeholder="Find my legislators: enter a California ZIP code" aria-label="ZIP code"><button type="submit" style="font:inherit;padding:7px 16px;border-radius:8px;border:1px solid var(--axis);background:var(--accent);color:#fff;cursor:pointer">Find</button></form>
 {issues_html}
 <h2>How to read the meter</h2><div class="note small">{BENCHMARK} The <b>Hide bills that died</b> switch in the header drops the {n_dead} bills the official record marks as died, failed in committee or vetoed. Bills still listed as in committee cannot pass once the session has ended, but they are only hidden if the record says they died.</div>
@@ -870,7 +874,7 @@ const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}"
 
     # ---------------- bills search
     opts_t = "".join(f'<option value="{tid}">{esc(TOPICS[tid]["name"])}</option>' for tid in POLICY_TOPICS)
-    opts_s = "".join(f"<option>{esc(s)}</option>" for s in sorted(status))
+    opts_s = "".join(f'<option value="{esc(s)}">{esc(SL(s))}</option>' for s in sorted(status))
     opts_d = "".join(f'<option value="{g}">{GROUP_LABEL[g]}</option>' for g in ORDER)
     js = """const D=__D__;const TN=__TN__;const DEAD=__DEAD__;
 const q=document.getElementById('q'),tp=document.getElementById('tp'),st=document.getElementById('st'),dr=document.getElementById('dr'),out=document.getElementById('out'),cnt=document.getElementById('cnt');
@@ -878,7 +882,7 @@ function esc(s){return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;
 function run(){const hide=document.documentElement.classList.contains('alive');const w=q.value.toLowerCase().trim().split(/\\s+/).filter(Boolean);let n=0,h='';
 for(const b of D){if(hide&&DEAD.includes(b.st))continue;if(tp.value&&!b.tp.includes(tp.value))continue;if(st.value&&b.st!==st.value)continue;if(dr.value&&!b.d.includes(dr.value))continue;
 const hay=(b.k+' '+b.t+' '+b.su).toLowerCase();if(w.some(x=>!hay.includes(x)))continue;n++;
-if(n<=200)h+='<tr><td><a href="bill/'+b.s+'.html">'+esc(b.k)+'</a></td><td>'+esc(b.t)+'<div class="muted small">'+esc(b.su)+'</div></td><td>'+esc(b.st)+'</td><td>'+b.tp.map(t=>'<span class="chip">'+esc(TN[t])+'</span>').join('')+'</td></tr>'}
+if(n<=200)h+='<tr><td><a href="bill/'+b.s+'.html">'+esc(b.k)+'</a></td><td>'+esc(b.t)+'<div class="muted small">'+esc(b.su)+'</div></td><td>'+esc(({'Chaptered':'Became law'})[b.st]||b.st)+'</td><td>'+b.tp.map(t=>'<span class="chip">'+esc(TN[t])+'</span>').join('')+'</td></tr>'}
 out.innerHTML=h;cnt.textContent=n+' bills'+(n>200?' (showing the first 200; narrow the search)':'')}
 [q,tp,st,dr].forEach(e=>e.addEventListener('input',run));window.addEventListener('alivechange',run);run();""".replace("__D__", json.dumps(index, separators=(",", ":"), ensure_ascii=False)).replace("__TN__", json.dumps({tid: TOPICS[tid]["name"] for tid in POLICY_TOPICS})).replace("__DEAD__", json.dumps(sorted(DEAD)))
     (OUT / "bills.html").write_text(page("All bills", f"""<h1>All bills</h1><p class="lede">Search {len(bills):,} California bills.</p>
