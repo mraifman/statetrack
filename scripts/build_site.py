@@ -414,6 +414,10 @@ def main():
             text_hit = bool(rx.search(b.get("title", ""))) or len(rx.findall(b.get("digest", ""))) >= iss.get("min_mentions", 2)
         return sub_hit or topic_hit or text_hit
 
+    def au_link(k):
+        lead = next((a for a in bills[k].get("authors", []) if a["role"] == "LEAD_AUTHOR" and isinstance(a["legislator"], str) and a["legislator"] in legislators), None)
+        return f'<a href="legislator/{lid_slug[lead["legislator"]]}.html">{esc(legislators[lead["legislator"]]["name"])}</a>' if lead else "—"
+
     issue_cards, issue_data = [], []
     for iss in ISSUES["issues"]:
         ks = sorted((k for k in bills if issue_match(iss, k)), key=lambda k: (bills[k]["type"], bills[k]["number"]))
@@ -463,7 +467,32 @@ def main():
             lean_html = ""
             if sc:
                 m, mean = meter(sc, iss["name"])
-                lean_html = f'<h2>Where the bills lean</h2>{AXIS}<div class="mrow"><span><b>{esc(iss["name"])}</b></span>{m}<div class="v">{mean:+.2f} <span class="muted small">n={len(sc)}</span></div></div>'
+                subs_ = set(iss["subtopics"]) or set()
+                if iss.get("topic"):
+                    subs_ = {x["id"] for x in TOPICS[iss["topic"]]["subtopics"]}
+                by_sub = defaultdict(list)
+                for k in kk:
+                    for t in btags[k]:
+                        if t["subtopic"] in subs_ and lean(t) is not None:
+                            by_sub[t["subtopic"]].append((k, t))
+                blocks = []
+                for sid, its in sorted(by_sub.items(), key=lambda kv: -len(kv[1])):
+                    ssc = [lean(t) for _, t in its]
+                    smeter, smean = meter(ssc, SUB[sid]["name"])
+                    sv = "Restrictive" if smean <= -CUT else "Permissive" if smean >= CUT else "Balanced"
+                    sk = {"Restrictive": "rest", "Permissive": "perm", "Balanced": "mid"}[sv]
+                    nb = len({k for k, _ in its})
+                    rows_ = "".join(
+                        f'<tr><td><a href="../bill/{slug(k)}.html">{esc(k)}</a> · {esc(bills[k].get("title", ""))}</td><td>{esc(SL(bills[k]["status"]))}</td>'
+                        f'<td>{au_link(k).replace(chr(34) + "legislator/", chr(34) + "../legislator/")}</td><td>{esc(DIR_WORD(t["direction"]))}</td></tr>'
+                        for k, t in sorted(its, key=lambda x: (bills[x[0]]["type"], bills[x[0]]["number"])))
+                    blocks.append(f'<details class="subcat"><summary><div class="mrow sub"><span><b>{esc(T(SUB[sid]["name"]))}</b> <span class="muted small">({nb} bill{"" if nb == 1 else "s"})</span>{NOTE_DIV(SUB[sid].get("note"))}</span>'
+                                  f'{smeter}<div class="v"><span class="chip {sk}">{sv}</span><br><span class="muted small">{smean:+.2f}</span></div></div></summary>'
+                                  f'<table><thead><tr><th>Bill</th><th>Status</th><th>Lead author</th><th>Direction vs. current law</th></tr></thead><tbody>{rows_}</tbody></table></details>')
+                kind_ = "rest" if mean <= -CUT else "perm" if mean >= CUT else "mid"
+                word_ = "Restrictive" if mean <= -CUT else "Permissive" if mean >= CUT else "Balanced"
+                row_ = f'<div class="mrow"><span><b>{esc(iss["name"])}</b></span>{m}<div class="v"><span class="chip {kind_}">{word_}</span><br><span class="muted small">{mean:+.2f}</span></div></div>'
+                lean_html = f'<h2>Where the bills lean</h2><p class="small muted">Click the row to see the sub-topics, then a sub-topic to see its bills.</p>{AXIS}<details class="cat"><summary>{row_}</summary>{"".join(blocks)}</details>'
             leads = Counter()
             for k in kk:
                 for a in bills[k].get("authors", []):
@@ -750,10 +779,6 @@ const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}"
                        f'{two_meter(ss, vs, SUB[sid]["name"])}</div></summary>'
                        f'<table><thead><tr><th>Bill</th><th>Governor</th><th>Lead author</th><th>Direction vs. current law</th></tr></thead><tbody>{rows_}</tbody></table></details>')
         return "".join(out)
-
-    def au_link(k):
-        lead = next((a for a in bills[k].get("authors", []) if a["role"] == "LEAD_AUTHOR" and isinstance(a["legislator"], str) and a["legislator"] in legislators), None)
-        return f'<a href="legislator/{lid_slug[lead["legislator"]]}.html">{esc(legislators[lead["legislator"]]["name"])}</a>' if lead else "—"
 
     def lean_row(label, ks, tid, avg, extra):
         row = lean_row_plain(label, ks, tid, avg, extra)
