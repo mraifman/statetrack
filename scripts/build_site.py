@@ -763,7 +763,7 @@ const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}"
         name = f'<b>{esc(TOPICS[tid]["name"])}</b>'
         pl = lambda n: f"{n} bill{'' if n == 1 else 's'}"
         gov_rows.append(lean_row(f"{name}: signed", s_k, tid, avg_t, pl(len(s_k))))
-        gov_rows.append(lean_row(f'{name}: vetoed <span class="muted small">({100 * len(v_k) / (len(v_k) + len(s_k)):.0f}% of bills)</span>', v_k, tid, avg_t, pl(len(v_k))))
+        gov_rows.append(lean_row(f"{name}: vetoed", v_k, tid, avg_t, pl(len(v_k))))
     gov_html = AXIS + "".join(gov_rows)
 
     prow = []
