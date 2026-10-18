@@ -140,7 +140,7 @@ input[type=text],input:not([type]),select{font:inherit;padding:8px 10px;border:1
 .meter .mid{position:absolute;left:50%;top:1px;bottom:1px;width:2px;margin-left:-1px;background:var(--axis);z-index:1}
 .meter .avg{position:absolute;top:3px;bottom:3px;width:3px;margin-left:-1.5px;background:var(--ink2);opacity:.7;z-index:1;border-radius:1px}
 .meter .dot{position:absolute;top:1px;width:16px;height:16px;margin-left:-8px;border-radius:50%;border:2px solid var(--surface);z-index:2;box-shadow:0 0 0 1px var(--axis)}
-.meter .dot.sg{width:18px;height:18px;margin-left:-9px;top:0;background:#fff;border:3px solid var(--navy);box-shadow:none;z-index:3}.meter .dot.vt{width:12px;height:12px;margin-left:-6px;top:3px;background:var(--navy);border:2px solid #fff;box-shadow:0 0 0 1px var(--navy);z-index:2}.gov .mrow,.gov .axis{grid-template-columns:minmax(120px,230px) 1fr 200px}.gvl{white-space:nowrap;font-size:13px;margin:1px 0}.gvl .sym{color:var(--navy)}.legend .key{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:-2px}.legend .key.sg{border:3px solid var(--navy);background:#fff;width:14px;height:14px}.legend .key.vt{background:var(--navy)}.dot.rest{background:var(--rest1)}.dot.perm{background:var(--perm1)}.dot.mid{background:var(--neutral)}.dot.few{background:var(--surface);box-shadow:0 0 0 2px currentColor}.dot.few.rest{color:var(--rest1)}.dot.few.perm{color:var(--perm1)}.dot.few.mid{color:var(--mixed)}
+.meter .dot.sg{width:18px;height:18px;margin-left:-9px;top:0;background:#fff;border:3px solid var(--navy);box-shadow:none;z-index:3}.meter .dot.vt{width:12px;height:12px;margin-left:-6px;top:3px;background:var(--navy);border:2px solid #fff;box-shadow:0 0 0 1px var(--navy);z-index:2}.gov .mrow,.gov .axis{grid-template-columns:minmax(120px,230px) 1fr}.gov .axis>span:last-child{display:none}.gvl{white-space:nowrap;font-size:13px;margin:1px 0}.gvl .sym{color:var(--navy)}.legend .key{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:-2px}.legend .key.sg{border:3px solid var(--navy);background:#fff;width:14px;height:14px}.legend .key.vt{background:var(--navy)}.dot.rest{background:var(--rest1)}.dot.perm{background:var(--perm1)}.dot.mid{background:var(--neutral)}.dot.few{background:var(--surface);box-shadow:0 0 0 2px currentColor}.dot.few.rest{color:var(--rest1)}.dot.few.perm{color:var(--perm1)}.dot.few.mid{color:var(--mixed)}
 .mini .meter{height:14px}.mini .meter .dot{width:12px;height:12px;margin-left:-6px;top:0}.mini .meter::before,.mini .meter::after{top:5px}
 .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}.note{border-left:3px solid var(--accent);padding:6px 12px;background:var(--surface)}
 @media (max-width:640px){.bars .row{grid-template-columns:1fr 60px}.bars .track{grid-column:1/-1;order:3}.mrow,.axis{grid-template-columns:1fr 70px}.mrow .meter,.axis .ends{grid-column:1/-1;order:3}nav .toggle{margin-left:0}}
@@ -747,7 +747,7 @@ const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}"
                 f'<tr><td><a href="bill/{slug(k)}.html">{esc(k)}</a> · {esc(bills[k].get("title", ""))}</td><td>{st_}</td><td>{au_link(k)}</td><td>{esc(DIR_WORD(t["direction"]))}</td></tr>'
                 for k, t, st_ in sorted(its, key=lambda x: (x[2], bills[x[0]]["type"], bills[x[0]]["number"])))
             out.append(f'<details class="subcat"><summary><div class="mrow sub"><span><b>{esc(T(SUB[sid]["name"]))}</b> <span class="muted small">({len({k for k, _, _ in its})} bill{"" if len({k for k, _, _ in its}) == 1 else "s"})</span>{NOTE_DIV(SUB[sid].get("note"))}</span>'
-                       f'{two_meter(ss, vs, SUB[sid]["name"])}<div class="v">{side_chip(ss, "○", "Signed")}{side_chip(vs, "●", "Vetoed")}</div></div></summary>'
+                       f'{two_meter(ss, vs, SUB[sid]["name"])}</div></summary>'
                        f'<table><thead><tr><th>Bill</th><th>Governor</th><th>Lead author</th><th>Direction vs. current law</th></tr></thead><tbody>{rows_}</tbody></table></details>')
         return "".join(out)
 
@@ -784,7 +784,7 @@ const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}"
         out = []
         for _, tid, sk, vk, ss, vs in sorted(rows_, key=lambda r: -r[0]):
             row = (f'<div class="mrow"><span><b>{esc(TOPICS[tid]["name"])}</b></span>{two_meter(ss, vs, TOPICS[tid]["name"])}'
-                   f'<div class="v">{side_chip(ss, "○", "Signed")}{side_chip(vs, "●", "Vetoed")}</div></div>')
+                   f'</div>')
             avg_s = f"{sum(ss) / len(ss):+.2f}" if ss else "n/a"
             avg_v = f"{sum(vs) / len(vs):+.2f}" if vs else "n/a"
             out.append(f'<details class="cat"><summary>{row}</summary>{gov_detail(sk, vk, tid)}<p class="small muted">Signed average = {avg_s} · Vetoed average = {avg_v}</p></details>')
