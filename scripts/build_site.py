@@ -66,6 +66,10 @@ MIN_LEG = 3         # fewer authored directional tags than this: "not enough bil
 CUT = 0.25          # |weighted mean| at or above this earns a Restrictive / Permissive tag
 
 
+def RL(role):
+    return {"LEAD_AUTHOR": "Lead author", "PRINCIPAL_COAUTHOR": "Principal co-author", "COAUTHOR": "Co-author"}.get(role, T(role))
+
+
 def group(direction):
     return {"strongly_restricts": "rest2", "strongly_tightens": "rest2", "restricts": "rest1", "tightens": "rest1", "mixed": "mixed",
             "neutral": "neutral", "expands": "perm1", "loosens": "perm1", "strongly_expands": "perm2", "strongly_loosens": "perm2"}.get(direction, "other")
@@ -116,7 +120,7 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 blockquote{margin:6px 0;padding:6px 12px;border-left:3px solid var(--axis);color:var(--ink2);background:var(--surface)}
 input[type=text],input:not([type]),select{font:inherit;padding:7px 9px;border:1px solid var(--axis);border-radius:8px;background:var(--surface);color:var(--ink)}
 .filters{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.filters input{flex:1;min-width:200px}
-.bsum{margin:3px 0 2px;color:var(--ink2);font-size:14px;max-width:70ch}.bmeta{color:var(--muted);font-size:12.5px;margin-bottom:10px}details summary{cursor:pointer;color:var(--ink2)}footer{color:var(--muted);font-size:13px;padding:24px 0;border-top:1px solid var(--line)}
+.bsum{margin:3px 0 2px;color:var(--ink2);font-size:14px;max-width:70ch}.bmeta{color:var(--muted);font-size:12.5px;margin-bottom:10px}h3:target,h4:target{background:var(--chip);border-radius:6px;padding:2px 8px}details summary{cursor:pointer;color:var(--ink2)}footer{color:var(--muted);font-size:13px;padding:24px 0;border-top:1px solid var(--line)}
 .axis{display:grid;grid-template-columns:minmax(120px,230px) 1fr 92px;gap:10px;font-size:12px;color:var(--ink2);margin-top:8px}.axis .ends{display:flex;justify-content:space-between}
 .mrow{display:grid;grid-template-columns:minmax(120px,230px) 1fr 92px;gap:10px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line)}.mrow a{color:var(--ink);text-decoration:none}.mrow a:hover{text-decoration:underline}
 .mrow .v{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink2);font-size:13px}.mrow.sub{padding-left:14px}
@@ -242,7 +246,7 @@ def main():
         out = []
         for a in b.get("authors", []):
             lid = a["legislator"]
-            role = T(a["role"])
+            role = RL(a["role"])
             if isinstance(lid, str) and lid in legislators:
                 out.append(f'<a href="../legislator/{lid_slug[lid]}.html">{esc(legislators[lid]["name"])}</a> <span class="muted small">({role})</span>')
             else:
@@ -527,7 +531,7 @@ def main():
                         pole = "R" if g in ("rest1", "rest2") else "P" if g in ("perm1", "perm2") else None
                         if pole:
                             prof[t["subtopic"]][("ay" if v == "AYE" else "no") + pole] += 1
-            drows = "".join(f'<tr><td><a href="#t-{SUB[sid]["topic_id"]}">{esc(SUB[sid]["topic"])}</a> → {esc(SUB[sid]["name"])}</td><td class="n">{c["auR"]}</td><td class="n">{c["auP"]}</td><td class="n">{c["auN"]}</td>'
+            drows = "".join(f'<tr><td><a href="#t-{SUB[sid]["topic_id"]}">{esc(SUB[sid]["topic"])}</a> → <a href="#s-{slug(sid)}">{esc(SUB[sid]["name"])}</a></td><td class="n">{c["auR"]}</td><td class="n">{c["auP"]}</td><td class="n">{c["auN"]}</td>'
                             f'<td class="n">{c["ayR"]}</td><td class="n">{c["ayP"]}</td><td class="n">{c["noR"]}</td><td class="n">{c["noP"]}</td></tr>'
                             for sid, c in sorted(prof.items(), key=lambda kv: -sum(kv[1].values())))
             detail = ('<h2>Record by sub-topic</h2><table><thead><tr><th rowspan="2">Sub-topic</th><th colspan="3" class="n">Authored or Co-authored</th><th colspan="2" class="n">Voted Aye on</th><th colspan="2" class="n">Voted No on</th></tr>'
@@ -546,28 +550,32 @@ def main():
             if not ks:
                 continue
             ks.sort(key=lambda k: (k not in role_of, role_of.get(k) != "LEAD_AUTHOR", bills[k]["type"], bills[k]["number"]))
-            items = []
-            for k in ks[:max(40, sum(1 for k in ks if k in role_of))]:
-                chips = ""
-                if k in role_of:
-                    chips += f' <span class="chip">{esc(T(role_of[k]))}</span>'
-                if k in vt and vt[k][1] in ("AYE", "NOE"):
-                    chips += f' <span class="chip">Voted {"Aye" if vt[k][1] == "AYE" else "No"}</span>'
-                dirs = []
-                for t in policy_tags[k]:
-                    if SUB[t["subtopic"]]["topic_id"] == tid and t["direction"] in SCORE and SUB[t["subtopic"]]["axis"] in ("A", "R"):
-                        w = DIR_WORD(t["direction"])
-                        if w not in dirs:
-                            dirs.append(w)
-                chips += "".join(f' <span class="chip">{esc(w)}</span>' for w in dirs)
-                items.append(bill_li(k, chips, brief=k not in role_of))
+            shown = ks[:max(40, sum(1 for k in ks if k in role_of))]
+            groups = []
+            for sub in TOPICS[tid]["subtopics"]:
+                items = []
+                for k in shown:
+                    tg = [t for t in policy_tags[k] if t["subtopic"] == sub["id"]]
+                    if not tg:
+                        continue
+                    chips = ""
+                    if k in role_of:
+                        chips += f' <span class="chip">{esc(RL(role_of[k]))}</span>'
+                    if k in vt and vt[k][1] in ("AYE", "NOE"):
+                        chips += f' <span class="chip">Voted {"Aye" if vt[k][1] == "AYE" else "No"}</span>'
+                    if sub["axis"] in ("A", "R") and tg[0]["direction"] in SCORE:
+                        chips += f' <span class="chip">{esc(DIR_WORD(tg[0]["direction"]))}</span>'
+                    items.append(bill_li(k, chips, sid=sub["id"], brief=k not in role_of))
+                if items:
+                    groups.append(f'<h4 id="s-{slug(sub["id"])}">{esc(T(sub["name"]))} <span class="muted small">({len(items)})</span></h4><ul>{"".join(items)}</ul>')
+            items = groups
             more = f'<p class="muted small">Showing {min(len(ks), max(40, sum(1 for k in ks if k in role_of)))} of {len(ks)}: all authored bills plus the first votes.</p>' if len(ks) > max(40, sum(1 for k in ks if k in role_of)) else ""
             n_all, n_live = len(ks), len([k for k in ks if alive[k]])
             sections.append(f'<h3 id="t-{tid}">{esc(TOPICS[tid]["name"])} <span class="muted small">({vv(n_all, n_live)})</span></h3>'
-                            f'<ul>{"".join(items)}</ul>{more}<p class="small"><a href="../topic/{tid}.html">All California bills on {esc(TOPICS[tid]["name"])} →</a></p>')
+                            f'{"".join(items)}{more}<p class="small"><a href="../topic/{tid}.html">All California bills on {esc(TOPICS[tid]["name"])} →</a></p>')
         record = f'<h2>Record by topic</h2><p class="small muted">Bills this legislator authored or co-authored first (with summaries), then bills they voted on. Direction chips are measured against current law.</p>{"".join(sections)}' if sections else ""
         au_sorted = sorted(au, key=lambda x: (x[1] != "LEAD_AUTHOR", bills[x[0]]["type"], bills[x[0]]["number"]))
-        au_list = "".join(bill_li(k, f' <span class="chip">{esc(T(role))}</span>', brief=True) for k, role in au_sorted[:400])
+        au_list = "".join(bill_li(k, f' <span class="chip">{esc(RL(role))}</span>', brief=True) for k, role in au_sorted[:400])
         body = f"""<p class="small"><a href="../legislators.html">← All legislators</a></p><h1>{esc(L["name"])}</h1>
 <p class="lede"><span class="party {L["party"]}">{esc({"DEM": "Democrat", "REP": "Republican"}.get(L["party"], L["party"]))}</span> · {esc(L["house"])} · District {esc(re.sub(r"^[A-Z]+0*", "", lid.split(":")[0]))}</p>
 {vb(leg_block(False), leg_block(True))}
