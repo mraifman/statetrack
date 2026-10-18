@@ -103,44 +103,44 @@ BENCHMARK = ("Every direction is measured against the <b>status quo</b>: current
 
 CSS_V = ""
 CSS = """
-:root{color-scheme:light;--bg:#ffffff;--surface:#ffffff;--alt:#f6f5f0;--ink:#161d2e;--ink2:#465065;--muted:#778095;--line:#e4e6ec;--axis:#c8ced9;--accent:#e0a500;--sun:#f2b705;--sun2:#f7d56a;--navy:#14213d;--navy2:#1f3157;
+:root{color-scheme:light;--bg:#ffffff;--surface:#ffffff;--alt:#f6f5f0;--ink:#161d2e;--ink2:#465065;--muted:#5b6577;--line:#e4e6ec;--axis:#c8ced9;--accent:#e0a500;--sun:#f2b705;--sun2:#f7d56a;--navy:#14213d;--navy2:#1f3157;
 --rest2:#a62b1f;--rest1:#c8432f;--mixed:#9aa1b0;--neutral:#c9ced8;--perm1:#2a74bd;--perm2:#15508d;--chip:#eef0f5;--link:#15508d;
 --serif:Charter,"Iowan Old Style","Palatino Linotype",Georgia,serif}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
 a{color:var(--link)}header.site{background:linear-gradient(180deg,var(--navy2),var(--navy));border-bottom:3px solid var(--sun);box-shadow:0 2px 14px rgba(20,33,61,.18)}
 .wrap{max-width:1040px;margin:0 auto;padding:0 16px}nav{display:flex;gap:16px;align-items:center;flex-wrap:nowrap;padding:12px 0;font-size:15px;white-space:nowrap}@media(max-width:1180px){nav .tag{display:none}}@media(max-width:900px){nav{flex-wrap:wrap}}
-nav .brand{font-family:var(--serif);font-weight:700;font-size:21px;letter-spacing:.2px;color:#fff;text-decoration:none;margin-right:4px;display:flex;align-items:center;gap:8px}nav .brand svg{width:24px;height:24px}nav .tag{color:var(--sun2);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;margin-right:12px;border-left:1px solid #4a5b82;padding-left:12px}nav a{color:#d6ddee;text-decoration:none}nav a:hover{color:#fff;text-decoration:none;box-shadow:0 2px 0 var(--sun)}
-nav .toggle{margin-left:auto;font-size:13.5px;color:#d6ddee;display:flex;align-items:center;gap:6px;cursor:pointer}nav .toggle input{width:16px;height:16px}
+nav .brand{font-family:var(--serif);font-weight:700;font-size:21px;letter-spacing:.2px;color:#fff;text-decoration:none;margin-right:4px;display:flex;align-items:center;gap:8px}nav .brand svg{width:24px;height:24px}nav .tag{color:var(--sun2);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;margin-right:12px;border-left:1px solid #4a5b82;padding-left:12px}nav a{color:#d6ddee;text-decoration:none}nav a:hover{color:#fff;text-decoration:none;box-shadow:0 2px 0 var(--sun)}
+nav .toggle{margin-left:auto;font-size:14px;color:#d6ddee;display:flex;align-items:center;gap:6px;cursor:pointer}nav .toggle input{width:16px;height:16px}
 .v-live{display:none}html.alive .v-live{display:revert}html.alive .v-all{display:none}html.alive .dead{display:none}
 main{padding:24px 0 64px}h1{font-family:var(--serif);font-size:34px;line-height:1.15;letter-spacing:-.01em;margin:8px 0 8px;font-weight:700}h2{font-family:var(--serif);font-size:22px;margin:36px 0 10px;padding-top:14px;border-top:1px solid var(--line);font-weight:700}h3{font-size:16px;margin:20px 0 6px}
-.lede{color:var(--ink2);max-width:70ch;margin:0 0 16px}.muted{color:var(--muted)}.small{font-size:13px}
+.lede{color:var(--ink2);max-width:70ch;margin:0 0 16px}.muted{color:var(--muted)}.small{font-size:14px}
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:16px 0}
-.tile{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px 16px;background:linear-gradient(180deg,#fff,var(--alt));box-shadow:0 1px 2px rgba(20,33,61,.06)}.tile b{display:block;font-family:var(--serif);font-size:30px;line-height:1.1;color:var(--navy)}.tile>span{color:var(--ink2);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px 16px;background:linear-gradient(180deg,#fff,var(--alt));box-shadow:0 1px 2px rgba(20,33,61,.06)}.tile b{display:block;font-family:var(--serif);font-size:30px;line-height:1.1;color:var(--navy)}.tile>span{color:var(--ink2);font-size:13px;text-transform:uppercase;letter-spacing:.06em}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px 16px;margin:12px 0;box-shadow:0 1px 2px rgba(20,33,61,.06);border-top:2px solid var(--navy)}
 .issues{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin:12px 0}
 .issues .card{margin:0;display:flex;flex-direction:column;gap:6px}.issues h3{margin:0;font-size:17px}.issues h3 a{font-family:var(--serif);color:var(--navy);text-decoration:none}.issues h3 a:hover{text-decoration:underline}
-table{border-collapse:collapse;width:100%;font-size:14px}th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--ink2);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.03em}
+table{border-collapse:collapse;width:100%;font-size:15px}th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--ink2);font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:.03em}
 td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 .bars .row{display:grid;grid-template-columns:minmax(120px,230px) 1fr 56px;gap:10px;align-items:center;padding:3px 0}
 .bars .track{height:16px}.bars .fill{height:100%;background:linear-gradient(90deg,var(--navy2),var(--navy));border-radius:0 3px 3px 0;min-width:2px}
 .bars a{color:var(--ink);text-decoration:none}.bars a:hover{text-decoration:underline}.bars .v{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink2)}
-.legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin:8px 0;font-size:13px;color:var(--ink2)}.legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px;background:var(--c)}
-.chip{display:inline-block;background:var(--chip);border-radius:999px;padding:1px 9px;font-size:12px;color:var(--ink2);margin:1px 4px 1px 0;white-space:nowrap}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin:8px 0;font-size:14px;color:var(--ink2)}.legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px;background:var(--c)}
+.chip{display:inline-block;background:var(--chip);border-radius:999px;padding:1px 9px;font-size:13px;color:var(--ink2);margin:1px 4px 1px 0;white-space:nowrap}
 .chip.rest{background:var(--rest1);color:#fff}.chip.perm{background:var(--perm1);color:#fff}.chip.mid{background:var(--neutral);color:var(--ink)}
 .dot{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:0}
 .party{font-weight:600}.DEM{color:#2a78d6}.REP{color:#d03b3b}
 blockquote{margin:6px 0;padding:8px 14px;border-left:3px solid var(--sun);color:var(--ink2);background:var(--alt);font-family:var(--serif)}
 input[type=text],input:not([type]),select{font:inherit;padding:8px 10px;border:1px solid var(--axis);border-radius:4px;background:var(--surface);color:var(--ink)}
 .filters{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.filters input{flex:1;min-width:200px}
-.bsum{margin:3px 0 2px;color:var(--ink2);font-size:14px;max-width:70ch}.bmeta{color:var(--muted);font-size:12.5px;margin-bottom:10px}details.subcat{margin:2px 0 2px 26px;padding-left:14px;border-left:3px solid var(--line)}details.subcat .mrow>span:first-child b{font-weight:600;font-size:15px}details.subcat .mrow>span:first-child b::before{content:"↳ ";color:var(--muted);font-weight:400}details.subcat table{font-size:14px}details.subcat>summary{display:block;list-style:none;cursor:pointer}details.subcat>summary::marker{content:""}details.subcat>summary:hover .mrow,details.subcat[open]>summary .mrow{background:var(--chip);border-radius:8px}details.cat>summary{display:block;list-style:none;cursor:pointer}details.cat>summary::marker{content:""}details.cat>summary::-webkit-details-marker{display:none}details.cat{border-bottom:1px solid var(--line);margin:0 0 4px;padding-bottom:6px}details.cat[open]>summary .mrow{background:var(--chip);border-radius:8px}details.cat>summary:hover .mrow{background:var(--chip);border-radius:8px}h3:target,h4:target{background:var(--chip);border-radius:6px;padding:2px 8px}details summary{cursor:pointer;color:var(--ink2)}footer{color:var(--muted);font-size:13px;padding:24px 0;border-top:1px solid var(--line)}
-.axis{display:grid;grid-template-columns:minmax(120px,230px) 1fr 92px;gap:10px;font-size:12px;color:var(--ink2);margin-top:8px}.axis .ends{display:flex;justify-content:space-between}
-.mrow{display:grid;grid-template-columns:minmax(120px,230px) 1fr 92px;gap:10px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line)}.mrow a{color:var(--ink);text-decoration:none}.mrow a:hover{text-decoration:underline}
-.mrow .v{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink2);font-size:13px}.mrow.sub{padding-left:14px}
+.bsum{margin:3px 0 2px;color:var(--ink2);font-size:15px;max-width:70ch}.bmeta{color:var(--muted);font-size:14px;margin-bottom:10px}details.subcat{margin:2px 0 2px 26px;padding-left:14px;border-left:3px solid var(--line)}details.subcat .mrow>span:first-child b{font-weight:600;font-size:15px}details.subcat .mrow>span:first-child b::before{content:"↳ ";color:var(--muted);font-weight:400}details.subcat table{font-size:15px}details.subcat>summary{display:block;list-style:none;cursor:pointer}details.subcat>summary::marker{content:""}details.subcat>summary:hover .mrow,details.subcat[open]>summary .mrow{background:var(--chip);border-radius:8px}details.cat>summary{display:block;list-style:none;cursor:pointer}details.cat>summary::marker{content:""}details.cat>summary::-webkit-details-marker{display:none}details.cat{border-bottom:1px solid var(--line);margin:0 0 4px;padding-bottom:6px}details.cat[open]>summary .mrow{background:var(--chip);border-radius:8px}details.cat>summary:hover .mrow{background:var(--chip);border-radius:8px}h3:target,h4:target{background:var(--chip);border-radius:6px;padding:2px 8px}details summary{cursor:pointer;color:var(--ink2)}footer{color:var(--muted);font-size:14px;padding:24px 0;border-top:1px solid var(--line)}
+.axis{display:grid;grid-template-columns:minmax(120px,230px) 1fr 104px;gap:10px;font-size:13px;color:var(--ink2);margin-top:8px}.axis .ends{display:flex;justify-content:space-between}
+.mrow{display:grid;grid-template-columns:minmax(120px,230px) 1fr 104px;gap:10px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line)}.mrow a{color:var(--ink);text-decoration:none}.mrow a:hover{text-decoration:underline}
+.mrow .v{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink2);font-size:14px}.mrow.sub{padding-left:14px}
 .meter{position:relative;height:18px}.meter::before,.meter::after{content:"";position:absolute;top:7px;height:4px;width:50%}.meter::before{left:0;background:var(--rest1);opacity:.28;border-radius:2px 0 0 2px}.meter::after{right:0;background:var(--perm1);opacity:.28;border-radius:0 2px 2px 0}
 .meter .mid{position:absolute;left:50%;top:1px;bottom:1px;width:2px;margin-left:-1px;background:var(--axis);z-index:1}
 .meter .avg{position:absolute;top:3px;bottom:3px;width:3px;margin-left:-1.5px;background:var(--ink2);opacity:.7;z-index:1;border-radius:1px}
 .meter .dot{position:absolute;top:1px;width:16px;height:16px;margin-left:-8px;border-radius:50%;border:2px solid var(--surface);z-index:2;box-shadow:0 0 0 1px var(--axis)}
-.dot.rest{background:var(--rest1)}.dot.perm{background:var(--perm1)}.dot.mid{background:var(--neutral)}.dot.few{background:var(--surface);box-shadow:0 0 0 2px currentColor}.dot.few.rest{color:var(--rest1)}.dot.few.perm{color:var(--perm1)}.dot.few.mid{color:var(--mixed)}
+.meter .dot.sg{width:18px;height:18px;margin-left:-9px;top:0;background:#fff;border:3px solid var(--navy);box-shadow:none;z-index:3}.meter .dot.vt{width:12px;height:12px;margin-left:-6px;top:3px;background:var(--navy);border:2px solid #fff;box-shadow:0 0 0 1px var(--navy);z-index:2}.gov .mrow,.gov .axis{grid-template-columns:minmax(120px,230px) 1fr 200px}.gvl{white-space:nowrap;font-size:13px;margin:1px 0}.gvl .sym{color:var(--navy)}.legend .key{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:-2px}.legend .key.sg{border:3px solid var(--navy);background:#fff;width:14px;height:14px}.legend .key.vt{background:var(--navy)}.dot.rest{background:var(--rest1)}.dot.perm{background:var(--perm1)}.dot.mid{background:var(--neutral)}.dot.few{background:var(--surface);box-shadow:0 0 0 2px currentColor}.dot.few.rest{color:var(--rest1)}.dot.few.perm{color:var(--perm1)}.dot.few.mid{color:var(--mixed)}
 .mini .meter{height:14px}.mini .meter .dot{width:12px;height:12px;margin-left:-6px;top:0}.mini .meter::before,.mini .meter::after{top:5px}
 .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}.note{border-left:3px solid var(--accent);padding:6px 12px;background:var(--surface)}
 @media (max-width:640px){.bars .row{grid-template-columns:1fr 60px}.bars .track{grid-column:1/-1;order:3}.mrow,.axis{grid-template-columns:1fr 70px}.mrow .meter,.axis .ends{grid-column:1/-1;order:3}nav .toggle{margin-left:0}}
@@ -505,8 +505,8 @@ def main():
             v_k = {k: v for k, v in vt.items() if not live or alive[k]}
             aye = sum(1 for _, v in v_k.values() if v == "AYE")
             noe = sum(1 for _, v in v_k.values() if v == "NOE")
-            tiles = (f'<div class="tiles"><div class="tile"><b>{len(a_k)}</b><span>Bills Authored or Co-authored</span></div><div class="tile"><b>{len(v_k)}</b><span>Bills With a Recorded Floor Vote</span></div>'
-                     f'<div class="tile"><b>{aye}</b><span>Aye Votes</span></div><div class="tile"><b>{noe}</b><span>No Votes</span></div></div>')
+            tiles = (f'<div class="tiles"><div class="tile"><b>{len(a_k):,}</b><span>Bills Authored or Co-authored</span></div><div class="tile"><b>{len(v_k):,}</b><span>Bills With a Recorded Floor Vote</span></div>'
+                     f'<div class="tile"><b>{aye:,}</b><span>Aye Votes</span></div><div class="tile"><b>{noe}</b><span>No Votes</span></div></div>')
             # lean by issue (weighted authorship)
             per = defaultdict(list)
             for k, role in a_k:
@@ -712,28 +712,43 @@ const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}"
     trows.sort(reverse=True)
     topic_tbl = ('<table><thead><tr><th>Topic</th><th class="n">Signed</th><th class="n">Vetoed</th><th class="n">Veto rate</th><th class="n">Avg. lean of signed</th><th class="n">Avg. lean of vetoed</th></tr></thead><tbody>'
                  + "".join(r for _, r in trows) + "</tbody></table>")
-    def gov_detail(ks, tid):
+    def two_meter(ss, vs, label):
+        def pos(sc):
+            return (sum(sc) / len(sc) + 2) / 4 * 100
+        dots = ""
+        if vs:
+            dots += f'<b class="dot vt" style="left:{pos(vs):.1f}%" title="Vetoed: average {sum(vs) / len(vs):+.2f} over {len(vs)} directional tags"></b>'
+        if ss:
+            dots += f'<b class="dot sg" style="left:{pos(ss):.1f}%" title="Signed: average {sum(ss) / len(ss):+.2f} over {len(ss)} directional tags"></b>'
+        return f'<div class="meter" role="img" aria-label="{esc(label)}: signed and vetoed averages"><i class="mid"></i>{dots}</div>'
+
+    def side_chip(sc, symbol, name):
+        if len(sc) < MIN_LEG:
+            return f'<div class="gvl"><span class="sym">{symbol}</span> {name} <span class="muted">n/a</span></div>'
+        m_ = sum(sc) / len(sc)
+        kind, word = ("rest", "Restrictive") if m_ <= -CUT else ("perm", "Permissive") if m_ >= CUT else ("mid", "Balanced")
+        return f'<div class="gvl"><span class="sym">{symbol}</span> {name} <span class="chip {kind}">{word}</span></div>'
+
+    def dir_scores(ks, pred):
+        return [lean(t) for k in ks for t in policy_tags[k] if lean(t) is not None and pred(t)]
+
+    def gov_detail(sk, vk, tid):
         by_sub = defaultdict(list)
-        for k in ks:
-            for t in policy_tags[k]:
-                if SUB[t["subtopic"]]["topic_id"] == tid and lean(t) is not None:
-                    by_sub[t["subtopic"]].append((k, t))
+        for status_, ks in (("Signed", sk), ("Vetoed", vk)):
+            for k in ks:
+                for t in policy_tags[k]:
+                    if SUB[t["subtopic"]]["topic_id"] == tid and lean(t) is not None:
+                        by_sub[t["subtopic"]].append((k, t, status_))
         out = []
         for sid, its in sorted(by_sub.items(), key=lambda kv: -len(kv[1])):
-            sc = [lean(t) for _, t in its if lean(t) is not None]
-            if sc:
-                sm_ = sum(sc) / len(sc)
-                sv = "Restrictive" if sm_ <= -CUT else "Permissive" if sm_ >= CUT else "Balanced"
-                sk = {"Restrictive": "rest", "Permissive": "perm", "Balanced": "mid"}[sv]
-                smeter, _ = meter(sc, SUB[sid]["name"])
-                right = f'<span class="chip {sk}">{sv}</span><br><span class="muted small">{sm_:+.2f}</span>'
-            else:
-                smeter, right = f'<span class="muted small">{"funding only" if SUB[sid]["axis"] == "F" else "no direction"}</span>', ""
+            ss = [lean(t) for _, t, st_ in its if st_ == "Signed"]
+            vs = [lean(t) for _, t, st_ in its if st_ == "Vetoed"]
             rows_ = "".join(
-                f'<tr><td><a href="bill/{slug(k)}.html">{esc(k)}</a> · {esc(bills[k].get("title", ""))}</td><td>{au_link(k)}</td><td>{esc(DIR_WORD(t["direction"])) if t["direction"] in SCORE and SUB[sid]["axis"] in ("A", "R") else ""}</td></tr>'
-                for k, t in sorted(its, key=lambda x: (bills[x[0]]["type"], bills[x[0]]["number"])))
-            out.append(f'<details class="subcat"><summary><div class="mrow sub"><span><b>{esc(T(SUB[sid]["name"]))}</b> <span class="muted small">({len(its)} bill{"" if len(its) == 1 else "s"})</span>{NOTE_DIV(SUB[sid].get("note"))}</span>{smeter}<div class="v">{right}</div></div></summary>'
-                       f'<table><thead><tr><th>Bill</th><th>Lead author</th><th>Direction vs. current law</th></tr></thead><tbody>{rows_}</tbody></table></details>')
+                f'<tr><td><a href="bill/{slug(k)}.html">{esc(k)}</a> · {esc(bills[k].get("title", ""))}</td><td>{st_}</td><td>{au_link(k)}</td><td>{esc(DIR_WORD(t["direction"]))}</td></tr>'
+                for k, t, st_ in sorted(its, key=lambda x: (x[2], bills[x[0]]["type"], bills[x[0]]["number"])))
+            out.append(f'<details class="subcat"><summary><div class="mrow sub"><span><b>{esc(T(SUB[sid]["name"]))}</b> <span class="muted small">({len({k for k, _, _ in its})} bill{"" if len({k for k, _, _ in its}) == 1 else "s"})</span>{NOTE_DIV(SUB[sid].get("note"))}</span>'
+                       f'{two_meter(ss, vs, SUB[sid]["name"])}<div class="v">{side_chip(ss, "○", "Signed")}{side_chip(vs, "●", "Vetoed")}</div></div></summary>'
+                       f'<table><thead><tr><th>Bill</th><th>Governor</th><th>Lead author</th><th>Direction vs. current law</th></tr></thead><tbody>{rows_}</tbody></table></details>')
         return "".join(out)
 
     def au_link(k):
@@ -756,29 +771,26 @@ const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}"
         kind, word = ("rest", "Restrictive") if mean <= -CUT else ("perm", "Permissive") if mean >= CUT else ("mid", "Balanced")
         return f'<div class="mrow"><span>{label}</span>{m}<div class="v"><span class="chip {kind}">{word}</span><br><span class="muted small">{extra}</span></div></div>'
 
-    def gov_block(ks, avg_by_topic):
-        per = {}
+    def gov_block():
+        rows_ = []
         for tid in POLICY_TOPICS:
-            kk = [k for k in ks if tid in bill_topics(k)]
-            sc = [lean(t) for k in kk for t in policy_tags[k] if lean(t) is not None and SUB[t["subtopic"]]["topic_id"] == tid]
-            if kk and sc:
-                per[tid] = (kk, sc)
-        out = []
-        for tid, (kk, sc) in sorted(per.items(), key=lambda kv: -len(kv[1][1])):
-            nb = len({k for k in kk if any(lean(t) is not None and SUB[t["subtopic"]]["topic_id"] == tid for t in policy_tags[k])})
-            if len(sc) < MIN_LEG:
-                out.append(f'<div class="mrow"><span><b>{esc(TOPICS[tid]["name"])}</b></span><span class="muted small">fewer than {MIN_LEG} directional bills</span><div class="v"><span class="chip">Not enough bills</span><br><span class="muted small">{nb} bill{"" if nb == 1 else "s"}</span></div></div>')
+            sk = [k for k in signed if tid in bill_topics(k)]
+            vk = [k for k in vetoed if tid in bill_topics(k)]
+            pred = lambda t, tid=tid: SUB[t["subtopic"]]["topic_id"] == tid
+            ss, vs = dir_scores(sk, pred), dir_scores(vk, pred)
+            if not ss and not vs:
                 continue
-            m, mean = meter(sc, TOPICS[tid]["name"], avg_by_topic.get(tid))
-            kind, word = ("rest", "Restrictive") if mean <= -CUT else ("perm", "Permissive") if mean >= CUT else ("mid", "Balanced")
-            row = f'<div class="mrow"><span><b>{esc(TOPICS[tid]["name"])}</b></span>{m}<div class="v"><span class="chip {kind}">{word}</span><br><span class="muted small">{nb} bill{"" if nb == 1 else "s"}</span></div></div>'
-            out.append(f'<details class="cat"><summary>{row}</summary>{gov_detail(kk, tid)}<p class="small muted">Average = {sum(sc):+d} ÷ {len(sc)} = <b>{sum(sc) / len(sc):+.2f}</b></p></details>')
+            rows_.append((len(ss) + len(vs), tid, sk, vk, ss, vs))
+        out = []
+        for _, tid, sk, vk, ss, vs in sorted(rows_, key=lambda r: -r[0]):
+            row = (f'<div class="mrow"><span><b>{esc(TOPICS[tid]["name"])}</b></span>{two_meter(ss, vs, TOPICS[tid]["name"])}'
+                   f'<div class="v">{side_chip(ss, "○", "Signed")}{side_chip(vs, "●", "Vetoed")}</div></div>')
+            avg_s = f"{sum(ss) / len(ss):+.2f}" if ss else "n/a"
+            avg_v = f"{sum(vs) / len(vs):+.2f}" if vs else "n/a"
+            out.append(f'<details class="cat"><summary>{row}</summary>{gov_detail(sk, vk, tid)}<p class="small muted">Signed average = {avg_s} · Vetoed average = {avg_v}</p></details>')
         return AXIS + "".join(out)
 
-    avg_t = {tid: mean_lean([k for k in signed + vetoed if tid in bill_topics(k)], tid)[0] for tid in POLICY_TOPICS}
-    gov_html = (f'<p><label class="small">Governor’s actions <select id="gv" aria-label="Governor’s actions"><option value="signed">Signed</option><option value="vetoed">Vetoed</option></select></label></p>'
-                f'<div class="gv gv-signed">{gov_block(signed, avg_t)}</div><div class="gv gv-vetoed" style="display:none">{gov_block(vetoed, avg_t)}</div>'
-                "<script>const gv=document.getElementById('gv');gv.onchange=()=>{document.querySelectorAll('.gv').forEach(d=>d.style.display=d.classList.contains('gv-'+gv.value)?'':'none')}</script>")
+    gov_html = '<div class="gov"><div class="legend"><span style="--c:transparent"><i class="key sg"></i>Signed average</span><span style="--c:transparent"><i class="key vt"></i>Vetoed average</span></div>' + gov_block() + '</div>'
 
     prow = []
     for code_, name in (("DEM", "Democratic"), ("REP", "Republican")):
@@ -835,7 +847,7 @@ const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}"
 <p class="lede">Of {n_v + n_s:,} bills that reached the Governor in the 2025–26 session, {n_v} were vetoed ({100 * n_v / (n_v + n_s):.1f}%) and {n_s:,} were signed. This page shows which topics, directions and authors the vetoes fall on.</p>
 <div class="tiles"><div class="tile"><b>{n_v}</b><span>Vetoed</span></div><div class="tile"><b>{n_s:,}</b><span>Became Law</span></div><div class="tile"><b>{100 * n_v / (n_v + n_s):.1f}%</b><span>Veto Rate</span></div><div class="tile"><b>{n_proof}</b><span>Vetoed After a Two-Thirds Vote in Both Houses</span></div></div>
 <div class="note small">Direction compares each bill with current California law, as everywhere else on this site. The Governor’s veto messages (the stated reasons) are not part of this data; each bill shows its own summary and votes.</div>
-<h2>Where the Governor lands</h2><p class="small muted">Each marker is the average direction of the bills the Governor signed or vetoed on that topic, measured against current law. The dark tick is the average of all bills on the topic that reached the Governor. Restrictive is −{CUT} or lower, Permissive is +{CUT} or higher, otherwise Balanced. Pick an action, then click a topic to see the bills behind it.</p>{gov_html}
+<h2>Where the Governor lands</h2><p class="small muted">On each topic, the hollow circle is the average direction of the bills the Governor signed and the filled circle is the average of the bills the Governor vetoed, measured against current law. Restrictive is −{CUT} or lower, Permissive is +{CUT} or higher, otherwise Balanced. Click a topic, then a sub-topic, to see the bills.</p>{gov_html}
 <h2>By lead author’s party</h2>{party_tbl}
 <h2>When</h2>{month_bars}
 <h2>All {n_v} vetoed bills</h2><p><label class="small">Topic <select id="vt" aria-label="Topic"><option value="">All topics</option>{opts}</select></label></p><ul id="vlist">{"".join(items)}</ul>{vjs}""", 0, "Bills vetoed by the Governor in California’s 2025–26 session"))
