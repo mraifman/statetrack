@@ -24,8 +24,11 @@ jobs:
           export AWS_SECRET_ACCESS_KEY="$(printf %s "$AWS_SECRET_ACCESS_KEY" | tr -d '[:space:]')"
           acct="$(printf %s "$R2_ACCOUNT_ID" | tr -d '[:space:]')"; bucket="$(printf %s "$R2_BUCKET" | tr -d '[:space:]')"
           ep="https://$acct.r2.cloudflarestorage.com"
-          aws s3 sync data/ca "s3://$bucket/statetrack/ca/" --endpoint-url "$ep" --exclude "*.gz" --content-type application/json --cache-control "public, max-age=300"
-          aws s3 sync data/ca "s3://$bucket/statetrack/ca/" --endpoint-url "$ep" --exclude "*" --include "*.gz" --content-type application/gzip --cache-control "public, max-age=300"
+          for d in data/*/; do
+            st="$(basename "$d")"
+            aws s3 sync "data/$st" "s3://$bucket/statetrack/$st/" --endpoint-url "$ep" --exclude "*.gz" --content-type application/json --cache-control "public, max-age=300"
+            aws s3 sync "data/$st" "s3://$bucket/statetrack/$st/" --endpoint-url "$ep" --exclude "*" --include "*.gz" --content-type application/gzip --cache-control "public, max-age=300"
+          done
           aws s3 cp taxonomy/taxonomy.json "s3://$bucket/statetrack/taxonomy/taxonomy.json" --endpoint-url "$ep" --content-type application/json --cache-control "public, max-age=300"
           echo "--- now in statetrack/"
           aws s3 ls "s3://$bucket/statetrack/" --recursive --endpoint-url "$ep" | awk '{print $3, $4}'
