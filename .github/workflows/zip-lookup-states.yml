@@ -1,0 +1,44 @@
+name: "Build ZIP-to-district lookups for other states (Census overlap files)"
+
+on:
+  workflow_dispatch:
+    inputs:
+      states:
+        description: "Space-separated: code:fips pairs"
+        default: "wa:53 or:41 fl:12"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Download overlap files and build lookups
+        run: |
+          set -u
+          base="https://www2.census.gov/geo/docs/maps-data/data/rel2020/cd-sld"
+          for pair in ${{ inputs.states }}; do
+            st="${pair%%:*}"; fips="${pair##*:}"
+            mkdir -p /tmp/rel/$st data/$st
+            ok=1
+            for chamber in sldl sldu; do
+              f="tab20_${chamber}202420_zcta520_st${fips}.txt"
+              code=$(curl -sS -L -m 180 -o "/tmp/rel/$st/$chamber.txt" -w "%{http_code}" "$base/$f")
+              echo "$st $f -> $code, $(wc -l < /tmp/rel/$st/$chamber.txt) lines"
+              [ "$code" = "200" ] || ok=0
+            done
+            if [ "$ok" = "1" ]; then
+              python3 scripts/build_zip_lookup.py /tmp/rel/$st/sldl.txt /tmp/rel/$st/sldu.txt data/$st/zip_lookup.json "$fips"
+            else
+              echo "skipping $st: files not available"
+            fi
+          done
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/*/zip_lookup.json
+          git diff --cached --quiet && { echo "no change"; exit 0; }
+          git commit -q -m "ZIP to legislative district lookups for other states"
+          git pull -q --rebase origin main && git push -q origin main

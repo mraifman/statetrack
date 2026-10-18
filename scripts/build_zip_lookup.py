@@ -10,7 +10,7 @@ likelihoods and points people to the official address lookup for a definite answ
 import csv, json, sys
 from collections import defaultdict
 
-CA = "06"
+CA = "06"  # state FIPS prefix; overridden by the optional 4th argument
 
 
 def read(path, chamber_col_prefix):
@@ -33,7 +33,10 @@ def read(path, chamber_col_prefix):
 
 
 def main():
+    global CA
     lower, upper, dest = sys.argv[1:4]
+    if len(sys.argv) > 4:
+        CA = sys.argv[4]
     result = {}
     for chamber, path, prefix in (("A", lower, "SLDL"), ("S", upper, "SLDU")):
         for z, parts in read(path, prefix).items():
@@ -45,7 +48,7 @@ def main():
     with open(dest, "w") as fh:
         json.dump(result, fh, separators=(",", ":"), sort_keys=True)
     multi = sum(1 for v in result.values() if len(v.get("A", [])) > 1 or len(v.get("S", [])) > 1)
-    print(f"{len(result)} California ZIPs; {multi} span more than one district")
+    print(f"{len(result)} ZIPs; {multi} span more than one district")
 
 
 if __name__ == "__main__":
