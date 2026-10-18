@@ -1,6 +1,6 @@
 {
- "version": "1.0",
- "note": "Approved taxonomy. Direction is judged per sub-topic on its axis, from what the bill does.",
+ "version": "1.1",
+ "note": "Direction is measured against the status quo: current California law as described in the digest. Permissive = moves toward more permission, access or fewer rules; restrictive = toward less permission or more rules.",
  "axes": {
   "A": {
    "label": "Access / rights",
@@ -105,7 +105,7 @@
     {
      "id": "health_care.long_term_care_and_disability_services",
      "name": "Long-term care and disability services",
-     "axis": "A"
+     "axis": "F"
     },
     {
      "id": "health_care.health_care_workforce_and_funding",
@@ -119,38 +119,23 @@
    "name": "Guns and weapons",
    "subtopics": [
     {
-     "id": "guns_and_weapons.firearm_ownership_and_carry",
-     "name": "Firearm ownership and carry (permitless carry, concealed carry)",
+     "id": "guns_and_weapons.carry_and_ownership_including_public_places_and_schools",
+     "name": "Carry and ownership, including public places and schools",
      "axis": "A"
     },
     {
-     "id": "guns_and_weapons.background_checks_and_licensing",
-     "name": "Background checks and licensing",
+     "id": "guns_and_weapons.purchase_licensing_and_dealers",
+     "name": "Purchase, licensing and dealers",
      "axis": "R"
     },
     {
      "id": "guns_and_weapons.weapon_and_magazine_types",
-     "name": "Weapon and magazine types (assault weapons, ghost guns)",
+     "name": "Weapon and magazine types",
      "axis": "R"
     },
     {
-     "id": "guns_and_weapons.safe_storage_and_child_access",
-     "name": "Safe storage and child access",
-     "axis": "R"
-    },
-    {
-     "id": "guns_and_weapons.extreme_risk_protection_orders",
-     "name": "Extreme risk protection orders (\"red flag\")",
-     "axis": "R"
-    },
-    {
-     "id": "guns_and_weapons.firearms_in_schools_and_public_places",
-     "name": "Firearms in schools and public places",
-     "axis": "R"
-    },
-    {
-     "id": "guns_and_weapons.dealers_ammunition_and_manufacturing",
-     "name": "Dealers, ammunition and manufacturing",
+     "id": "guns_and_weapons.safe_storage_and_extreme_risk_orders",
+     "name": "Safe storage and extreme-risk orders",
      "axis": "R"
     },
     {
@@ -167,7 +152,7 @@
     {
      "id": "children_and_families.child_welfare_and_foster_care",
      "name": "Child welfare and foster care",
-     "axis": "R"
+     "axis": "F"
     },
     {
      "id": "children_and_families.child_care_and_early_education",
@@ -195,11 +180,6 @@
      "axis": "N"
     },
     {
-     "id": "children_and_families.paid_family_leave_and_family_benefits",
-     "name": "Paid family leave and family benefits",
-     "axis": "A"
-    },
-    {
      "id": "children_and_families.children_s_programs_and_funding",
      "name": "Children's programs and funding",
      "axis": "F"
@@ -211,9 +191,10 @@
    "name": "Housing",
    "subtopics": [
     {
-     "id": "housing.zoning_and_land_use",
-     "name": "Zoning and land use",
-     "axis": "R"
+     "id": "housing.zoning_land_use_and_short_term_rentals",
+     "name": "Zoning, land use and short-term rentals",
+     "axis": "R",
+     "note": "loosens = allows more building or more rentals; tightens = limits it"
     },
     {
      "id": "housing.rent_regulation_and_tenant_protections",
@@ -228,12 +209,8 @@
     {
      "id": "housing.homelessness",
      "name": "Homelessness (services vs. encampment rules)",
-     "axis": "A"
-    },
-    {
-     "id": "housing.short_term_rentals",
-     "name": "Short-term rentals",
-     "axis": "R"
+     "axis": "A",
+     "note": "expands = more services or protections; restricts = more enforcement against people who are homeless"
     },
     {
      "id": "housing.building_codes_and_construction",
@@ -259,7 +236,8 @@
     {
      "id": "ai_and_technology.ai_development_and_adoption",
      "name": "AI development and adoption (incentives vs. burdens)",
-     "axis": "A"
+     "axis": "A",
+     "note": "expands = promotes, funds or incentivizes; restricts = burdens or limits"
     },
     {
      "id": "ai_and_technology.government_use_of_ai",
@@ -279,21 +257,17 @@
     {
      "id": "ai_and_technology.data_centers_and_compute",
      "name": "Data centers and compute",
-     "axis": "A"
+     "axis": "A",
+     "note": "expands = facilitates or incentivizes; restricts = limits or adds conditions"
     },
     {
-     "id": "ai_and_technology.data_privacy",
-     "name": "Data privacy",
+     "id": "ai_and_technology.data_privacy_and_security",
+     "name": "Data privacy and security",
      "axis": "R"
     },
     {
      "id": "ai_and_technology.social_media_and_online_platforms",
      "name": "Social media and online platforms",
-     "axis": "R"
-    },
-    {
-     "id": "ai_and_technology.cybersecurity",
-     "name": "Cybersecurity",
      "axis": "R"
     },
     {
@@ -320,11 +294,17 @@
     {
      "id": "education.curriculum_and_classroom_content",
      "name": "Curriculum and classroom content",
-     "axis": "R"
+     "axis": "R",
+     "note": "restricts = bans or limits what may be taught; expands = requires or adds subject matter"
     },
     {
-     "id": "education.higher_education",
-     "name": "Higher education (tuition, tenure, DEI)",
+     "id": "education.higher_education_costs_and_aid",
+     "name": "Higher education costs and aid",
+     "axis": "F"
+    },
+    {
+     "id": "education.campus_policy",
+     "name": "Campus policy (speech, DEI, tenure)",
      "axis": "R"
     },
     {
@@ -333,13 +313,8 @@
      "axis": "F"
     },
     {
-     "id": "education.school_safety_and_discipline",
-     "name": "School safety and discipline",
-     "axis": "R"
-    },
-    {
-     "id": "education.phones_and_technology_in_schools",
-     "name": "Phones and technology in schools",
+     "id": "education.school_safety_discipline_and_phones",
+     "name": "School safety, discipline and phones",
      "axis": "R"
     }
    ]
@@ -408,11 +383,6 @@
      "id": "elections_and_voting.election_administration_and_officials",
      "name": "Election administration and officials",
      "axis": "N"
-    },
-    {
-     "id": "elections_and_voting.ballot_measures_and_initiatives",
-     "name": "Ballot measures and initiatives",
-     "axis": "A"
     }
    ]
   },
@@ -467,18 +437,13 @@
      "axis": "R"
     },
     {
-     "id": "environment_and_energy.renewable_energy_and_storage",
-     "name": "Renewable energy and storage",
+     "id": "environment_and_energy.clean_energy",
+     "name": "Clean energy (renewables, storage, nuclear)",
      "axis": "A"
     },
     {
      "id": "environment_and_energy.fossil_fuels_pipelines_and_mining",
      "name": "Fossil fuels, pipelines and mining",
-     "axis": "A"
-    },
-    {
-     "id": "environment_and_energy.nuclear_power",
-     "name": "Nuclear power",
      "axis": "A"
     },
     {
@@ -518,8 +483,8 @@
      "axis": "R"
     },
     {
-     "id": "criminal_justice.bail_and_pretrial",
-     "name": "Bail and pretrial",
+     "id": "criminal_justice.bail_pretrial_and_courts",
+     "name": "Bail, pretrial and courts",
      "axis": "R"
     },
     {
@@ -531,11 +496,6 @@
      "id": "criminal_justice.corrections_and_reentry",
      "name": "Corrections and reentry",
      "axis": "A"
-    },
-    {
-     "id": "criminal_justice.courts_and_procedure",
-     "name": "Courts and procedure",
-     "axis": "N"
     },
     {
      "id": "criminal_justice.victims_rights",
@@ -564,13 +524,8 @@
      "axis": "R"
     },
     {
-     "id": "labor_and_employment.paid_leave_and_benefits",
-     "name": "Paid leave and benefits",
-     "axis": "A"
-    },
-    {
-     "id": "labor_and_employment.unemployment_insurance",
-     "name": "Unemployment insurance",
+     "id": "labor_and_employment.worker_benefits",
+     "name": "Worker benefits (paid leave, unemployment insurance)",
      "axis": "A"
     },
     {
@@ -590,23 +545,13 @@
    "name": "Immigration",
    "subtopics": [
     {
-     "id": "immigration.state_cooperation_with_federal_enforcement",
-     "name": "State cooperation with federal enforcement",
+     "id": "immigration.state_cooperation_with_federal_enforcement_including_employment_verification",
+     "name": "State cooperation with federal enforcement, including employment verification",
      "axis": "R"
     },
     {
-     "id": "immigration.benefits_and_services_for_immigrants",
-     "name": "Benefits and services for immigrants",
-     "axis": "A"
-    },
-    {
-     "id": "immigration.employment_verification",
-     "name": "Employment verification",
-     "axis": "R"
-    },
-    {
-     "id": "immigration.in_state_tuition_and_education_access",
-     "name": "In-state tuition and education access",
+     "id": "immigration.benefits_education_and_services_for_immigrants",
+     "name": "Benefits, education and services for immigrants",
      "axis": "A"
     }
    ]
@@ -616,24 +561,14 @@
    "name": "Civil rights and liberties",
    "subtopics": [
     {
-     "id": "civil_rights_and_liberties.anti_discrimination_protections",
-     "name": "Anti-discrimination protections (incl. LGBTQ)",
+     "id": "civil_rights_and_liberties.anti_discrimination_protections_including_dei_programs",
+     "name": "Anti-discrimination protections, including DEI programs",
      "axis": "A"
     },
     {
-     "id": "civil_rights_and_liberties.religious_liberty",
-     "name": "Religious liberty",
+     "id": "civil_rights_and_liberties.speech_and_religion",
+     "name": "Speech and religion",
      "axis": "A"
-    },
-    {
-     "id": "civil_rights_and_liberties.free_speech_and_assembly",
-     "name": "Free speech and assembly",
-     "axis": "A"
-    },
-    {
-     "id": "civil_rights_and_liberties.diversity_equity_and_inclusion_programs",
-     "name": "Diversity, equity and inclusion programs",
-     "axis": "R"
     },
     {
      "id": "civil_rights_and_liberties.gender_identity_policies",
@@ -682,52 +617,61 @@
      "axis": "R"
     },
     {
-     "id": "consumer_protection_and_business.agriculture_and_food",
-     "name": "Agriculture and food",
-     "axis": "R"
+     "id": "consumer_protection_and_business.food_and_agriculture",
+     "name": "Food and agriculture",
+     "axis": "N"
     }
    ]
   },
   {
-   "id": "government_administration",
-   "name": "Government administration",
+   "id": "government_and_administration",
+   "name": "Government and administration",
    "subtopics": [
     {
-     "id": "government_administration.ceremonial_and_commemorative_measures",
-     "name": "Ceremonial and commemorative measures",
+     "id": "government_and_administration.state_agencies_and_programs",
+     "name": "State agencies and programs",
      "axis": "N"
     },
     {
-     "id": "government_administration.state_agencies_and_structure",
-     "name": "State agencies and structure",
-     "axis": "N"
+     "id": "government_and_administration.local_control_and_preemption",
+     "name": "Local control and preemption",
+     "axis": "A",
+     "note": "expands = gives local governments more authority; restricts = preempts or limits it"
     },
     {
-     "id": "government_administration.public_employees_and_pensions",
-     "name": "Public employees and pensions",
-     "axis": "F"
-    },
-    {
-     "id": "government_administration.local_government_powers_and_preemption",
-     "name": "Local government powers and preemption",
-     "axis": "A"
-    },
-    {
-     "id": "government_administration.ethics_and_transparency",
+     "id": "government_and_administration.ethics_and_transparency",
      "name": "Ethics and transparency",
      "axis": "R"
     },
     {
-     "id": "government_administration.constitutional_amendments_and_resolutions",
-     "name": "Constitutional amendments and resolutions",
+     "id": "government_and_administration.public_employees_and_pensions",
+     "name": "Public employees and pensions",
+     "axis": "F"
+    },
+    {
+     "id": "government_and_administration.state_constitution_and_ballot_measures",
+     "name": "State constitution and ballot measures",
      "axis": "N"
     },
     {
-     "id": "government_administration.emergency_powers",
+     "id": "government_and_administration.emergency_powers",
      "name": "Emergency powers",
-     "axis": "R"
+     "axis": "N"
     }
    ]
+  },
+  {
+   "id": "not_a_policy_topic",
+   "name": "Not a policy topic",
+   "subtopics": [
+    {
+     "id": "not_a_policy_topic.ceremonial_and_commemorative_measures",
+     "name": "Ceremonial and commemorative measures",
+     "axis": "N",
+     "note": "naming, honoring, commemorating or resolutions with no policy effect; tag these and nothing else"
+    }
+   ],
+   "excluded": true
   }
  ]
 }
