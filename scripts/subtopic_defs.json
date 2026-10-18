@@ -1,0 +1,298 @@
+{
+ "reproductive_health_and_abortion": [
+  "limits abortion or contraception access",
+  "expands that access"
+ ],
+ "gender_affirming_and_transgender_health_care": [
+  "limits this care",
+  "protects or expands access"
+ ],
+ "medicaid_and_public_coverage": [
+  "narrows eligibility or benefits",
+  "widens eligibility or benefits"
+ ],
+ "private_insurance_rules_and_mandates": [
+  "adds insurer requirements or mandates",
+  "removes or eases them"
+ ],
+ "drug_pricing_and_pharmacy": [
+  "adds price or pharmacy rules",
+  "eases those rules"
+ ],
+ "hospitals_and_providers": [
+  "adds rules on hospitals or providers",
+  "eases them or widens scope of practice"
+ ],
+ "mental_health_and_substance_use_treatment": [
+  "limits treatment access or adds compulsion",
+  "expands treatment access"
+ ],
+ "public_health_vaccines_and_emergency_measures": [
+  "adds mandates or controls",
+  "removes or limits them"
+ ],
+ "carry_and_ownership_including_public_places_and_schools": [
+  "limits who may own or carry firearms",
+  "expands who may"
+ ],
+ "purchase_licensing_and_dealers": [
+  "adds rules on buying, licensing or dealers",
+  "eases them"
+ ],
+ "weapon_and_magazine_types": [
+  "bans or limits weapon types",
+  "allows more"
+ ],
+ "safe_storage_and_extreme_risk_orders": [
+  "adds storage or removal requirements",
+  "eases them"
+ ],
+ "child_care_and_early_education": [
+  "limits child care or preschool access",
+  "expands access"
+ ],
+ "parental_rights": [
+  "limits parents’ say or access to information",
+  "expands parents’ say"
+ ],
+ "kids_online_safety_and_age_verification": [
+  "adds duties on platforms to protect minors",
+  "removes or eases them"
+ ],
+ "juvenile_justice": [
+  "adds penalties or tougher treatment of youth",
+  "reduces them"
+ ],
+ "zoning_land_use_and_short_term_rentals": [
+  "limits building or rentals",
+  "allows more building or rentals"
+ ],
+ "rent_regulation_and_tenant_protections": [
+  "adds rent limits or tenant protections",
+  "removes or eases them"
+ ],
+ "homelessness": [
+  "more enforcement against people who are homeless",
+  "more services or protections"
+ ],
+ "building_codes_and_construction": [
+  "adds building requirements",
+  "eases them"
+ ],
+ "ai_safety_and_oversight": [
+  "adds AI oversight or duties",
+  "removes or eases them"
+ ],
+ "ai_development_and_adoption": [
+  "burdens or limits AI development",
+  "promotes or funds it"
+ ],
+ "government_use_of_ai": [
+  "limits government use of AI",
+  "expands it"
+ ],
+ "deepfakes_and_synthetic_media": [
+  "adds rules or penalties",
+  "eases them"
+ ],
+ "ai_in_employment_and_consumer_decisions": [
+  "adds limits on automated decisions",
+  "eases them"
+ ],
+ "data_centers_and_compute": [
+  "limits data centers or adds conditions",
+  "facilitates or incentivizes them"
+ ],
+ "data_privacy_and_security": [
+  "adds privacy or security duties",
+  "eases them"
+ ],
+ "social_media_and_online_platforms": [
+  "adds rules on platforms",
+  "eases them"
+ ],
+ "broadband_and_telecom": [
+  "limits or adds conditions on networks",
+  "expands or speeds networks"
+ ],
+ "school_choice_and_vouchers": [
+  "limits choice or vouchers",
+  "expands them"
+ ],
+ "curriculum_and_classroom_content": [
+  "bans or limits what may be taught",
+  "requires or adds subject matter"
+ ],
+ "campus_policy": [
+  "adds limits on campus speech, DEI or tenure",
+  "removes them"
+ ],
+ "school_safety_discipline_and_phones": [
+  "adds discipline or device rules",
+  "eases them"
+ ],
+ "voter_registration_and_access": [
+  "limits voting access",
+  "expands voting access"
+ ],
+ "voter_id_and_election_security": [
+  "adds ID or security requirements",
+  "eases them"
+ ],
+ "campaign_finance": [
+  "adds limits or disclosure",
+  "eases limits or disclosure"
+ ],
+ "autonomous_vehicles": [
+  "bans or limits driverless vehicles",
+  "allows or encourages them"
+ ],
+ "driver_assistance_systems": [
+  "adds requirements or liability",
+  "reduces them"
+ ],
+ "traffic_safety_and_enforcement": [
+  "adds traffic rules or enforcement",
+  "eases them"
+ ],
+ "electric_vehicles_and_charging": [
+  "limits EVs or charging",
+  "supports or expands them"
+ ],
+ "rideshare_scooters_and_micromobility": [
+  "adds rules on these services",
+  "eases them"
+ ],
+ "drones_and_aviation": [
+  "adds rules on drones or aviation",
+  "eases them"
+ ],
+ "climate_and_emissions": [
+  "adds emissions rules or reporting",
+  "removes or eases them"
+ ],
+ "clean_energy": [
+  "limits clean energy projects",
+  "supports or speeds them"
+ ],
+ "fossil_fuels_pipelines_and_mining": [
+  "limits fossil fuel or mining activity",
+  "expands it"
+ ],
+ "utility_regulation_and_rates": [
+  "adds rules or oversight on utilities",
+  "loosens them"
+ ],
+ "environmental_permitting_and_review": [
+  "adds review steps or requirements",
+  "streamlines or exempts"
+ ],
+ "water_land_and_wildlife_protection": [
+  "adds protections or restrictions",
+  "removes or eases them"
+ ],
+ "sentencing_and_penalties": [
+  "adds or lengthens penalties",
+  "reduces or removes penalties"
+ ],
+ "policing_and_accountability": [
+  "adds police powers or limits oversight",
+  "adds oversight or limits powers"
+ ],
+ "bail_pretrial_and_courts": [
+  "tougher pretrial detention or court rules",
+  "easier release or looser rules"
+ ],
+ "drug_policy": [
+  "tougher drug laws",
+  "legalizes or decriminalizes"
+ ],
+ "corrections_and_reentry": [
+  "tougher conditions or limits on reentry",
+  "better conditions or reentry support"
+ ],
+ "victims_rights": [
+  "narrows victims’ rights",
+  "widens victims’ rights"
+ ],
+ "minimum_wage_and_wage_rules": [
+  "adds wage or pay rules",
+  "removes or eases them"
+ ],
+ "unions_and_collective_bargaining": [
+  "limits union or bargaining rights",
+  "expands them"
+ ],
+ "worker_safety_and_protections": [
+  "adds workplace protections",
+  "removes or eases them"
+ ],
+ "worker_benefits": [
+  "cuts or limits benefits",
+  "expands benefits or leave"
+ ],
+ "gig_work_and_independent_contractors": [
+  "adds rules on gig and contractor work",
+  "eases them"
+ ],
+ "occupational_licensing": [
+  "adds licensing requirements",
+  "removes or eases them"
+ ],
+ "state_cooperation_with_federal_enforcement_including_employment_verification": [
+  "requires more cooperation with federal enforcement",
+  "limits cooperation"
+ ],
+ "benefits_education_and_services_for_immigrants": [
+  "limits immigrants’ benefits or access",
+  "expands them"
+ ],
+ "anti_discrimination_protections_including_dei_programs": [
+  "narrows anti-discrimination protections or DEI",
+  "expands them"
+ ],
+ "speech_and_religion": [
+  "limits speech or religious exercise",
+  "protects or expands it"
+ ],
+ "gender_identity_policies": [
+  "limits recognition or accommodation",
+  "expands recognition or accommodation"
+ ],
+ "records_surveillance_and_civil_liberties": [
+  "adds surveillance or limits records access",
+  "limits surveillance or opens records"
+ ],
+ "consumer_protection_and_fees": [
+  "adds consumer rules or fee limits",
+  "removes or eases them"
+ ],
+ "insurance_market_regulation": [
+  "adds insurer rules",
+  "eases them"
+ ],
+ "banking_lending_and_crypto": [
+  "adds financial rules",
+  "eases them"
+ ],
+ "business_licensing_and_regulation": [
+  "adds business rules or licenses",
+  "removes or eases them"
+ ],
+ "gambling_and_sports_betting": [
+  "limits gambling",
+  "legalizes or expands it"
+ ],
+ "alcohol_tobacco_and_vaping": [
+  "adds sales or use limits",
+  "eases them"
+ ],
+ "local_control_and_preemption": [
+  "limits local government authority (state preempts)",
+  "gives local governments more authority"
+ ],
+ "ethics_and_transparency": [
+  "adds ethics or disclosure rules",
+  "eases them"
+ ]
+}

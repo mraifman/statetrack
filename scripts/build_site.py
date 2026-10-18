@@ -44,10 +44,16 @@ def T(text):
     return "".join(out)
 
 
+DEFS = json.loads((ROOT / "scripts/subtopic_defs.json").read_text(encoding="utf-8"))
 for _t in TAX["topics"]:
     _t["name"] = T(_t["name"])
     for _s in _t["subtopics"]:
         _s["name"] = T(_s["name"])
+        _d = DEFS.get(_s["id"].split(".", 1)[1])
+        if _d:
+            _s["note"] = f"Restrictive: {_d[0]}. Permissive: {_d[1]}."
+        else:
+            _s.pop("note", None)
 SUB = {s["id"]: dict(s, topic_id=t["id"], topic=t["name"]) for t in TAX["topics"] for s in t["subtopics"]}
 TOPICS = {t["id"]: t for t in TAX["topics"]}
 
@@ -770,8 +776,8 @@ const q=new URLSearchParams(location.search).get('zip');if(q){box.value=q;go()}"
         return AXIS + "".join(out)
 
     avg_t = {tid: mean_lean([k for k in signed + vetoed if tid in bill_topics(k)], tid)[0] for tid in POLICY_TOPICS}
-    gov_html = (f'<p><label class="small">Governor’s actions <select id="gv" aria-label="Governor’s actions"><option value="signed">Signed</option><option value="vetoed">Vetoed</option><option value="both">Signed and vetoed</option></select></label></p>'
-                f'<div class="gv gv-signed">{gov_block(signed, avg_t)}</div><div class="gv gv-vetoed" style="display:none">{gov_block(vetoed, avg_t)}</div><div class="gv gv-both" style="display:none">{gov_block(signed + vetoed, avg_t)}</div>'
+    gov_html = (f'<p><label class="small">Governor’s actions <select id="gv" aria-label="Governor’s actions"><option value="signed">Signed</option><option value="vetoed">Vetoed</option></select></label></p>'
+                f'<div class="gv gv-signed">{gov_block(signed, avg_t)}</div><div class="gv gv-vetoed" style="display:none">{gov_block(vetoed, avg_t)}</div>'
                 "<script>const gv=document.getElementById('gv');gv.onchange=()=>{document.querySelectorAll('.gv').forEach(d=>d.style.display=d.classList.contains('gv-'+gv.value)?'':'none')}</script>")
 
     prow = []
